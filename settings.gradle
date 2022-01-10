@@ -1,2 +1,4 @@
 include(":app")
+include ':data'
+include ':model'
 rootProject.name = "til"

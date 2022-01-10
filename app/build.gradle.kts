@@ -16,7 +16,7 @@ android {
         versionName = Apps.versionName
 
         multiDexEnabled = true
-        
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -43,12 +43,24 @@ android {
 }
 
 dependencies {
+    implementation(project(path = ":data"))
+    /**
+     * Android X
+     */
     implementation(AndroidX.ktx)
     implementation(AndroidX.appCompat)
     implementation(AndroidX.activity)
     implementation(AndroidX.material)
     implementation(AndroidX.constraintLayout)
     implementation(AndroidX.multidex)
+
+    /**
+     * Dagger
+     */
+    implementation(Dagger.dagger)
+    kapt(Dagger.compiler)
+    kaptTest(Dagger.compiler)
+    kaptAndroidTest(Dagger.compiler)
 
     testImplementation(UnitTest.junit)
     androidTestImplementation(UnitTest.androidXJunit)
