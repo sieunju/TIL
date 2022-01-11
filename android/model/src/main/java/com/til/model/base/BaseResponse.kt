@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
  * Created by juhongmin on 2022/01/11
  */
 @Serializable
-data class BaseResponse<T>(
+open class BaseResponse<out T : Any>(
     val data: T? = null,
     val isSuccess: Boolean = true
 )

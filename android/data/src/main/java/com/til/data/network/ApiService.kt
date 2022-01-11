@@ -1,4 +1,4 @@
-package com.til.data
+package com.til.data.network
 
 /**
  * Description :
@@ -6,4 +6,5 @@ package com.til.data
  * Created by juhongmin on 2022/01/11
  */
 class ApiService {
+
 }

@@ -44,6 +44,10 @@ android {
 
 dependencies {
     implementation(project(path = ":data"))
+    implementation(project(path = ":model"))
+    implementation(project(path = ":domain"))
+    implementation(project(path = ":loginmanager"))
+
     /**
      * Android X
      */

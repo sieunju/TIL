@@ -34,17 +34,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":model"))
-    implementation(project(":domain"))
-
-    /**
-     * Network
-     */
-    implementation(Retrofit.base)
-    implementation(Retrofit.okhttp)
-    implementation(Retrofit.okhttpLogger)
-    implementation(Retrofit.rxjava)
-    implementation(Retrofit.kotlinx)
 
     /**
      * Dagger
