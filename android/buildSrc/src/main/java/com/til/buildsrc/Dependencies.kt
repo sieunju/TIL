@@ -51,7 +51,7 @@ object RxJava {
 
 object Retrofit {
     const val base = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-    const val rxjava = "com.squareup.retrofit2:adapter-rxjava3${Versions.retrofit}"
+    const val rxjava = "com.squareup.retrofit2:adapter-rxjava3:${Versions.retrofit}"
     const val kotlinx = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
     const val okhttp = "com.squareup.okhttp3:okhttp:4.9.0"
     const val okhttpLogger = "com.squareup.okhttp3:logging-interceptor:4.9.0"

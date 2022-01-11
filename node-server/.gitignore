@@ -1,0 +1,6 @@
+sessions/
+.DS_Store
+resource/
+node_modules/
+.env
+package-lock.json

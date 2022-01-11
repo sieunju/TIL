@@ -1,22 +1,16 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     kotlin("android")
     kotlin("kapt")
 }
 
 android {
     compileSdkVersion(Apps.compileSdkVersion)
-    buildToolsVersion(Apps.buildToolsVersion)
 
     defaultConfig {
-        applicationId = "com.hmju.til"
         minSdkVersion(Apps.minSdkVersion)
         targetSdkVersion(Apps.targetSdkVersion)
-        versionCode = Apps.versionCode
-        versionName = Apps.versionName
 
-        multiDexEnabled = true
-        
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -37,21 +31,17 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures {
-        dataBinding = true
-    }
 }
 
 dependencies {
-    implementation(AndroidX.ktx)
-    implementation(AndroidX.appCompat)
-    implementation(AndroidX.activity)
-    implementation(AndroidX.material)
-    implementation(AndroidX.constraintLayout)
-    implementation(AndroidX.multidex)
 
-    testImplementation(UnitTest.junit)
-    androidTestImplementation(UnitTest.androidXJunit)
-    androidTestImplementation(UnitTest.Espresso.core)
-    androidTestImplementation(UnitTest.Espresso.intents)
+    /**
+     * Network
+     */
+    implementation(Retrofit.base)
+    implementation(Retrofit.okhttp)
+    implementation(Retrofit.okhttpLogger)
+    implementation(Retrofit.rxjava)
+    implementation(Retrofit.kotlinx)
+
 }

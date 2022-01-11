@@ -1,0 +1,6 @@
+rootProject.name = "til"
+include(
+        ":app",
+        ":data",
+        ":model"
+)
