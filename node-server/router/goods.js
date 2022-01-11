@@ -6,7 +6,14 @@ const router = express.Router();
 const utils = require('../utils/commonUtil')
 
 router.get('/api/goods', (req, res) => {
-    console.log('GET: Goods ' + req.query)
+    // 토큰 만료 유무
+    if(utils.isExpiredToken(req)) {
+        console.log("Expired Token " + req.header("Token"))
+        res.status(401).send({
+            status: false
+        }).end()
+        return
+    }
     const pageNo = req.query.pageNo
     const pageSize = req.query.pageSize
     var limitPageNo = null

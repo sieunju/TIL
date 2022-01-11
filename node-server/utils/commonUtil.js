@@ -41,3 +41,27 @@ exports.randomMessage = function () {
     return randomMessageArr[Math.floor(Math.random() * randomMessageArr.length)]
 }
 
+/**
+ * Header Cookie 값 파싱 해주는 함수.
+ * @param {String} cookie
+ * @author hmju
+ */
+exports.cookieParser = function (cookie = '') {
+    return cookie
+        .split(';')
+        .map(v => v.split('='))
+        .map(([k, ...vs]) => [k, vs.join('=')])
+        .reduce((acc, [k, v]) => {
+            acc[k.trim()] = decodeURIComponent(v);
+            return acc;
+        }, {});
+}
+
+exports.isExpiredToken = function (req) {
+    try {
+        const token = req.header('Token')
+        return token.includes('Expired')
+    } catch (err) {
+        return false
+    }
+}
