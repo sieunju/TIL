@@ -12,7 +12,9 @@ java {
 dependencies {
     implementation(project(":model"))
 
+    implementation(Kotlin.stdLib)
     implementation(Rx.java)
     implementation(Rx.kotlin)
     implementation(KotlinX.serialization)
+    implementation(Javax.inject)
 }

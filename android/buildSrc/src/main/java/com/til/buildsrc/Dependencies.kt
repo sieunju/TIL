@@ -36,9 +36,12 @@ object AndroidX {
     const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
 }
 
-object Dagger {
-    const val dagger = "com.google.dagger:dagger:${Versions.dagger}"
-    const val compiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
+object Kotlin {
+    const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
+}
+
+object Javax {
+    const val inject = "javax.inject:javax.inject:1"
 }
 
 object Hilt {
