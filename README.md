@@ -1,4 +1,5 @@
 TIL(Today I Learned) Wiki
+현재 프로젝트 공사중../🚧/🚧/🚧/🚧/🚧
 ---
 ## 프로젝트 구성
 - 멀티 모듈 방식 기본적인 buildSrc, data, domain, model 로 구성되어 있으며      
