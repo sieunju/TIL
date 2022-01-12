@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("kotlinx-serialization")
     id("dagger.hilt.android.plugin")
     kotlin("android")
@@ -8,16 +8,10 @@ plugins {
 
 android {
     compileSdkVersion(Apps.compileSdkVersion)
-    buildToolsVersion(Apps.buildToolsVersion)
 
     defaultConfig {
-        applicationId = "com.hmju.til"
         minSdkVersion(Apps.minSdkVersion)
         targetSdkVersion(Apps.targetSdkVersion)
-        versionCode = Apps.versionCode
-        versionName = Apps.versionName
-
-        multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -42,24 +36,38 @@ android {
     buildFeatures {
         dataBinding = true
     }
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
-    implementation(project(path = ":data"))
-    implementation(project(path = ":model"))
-    implementation(project(path = ":domain"))
-    implementation(project(path = ":loginmanager"))
-    implementation(project(path = ":presentation"))
+    implementation(project(":model"))
+    implementation(project(":domain"))
+    implementation(project(":loginmanager"))
 
     /**
      * Android X
      */
     implementation(AndroidX.ktx)
     implementation(AndroidX.appCompat)
+    implementation(AndroidX.constraintLayout)
     implementation(AndroidX.activity)
     implementation(AndroidX.material)
-    implementation(AndroidX.constraintLayout)
     implementation(AndroidX.multidex)
+    implementation(AndroidX.legacy)
+    implementation(AndroidX.viewpager)
+    implementation(AndroidX.cardView)
+    implementation(AndroidX.fragment)
+    implementation(AndroidX.recyclerView)
+    implementation(AndroidX.lifecycle)
+    implementation(AndroidX.viewModel)
+    implementation(AndroidX.liveData)
+
+    /**
+     * Kotlinx Serialization
+     */
+    implementation(KotlinX.serialization)
 
     /**
      * Hilt
@@ -68,18 +76,19 @@ dependencies {
     kapt(Hilt.compiler)
 
     /**
-     * Kotlinx Serialization
-     */
-    implementation(KotlinX.serialization)
-
-    /**
      * Rx
      */
     implementation(Rx.java)
     implementation(Rx.kotlin)
+    implementation(Rx.android)
 
-    testImplementation(UnitTest.junit)
-    androidTestImplementation(UnitTest.androidXJunit)
-    androidTestImplementation(UnitTest.Espresso.core)
-    androidTestImplementation(UnitTest.Espresso.intents)
+    /**
+     * Unit Test
+     */
+    androidTestImplementation(Retrofit.okhttp)
+    androidTestImplementation(Retrofit.base)
+    androidTestImplementation(Retrofit.rxjava)
+    androidTestImplementation(Retrofit.kotlinx)
+    androidTestImplementation(KotlinX.serialization)
+
 }

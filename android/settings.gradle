@@ -3,6 +3,7 @@ include(
         ":app",
         ":data",
         ":model",
-        ":domain"
+        ":domain",
+        ":presentation",
+        ":loginmanager"
 )
-include ':loginmanager'
