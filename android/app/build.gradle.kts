@@ -1,5 +1,7 @@
 plugins {
     id("com.android.application")
+    id("kotlinx-serialization")
+    id("dagger.hilt.android.plugin")
     kotlin("android")
     kotlin("kapt")
 }
@@ -59,12 +61,21 @@ dependencies {
     implementation(AndroidX.multidex)
 
     /**
-     * Dagger
+     * Hilt
      */
-    implementation(Dagger.dagger)
-    kapt(Dagger.compiler)
-    kaptTest(Dagger.compiler)
-    kaptAndroidTest(Dagger.compiler)
+    implementation(Hilt.android)
+    kapt(Hilt.compiler)
+
+    /**
+     * Kotlinx Serialization
+     */
+    implementation(KotlinX.serialization)
+
+    /**
+     * Rx
+     */
+    implementation(Rx.java)
+    implementation(Rx.kotlin)
 
     testImplementation(UnitTest.junit)
     androidTestImplementation(UnitTest.androidXJunit)

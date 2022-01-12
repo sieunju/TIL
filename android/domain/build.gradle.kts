@@ -12,6 +12,7 @@ java {
 dependencies {
     implementation(project(":model"))
 
-    implementation(Retrofit.rxjava)
+    implementation(Rx.java)
+    implementation(Rx.kotlin)
     implementation(KotlinX.serialization)
 }

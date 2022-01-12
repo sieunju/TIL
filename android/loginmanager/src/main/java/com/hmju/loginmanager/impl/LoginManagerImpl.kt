@@ -1,6 +1,9 @@
 package com.hmju.loginmanager.impl
 
+import android.content.Context
+import android.content.SharedPreferences
 import com.hmju.loginmanager.LoginManager
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 /**
@@ -9,13 +12,32 @@ import javax.inject.Inject
  * Created by juhongmin on 2022/01/12
  */
 class LoginManagerImpl @Inject constructor(
-
+    @ApplicationContext private val context: Context
 ) : LoginManager {
+
+    private val pref: SharedPreferences =
+        context.getSharedPreferences("til_pref", Context.MODE_PRIVATE)
+
+    companion object {
+        const val KEY_TOKEN = "user_token"
+        const val KEY_NICK_NAME = "user_nick_name"
+    }
+
+    private var userToken: String = ""
+
     override fun setToken(token: String) {
-        TODO("Not yet implemented")
+        with(pref.edit()) {
+            putString(KEY_TOKEN, token)
+            apply()
+        }
+
+        userToken = token
     }
 
     override fun getToken(): String {
-        TODO("Not yet implemented")
+        if (userToken.isEmpty()) {
+            userToken = pref.getString(KEY_TOKEN, "") ?: ""
+        }
+        return userToken
     }
 }

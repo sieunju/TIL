@@ -1,7 +1,7 @@
 package com.til.domain.repository
 
-import com.til.model.auth.ExpiredTokenResponse
-import com.til.model.auth.RefreshTokenResponse
+import com.til.model.auth.TokenEntity
+import com.til.model.base.JSendResponse
 import io.reactivex.rxjava3.core.Single
 
 /**
@@ -10,6 +10,6 @@ import io.reactivex.rxjava3.core.Single
  * Created by juhongmin on 2022/01/12
  */
 interface AuthRepository {
-    fun tokenRefresh(): Single<RefreshTokenResponse>
-    fun tokenExpired(): Single<ExpiredTokenResponse>
+    fun tokenRefresh(): Single<JSendResponse<TokenEntity>>
+    fun tokenExpired(): Single<JSendResponse<TokenEntity>>
 }

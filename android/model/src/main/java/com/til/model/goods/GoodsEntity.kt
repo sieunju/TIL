@@ -1,7 +1,8 @@
 package com.til.model.goods
 
-import com.til.model.base.BaseResponse
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Serializer
 
 /**
  * Description :
