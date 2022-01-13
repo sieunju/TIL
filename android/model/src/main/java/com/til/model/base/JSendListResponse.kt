@@ -14,7 +14,7 @@ import kotlinx.serialization.Serializable
  * Created by juhongmin on 2022/01/11
  */
 @Serializable
-open class JSendListResponse<T : Any>(
+data class JSendListResponse<T : Any>(
     val payload : List<T> = listOf(),
     val meta: MetaEntity = MetaEntity()
 )

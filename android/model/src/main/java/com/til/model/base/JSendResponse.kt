@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
  * Created by juhongmin on 2022/01/11
  */
 @Serializable
-open class JSendResponse<T : Any>(
+data class JSendResponse<T : Any>(
     val data: T? = null,
     val isSuccess: Boolean = true
 )

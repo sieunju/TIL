@@ -1,5 +1,6 @@
 package com.til.data.interceptor
 
+import android.util.Log
 import com.hmju.loginmanager.LoginManager
 import com.til.data.NetworkConfig
 import com.til.data.network.AuthApiService
@@ -21,6 +22,7 @@ class TokenAuthenticator(
 ) : Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
         // Token Expired
+        Log.d("JLogger", "TokenAuthenticator Code ${response.code}")
         return if (response.code == 401) {
             val tokenResponse = apiService.tokenRefresh().blockingGet()
             // Token 저장
