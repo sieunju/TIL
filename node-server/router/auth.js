@@ -33,4 +33,14 @@ router.post('/api/auth/expired', (req, res) => {
     }).end()
 })
 
+router.get('/api/test', (req, res) => {
+    res.status(200).send({
+        status: true,
+        data: {
+            integer: new Date().getTime(),
+            str: utils.randomMessage()
+        }
+    }).end()
+})
+
 module.exports = router
