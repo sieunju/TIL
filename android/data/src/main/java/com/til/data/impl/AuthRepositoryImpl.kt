@@ -15,11 +15,11 @@ import javax.inject.Inject
 class AuthRepositoryImpl @Inject constructor(
     private val authApiService: AuthApiService
 ) : AuthRepository {
-    override fun tokenRefresh(): Single<JSendResponse<TokenEntity>> {
-        return authApiService.tokenRefresh()
+    override fun tokenRefresh(): Single<TokenEntity> {
+        return authApiService.tokenRefresh().map { it.data ?: throw NullPointerException("Data is Null") }
     }
 
-    override fun tokenExpired(): Single<JSendResponse<TokenEntity>> {
-        return authApiService.tokenExpired()
+    override fun tokenExpired(): Single<TokenEntity> {
+        return authApiService.tokenExpired().map { it.data ?: throw NullPointerException("Data is Null") }
     }
 }

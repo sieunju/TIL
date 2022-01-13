@@ -6,6 +6,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.hmju.domain.usecase.GetExpiredTokenUseCase
 import com.hmju.domain.usecase.GetRefreshTokenUseCase
+import com.hmju.domain.usecase.GetTestUseCase
+import com.hmju.loginmanager.LoginManager
 import com.hmju.presentation.JLogger
 import com.hmju.presentation.R
 import com.hmju.presentation.databinding.FRefreshTokenBinding
@@ -31,6 +33,12 @@ class RefreshTokenFragment : Fragment(R.layout.f_refresh_token) {
     @Inject
     lateinit var getExpiredTokenUseCase: GetExpiredTokenUseCase
 
+    @Inject
+    lateinit var getTestUseCase : GetTestUseCase
+
+    @Inject
+    lateinit var loginManager : LoginManager
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         DataBindingUtil.bind<FRefreshTokenBinding>(view)?.run {
@@ -39,15 +47,28 @@ class RefreshTokenFragment : Fragment(R.layout.f_refresh_token) {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         JLogger.d("Response $it")
+                        loginManager.setToken(it.token)
                     }, {
                         JLogger.e("Error $it")
                     }).addTo(compositeDisposable)
             }
 
-            expired.setOnClickListener {
-                getExpiredTokenUseCase().observeOn(AndroidSchedulers.mainThread())
+            test.setOnClickListener {
+                getTestUseCase()
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         JLogger.d("Response $it")
+                    },{
+                        JLogger.e("Error $it")
+                    }).addTo(compositeDisposable)
+            }
+
+            expired.setOnClickListener {
+                getExpiredTokenUseCase()
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        JLogger.d("Response $it")
+                        loginManager.setToken(it.token)
                     }, {
                         JLogger.e("Error $it")
                     }).addTo(compositeDisposable)

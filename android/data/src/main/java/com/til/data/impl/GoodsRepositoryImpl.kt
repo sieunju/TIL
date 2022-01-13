@@ -6,6 +6,7 @@ import com.til.model.base.JSendListResponse
 import com.til.model.base.JSendResponse
 import com.til.model.goods.GoodsEntity
 import com.til.model.params.GoodsParamMap
+import com.til.model.test.TestEntity
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
@@ -19,5 +20,9 @@ class GoodsRepositoryImpl @Inject constructor(
 ) : GoodsRepository {
     override fun fetchGoods(params: GoodsParamMap): Single<JSendResponse<JSendListResponse<GoodsEntity>>> {
         return goodsApiService.fetchGoods(params)
+    }
+
+    override fun fetchTest(): Single<JSendResponse<TestEntity>> {
+        return goodsApiService.fetchTest()
     }
 }

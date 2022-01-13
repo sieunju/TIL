@@ -22,10 +22,11 @@ class TokenAuthenticator(
 ) : Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
         // Token Expired
-        Log.d("JLogger", "TokenAuthenticator Code ${response.code}")
+        Log.d("HTTPLogger", "TokenAuthenticator ${response.code}")
         return if (response.code == 401) {
             val tokenResponse = apiService.tokenRefresh().blockingGet()
             // Token 저장
+            Log.d("HTTPLogger","Refresh Token ${tokenResponse.data}")
             loginManager.setToken(tokenResponse.data?.token ?: "")
             response.request.newBuilder().apply {
                 header(NetworkConfig.HEADER_KEY_ACCEPT, NetworkConfig.HEADER_VAL_ACCEPT)
@@ -33,6 +34,7 @@ class TokenAuthenticator(
                 header(NetworkConfig.HEADER_KEY_TOKEN, loginManager.getToken())
             }.build()
         } else {
+            Log.d("JLogger", "TokenAuthenticator Code ${response.code}")
             null
         }
     }

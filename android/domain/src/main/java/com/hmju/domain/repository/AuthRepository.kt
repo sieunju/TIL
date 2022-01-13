@@ -10,6 +10,6 @@ import io.reactivex.rxjava3.core.Single
  * Created by juhongmin on 2022/01/12
  */
 interface AuthRepository {
-    fun tokenRefresh(): Single<JSendResponse<TokenEntity>>
-    fun tokenExpired(): Single<JSendResponse<TokenEntity>>
+    fun tokenRefresh(): Single<TokenEntity>
+    fun tokenExpired(): Single<TokenEntity>
 }

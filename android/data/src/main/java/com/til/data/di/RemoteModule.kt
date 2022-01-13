@@ -4,13 +4,12 @@ import com.hmju.loginmanager.LoginManager
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.til.data.NetworkConfig
 import com.til.data.interceptor.HeaderInterceptor
+import com.til.data.interceptor.RefreshTokenInterceptor
 import com.til.data.interceptor.TokenAuthenticator
 import com.til.data.network.AuthApiService
 import com.til.data.network.GoodsApiService
 import com.til.data.network.RefreshTokenApiService
-import com.til.data.qualifiers.ApiHttpClient
-import com.til.data.qualifiers.HeaderJsonInterceptor
-import com.til.data.qualifiers.TokenHttpClient
+import com.til.data.qualifiers.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -54,15 +53,23 @@ internal object RemoteModule {
 
     @Singleton
     @Provides
+    @RefreshTokenJsonInterceptor
+    fun provideRefreshTokenInterceptor() : Interceptor = RefreshTokenInterceptor()
+
+    @Singleton
+    @Provides
     @TokenHttpClient
     fun provideTokenHttpClient(
-        @HeaderJsonInterceptor headerInterceptor: Interceptor
+        @RefreshTokenJsonInterceptor headerInterceptor: Interceptor
     ): OkHttpClient = OkHttpClient.Builder()
         .retryOnConnectionFailure(true)
         .connectTimeout(NetworkConfig.CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
         .readTimeout(NetworkConfig.READ_TIME_OUT, TimeUnit.MILLISECONDS)
         .writeTimeout(NetworkConfig.WRITE_TIME_OUT, TimeUnit.MILLISECONDS)
-        .addNetworkInterceptor(headerInterceptor)
+        .addInterceptor(headerInterceptor)
+        .addInterceptor(HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        })
         .build()
 
     @ExperimentalSerializationApi
@@ -91,17 +98,16 @@ internal object RemoteModule {
     fun provideHttpClient(
         @HeaderJsonInterceptor headerInterceptor: Interceptor,
         tokenAuthenticator: Authenticator
-    ): OkHttpClient = OkHttpClient.Builder().apply {
-        retryOnConnectionFailure(true)
-        connectTimeout(NetworkConfig.CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
-        readTimeout(NetworkConfig.READ_TIME_OUT, TimeUnit.MILLISECONDS)
-        writeTimeout(NetworkConfig.WRITE_TIME_OUT, TimeUnit.MILLISECONDS)
-        addNetworkInterceptor(headerInterceptor)
-        authenticator(tokenAuthenticator)
-        addInterceptor(HttpLoggingInterceptor().apply {
+    ): OkHttpClient = OkHttpClient.Builder()
+        .retryOnConnectionFailure(true)
+        .connectTimeout(NetworkConfig.CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
+        .readTimeout(NetworkConfig.READ_TIME_OUT, TimeUnit.MILLISECONDS)
+        .writeTimeout(NetworkConfig.WRITE_TIME_OUT, TimeUnit.MILLISECONDS)
+        .addInterceptor(headerInterceptor)
+        .authenticator(tokenAuthenticator)
+        .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
-        })
-    }.build()
+        }).build()
 
     @ExperimentalSerializationApi
     @Provides

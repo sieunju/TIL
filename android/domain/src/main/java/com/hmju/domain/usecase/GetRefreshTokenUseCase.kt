@@ -6,15 +6,10 @@ import com.til.model.base.JSendResponse
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
-/**
- * Description :
- *
- * Created by juhongmin on 2022/01/13
- */
 class GetRefreshTokenUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
-    operator fun invoke() : Single<JSendResponse<TokenEntity>> {
+    operator fun invoke() : Single<TokenEntity> {
         return authRepository.tokenRefresh()
     }
 }

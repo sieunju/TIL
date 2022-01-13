@@ -4,6 +4,7 @@ import com.til.model.base.JSendListResponse
 import com.til.model.base.JSendResponse
 import com.til.model.goods.GoodsEntity
 import com.til.model.params.GoodsParamMap
+import com.til.model.test.TestEntity
 import io.reactivex.rxjava3.core.Single
 
 /**
@@ -13,4 +14,6 @@ import io.reactivex.rxjava3.core.Single
  */
 interface GoodsRepository {
     fun fetchGoods(params: GoodsParamMap): Single<JSendResponse<JSendListResponse<GoodsEntity>>>
+
+    fun fetchTest(): Single<JSendResponse<TestEntity>>
 }
