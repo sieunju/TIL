@@ -2,5 +2,8 @@ rootProject.name = "til"
 include(
         ":app",
         ":data",
-        ":model"
+        ":model",
+        ":domain",
+        ":presentation",
+        ":loginmanager"
 )

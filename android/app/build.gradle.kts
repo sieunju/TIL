@@ -1,5 +1,7 @@
 plugins {
     id("com.android.application")
+    id("kotlinx-serialization")
+    id("dagger.hilt.android.plugin")
     kotlin("android")
     kotlin("kapt")
 }
@@ -44,6 +46,20 @@ android {
 
 dependencies {
     implementation(project(path = ":data"))
+    implementation(project(path = ":model"))
+    implementation(project(path = ":domain"))
+    implementation(project(path = ":loginmanager"))
+    implementation(project(path = ":presentation"))
+
+    /**
+     * Network
+     */
+    implementation(Retrofit.base)
+    implementation(Retrofit.okhttp)
+    implementation(Retrofit.okhttpLogger)
+    implementation(Retrofit.rxjava)
+    implementation(Retrofit.kotlinx)
+
     /**
      * Android X
      */
@@ -55,12 +71,22 @@ dependencies {
     implementation(AndroidX.multidex)
 
     /**
-     * Dagger
+     * Hilt
      */
-    implementation(Dagger.dagger)
-    kapt(Dagger.compiler)
-    kaptTest(Dagger.compiler)
-    kaptAndroidTest(Dagger.compiler)
+    implementation(Hilt.android)
+    kapt(Hilt.compiler)
+
+    /**
+     * Kotlinx Serialization
+     */
+    implementation(KotlinX.serialization)
+    implementation(Kotlin.stdLib)
+
+    /**
+     * Rx
+     */
+    implementation(Rx.java)
+    implementation(Rx.kotlin)
 
     testImplementation(UnitTest.junit)
     androidTestImplementation(UnitTest.androidXJunit)

@@ -10,15 +10,12 @@ object Apps {
 object Versions {
     const val kotlin = "1.4.30"
     const val ktx = "1.5.0"
-    const val rxJava = "3.1.2"
-    const val rxAndroid = "3.0.0"
-    const val rxKotlin = "3.0.1"
-    const val room = "2.3.0"
     const val retrofit = "2.9.0"
     const val glide = "4.11.0"
     const val dagger = "2.28"
     const val espresso = "3.2.0"
     const val lifecycle = "2.3.1"
+    const val hilt = "2.36"
 }
 
 object AndroidX {
@@ -38,15 +35,25 @@ object AndroidX {
     const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
 }
 
-object Dagger {
-    const val dagger = "com.google.dagger:dagger:${Versions.dagger}"
-    const val compiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
+object Kotlin {
+    const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
 }
 
-object RxJava {
-    const val rxJava = "io.reactivex.rxjava3:rxjava:${Versions.rxJava}"
-    const val rxAndroid = "io.reactivex.rxjava3:rxandroid:${Versions.rxAndroid}"
-    const val rxKotlin = "io.reactivex.rxjava3:rxkotlin:${Versions.rxKotlin}"
+object Javax {
+    const val inject = "javax.inject:javax.inject:1"
+}
+
+object Hilt {
+    const val android = "com.google.dagger:hilt-android:${Versions.hilt}"
+    const val compiler = "com.google.dagger:hilt-compiler:${Versions.hilt}"
+    const val androidx = "androidx.hilt:hilt-compiler:1.0.0-alpha01"
+    const val lifecycle = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01"
+}
+
+object Rx {
+    const val java = "io.reactivex.rxjava3:rxjava:3.1.2"
+    const val android = "io.reactivex.rxjava3:rxandroid:3.0.0"
+    const val kotlin = "io.reactivex.rxjava3:rxkotlin:3.0.1"
 }
 
 object Retrofit {

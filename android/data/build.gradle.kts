@@ -1,5 +1,7 @@
 plugins {
     id("com.android.library")
+    id("kotlinx-serialization")
+    id("dagger.hilt.android.plugin")
     kotlin("android")
     kotlin("kapt")
 }
@@ -34,6 +36,14 @@ android {
 }
 
 dependencies {
+    implementation(project(":model"))
+    implementation(project(":domain"))
+    implementation(project(":loginmanager"))
+
+    /**
+     * Kotlinx Serialization
+     */
+    implementation(KotlinX.serialization)
 
     /**
      * Network
@@ -44,4 +54,15 @@ dependencies {
     implementation(Retrofit.rxjava)
     implementation(Retrofit.kotlinx)
 
+    /**
+     * Hilt
+     */
+    implementation(Hilt.android)
+    kapt(Hilt.compiler)
+
+    /**
+     * Rx
+     */
+    implementation(Rx.java)
+    implementation(Rx.kotlin)
 }

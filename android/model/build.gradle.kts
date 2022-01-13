@@ -10,5 +10,8 @@ java {
 }
 
 dependencies {
+    /**
+     * Kotlinx Serialization
+     */
     implementation(KotlinX.serialization)
 }
