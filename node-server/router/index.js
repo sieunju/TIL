@@ -6,4 +6,5 @@ const goods = require('./goods')
 router.use('/',auth)
 router.use('/',goods)
 
+
 module.exports = router

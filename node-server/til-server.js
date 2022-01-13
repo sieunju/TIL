@@ -7,16 +7,28 @@ const cors = require('cors')
 const fs = require('fs')
 const path = require('path')
 const app = express()
+const router = require('./router/index')
 
-const api = require('./router/index')
+app.use(cors());
 app.use(express.urlencoded({
     limit: "50mb",
     extended: true
 }))
 app.use(express.json({
     limit: "50mb"
-})) // API Call 할때.                            
-app.use('/', api)
+})) // API Call 할때.  
+
+app.use(function (req, res, next) {
+    // 만료된 토큰인 경우 에러 뱉기
+    if (utils.isExpiredToken(req)) {
+        res.status(401).send({
+            status: false
+        }).end()
+    } else {
+        next();
+    }
+});
+app.use('/', router)
 
 const concat = require('concat-stream');
 app.use(function (req, res, next) {
@@ -32,17 +44,21 @@ app.use(session({
     store: new fileStore()
 }));
 
-app.use(cors());
-
 // Handle Error Setting
-app.use(function (err, req, res, next) {
-    console.log('Handle Error\t' + err + '\n\turl\t' + req.url);
-    next(err);
-  });
-  app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.send(err || 'Error!!');
-  });
+// app.use(function (err, req, res, next) {
+//     console.log('Handle Error\t' + err + '\n\turl\t' + req.url);
+//     next(err);
+// });
+// app.use(function(req,res,next) {
+//     console.log("Interceptor " + req.url)
+
+//     next()
+// })
+// app.use(function (err, req, res, next) {
+//     console.log("너얌!!! " + req.url)
+//     res.status(err.status || 500);
+//     res.send(err || 'Error!!');
+// });
 
 require('http').createServer(app).listen(50048, () => {
     console.log('Http Server Start, Port: ' + 50048);
