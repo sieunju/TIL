@@ -1,9 +1,9 @@
 package com.til.data.di
 
+import com.hmju.domain.repository.AuthRepository
+import com.hmju.domain.repository.GoodsRepository
 import com.til.data.impl.AuthRepositoryImpl
 import com.til.data.impl.GoodsRepositoryImpl
-import com.til.domain.repository.AuthRepository
-import com.til.domain.repository.GoodsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

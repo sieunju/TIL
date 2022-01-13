@@ -4,6 +4,7 @@ import com.hmju.loginmanager.LoginManager
 import com.til.data.NetworkConfig
 import okhttp3.Interceptor
 import okhttp3.Response
+import javax.inject.Inject
 
 /**
  * Description : Header Interceptor

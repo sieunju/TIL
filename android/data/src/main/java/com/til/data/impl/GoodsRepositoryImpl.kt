@@ -1,7 +1,7 @@
 package com.til.data.impl
 
+import com.hmju.domain.repository.GoodsRepository
 import com.til.data.network.GoodsApiService
-import com.til.domain.repository.GoodsRepository
 import com.til.model.base.JSendListResponse
 import com.til.model.base.JSendResponse
 import com.til.model.goods.GoodsEntity

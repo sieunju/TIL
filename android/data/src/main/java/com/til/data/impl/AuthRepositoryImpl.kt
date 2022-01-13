@@ -1,7 +1,7 @@
 package com.til.data.impl
 
+import com.hmju.domain.repository.AuthRepository
 import com.til.data.network.AuthApiService
-import com.til.domain.repository.AuthRepository
 import com.til.model.auth.TokenEntity
 import com.til.model.base.JSendResponse
 import io.reactivex.rxjava3.core.Single

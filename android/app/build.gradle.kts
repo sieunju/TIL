@@ -52,6 +52,15 @@ dependencies {
     implementation(project(path = ":presentation"))
 
     /**
+     * Network
+     */
+    implementation(Retrofit.base)
+    implementation(Retrofit.okhttp)
+    implementation(Retrofit.okhttpLogger)
+    implementation(Retrofit.rxjava)
+    implementation(Retrofit.kotlinx)
+
+    /**
      * Android X
      */
     implementation(AndroidX.ktx)
@@ -71,6 +80,7 @@ dependencies {
      * Kotlinx Serialization
      */
     implementation(KotlinX.serialization)
+    implementation(Kotlin.stdLib)
 
     /**
      * Rx

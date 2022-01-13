@@ -6,14 +6,11 @@ import io.reactivex.rxjava3.core.Single
 import retrofit2.http.POST
 
 /**
- * Description : 사용자 인증 관련 API 서비스
+ * Description : 토큰 만료시 토근 다시 받는 Api Service
  *
- * Created by juhongmin on 2022/01/11
+ * Created by juhongmin on 2022/01/13
  */
-interface AuthApiService {
+interface RefreshTokenApiService {
     @POST("/api/auth/refresh")
     fun tokenRefresh(): Single<JSendResponse<TokenEntity>>
-
-    @POST("/api/auth/expired")
-    fun tokenExpired(): Single<JSendResponse<TokenEntity>>
 }

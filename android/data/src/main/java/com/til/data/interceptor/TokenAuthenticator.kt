@@ -3,10 +3,12 @@ package com.til.data.interceptor
 import com.hmju.loginmanager.LoginManager
 import com.til.data.NetworkConfig
 import com.til.data.network.AuthApiService
+import com.til.data.network.RefreshTokenApiService
 import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
+import javax.inject.Inject
 
 /**
  * Description : Token 만료시 갱신 처리하는 클래스
@@ -15,12 +17,12 @@ import okhttp3.Route
  */
 class TokenAuthenticator(
     private val loginManager: LoginManager,
-    private val authApiService: AuthApiService
+    private val apiService: RefreshTokenApiService
 ) : Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
         // Token Expired
         return if (response.code == 401) {
-            val tokenResponse = authApiService.tokenRefresh().blockingGet()
+            val tokenResponse = apiService.tokenRefresh().blockingGet()
             // Token 저장
             loginManager.setToken(tokenResponse.data?.token ?: "")
             response.request.newBuilder().apply {

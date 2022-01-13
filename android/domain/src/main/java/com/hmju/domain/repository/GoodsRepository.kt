@@ -1,4 +1,4 @@
-package com.til.domain.repository
+package com.hmju.domain.repository
 
 import com.til.model.base.JSendListResponse
 import com.til.model.base.JSendResponse

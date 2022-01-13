@@ -1,4 +1,4 @@
-package com.til.domain.repository
+package com.hmju.domain.repository
 
 import com.til.model.auth.TokenEntity
 import com.til.model.base.JSendResponse
