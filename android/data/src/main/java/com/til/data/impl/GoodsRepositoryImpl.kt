@@ -4,7 +4,9 @@ import com.hmju.domain.repository.GoodsRepository
 import com.til.data.network.GoodsApiService
 import com.til.model.base.JSendListResponse
 import com.til.model.base.JSendResponse
+import com.til.model.body.LikeRequestBody
 import com.til.model.goods.GoodsEntity
+import com.til.model.like.LikeEntity
 import com.til.model.params.GoodsParamMap
 import com.til.model.test.TestEntity
 import io.reactivex.rxjava3.core.Single
@@ -24,5 +26,13 @@ class GoodsRepositoryImpl @Inject constructor(
 
     override fun fetchTest(): Single<JSendResponse<TestEntity>> {
         return goodsApiService.fetchTest()
+    }
+
+    override fun postLike(body: LikeRequestBody): Single<JSendResponse<LikeEntity>> {
+        return goodsApiService.postLike(body)
+    }
+
+    override fun deleteLike(body: LikeRequestBody): Single<JSendResponse<LikeEntity>> {
+        return goodsApiService.deleteLike(body)
     }
 }

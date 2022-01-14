@@ -18,7 +18,7 @@ import io.reactivex.rxjava3.kotlin.addTo
 import javax.inject.Inject
 
 /**
- * Description :
+ * Description : 토큰 만료에 대한 처리 Fragment
  *
  * Created by juhongmin on 2022/01/12
  */
@@ -34,10 +34,10 @@ class RefreshTokenFragment : Fragment(R.layout.f_refresh_token) {
     lateinit var getExpiredTokenUseCase: GetExpiredTokenUseCase
 
     @Inject
-    lateinit var getTestUseCase : GetTestUseCase
+    lateinit var getTestUseCase: GetTestUseCase
 
     @Inject
-    lateinit var loginManager : LoginManager
+    lateinit var loginManager: LoginManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,7 +58,7 @@ class RefreshTokenFragment : Fragment(R.layout.f_refresh_token) {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         JLogger.d("Response $it")
-                    },{
+                    }, {
                         JLogger.e("Error $it")
                     }).addTo(compositeDisposable)
             }
@@ -74,6 +74,5 @@ class RefreshTokenFragment : Fragment(R.layout.f_refresh_token) {
                     }).addTo(compositeDisposable)
             }
         }
-
     }
 }

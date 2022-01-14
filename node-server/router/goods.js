@@ -37,4 +37,22 @@ router.get('/api/goods', (req, res) => {
     }).end()
 })
 
+router.post('/api/like',(req,res) => {
+    res.status(200).send({
+        status: true,
+        data: {
+            id: req.body.id
+        }
+    }).end()
+})
+
+router.delete('/api/like',(req,res) => {
+    res.status(200).send({
+        status: true,
+        data: {
+            id: req.body.id
+        }
+    }).end()
+})
+
 module.exports = router
