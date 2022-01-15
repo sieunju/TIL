@@ -8,36 +8,47 @@ const utils = require('../utils/commonUtil')
 router.get('/api/goods', (req, res) => {
     const pageNo = req.query.pageNo
     const pageSize = req.query.pageSize
-    var limitPageNo = null
-    if (pageNo == 1) {
-        limitPageNo = Math.floor((Math.random() * 10) + 4)
-    }
-    const list = []
-
-    // 걍... 25 부터 처리 귀찮다..
-    var startIdx = pageNo * pageSize
-    for (var idx = 0; idx < pageSize; idx++) {
-        list.push({
-            id: startIdx,
-            title: utils.randomTitle(),
-            message: utils.randomMessage(),
-            imagePath: utils.randomImage()
-        })
-        startIdx++
-    }
-
-    res.status(200).send({
-        status: true,
-        data: {
-            payload: list,
-            meta: {
-                limitSize: limitPageNo
+    // 강제로 페이지 제한 처리
+    if (pageNo == 5) {
+        res.status(200).send({
+            status: true,
+            data: {
+                payload: []
             }
+        }).end()
+    } else {
+        var limitPageNo = null
+        if (pageNo == 1) {
+            limitPageNo = Math.floor((Math.random() * 10) + 4)
         }
-    }).end()
+
+        const list = []
+
+        // 걍... 25 부터 처리 귀찮다..
+        var startIdx = pageNo * pageSize
+        for (var idx = 0; idx < pageSize; idx++) {
+            list.push({
+                id: startIdx,
+                title: utils.randomTitle(),
+                message: utils.randomMessage(),
+                imagePath: utils.randomImage()
+            })
+            startIdx++
+        }
+
+        res.status(200).send({
+            status: true,
+            data: {
+                payload: list,
+                meta: {
+                    limitSize: limitPageNo
+                }
+            }
+        }).end()
+    }
 })
 
-router.post('/api/like',(req,res) => {
+router.post('/api/like', (req, res) => {
     res.status(200).send({
         status: true,
         data: {
@@ -46,7 +57,7 @@ router.post('/api/like',(req,res) => {
     }).end()
 })
 
-router.delete('/api/like',(req,res) => {
+router.delete('/api/like', (req, res) => {
     res.status(200).send({
         status: true,
         data: {
