@@ -21,3 +21,4 @@
 ## ✔ 공부한 내용
 - 네트워크 통신
     - [토큰 만료 시 재인증 하는 방법](https://github.com/sieunju/TIL/wiki/%ED%86%A0%ED%81%B0-%EB%A7%8C%EB%A3%8C-%EC%8B%9C-%EC%9E%AC%EC%9D%B8%EC%A6%9D-%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95)
+    - [Controller 와 ViewHolder 간의 의존성 제거해보기](https://github.com/sieunju/TIL/wiki/Controller-%EC%99%80-ViewHolder-%EA%B0%84%EC%9D%98-%EC%9D%98%EC%A1%B4%EC%84%B1-%EC%A0%9C%EA%B1%B0-%ED%95%B4%EB%B3%B4%EA%B8%B0)
