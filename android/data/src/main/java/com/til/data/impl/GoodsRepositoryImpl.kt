@@ -42,12 +42,13 @@ class GoodsRepositoryImpl @Inject constructor(
     }
 
     override fun deleteLike(id: Long): Single<JSendResponse<LikeEntity>> {
-        return goodsApiService.deleteLike(id).map {
-            if (it.data != null) {
-                LikeManager.removeLike(id)
-                RxBus.publish(RxBusEvent.SimpleLikeEvent(false, id))
+        return goodsApiService.deleteLike(id)
+            .map {
+                if (it.data != null) {
+                    LikeManager.removeLike(id)
+                    RxBus.publish(RxBusEvent.SimpleLikeEvent(false, id))
+                }
+                return@map it
             }
-            return@map it
-        }
     }
 }

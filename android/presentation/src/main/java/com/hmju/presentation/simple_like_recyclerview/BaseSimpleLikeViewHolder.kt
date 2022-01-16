@@ -20,6 +20,7 @@ import com.til.model.goods.GoodsEntity
 import dagger.hilt.EntryPoints
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
+import java.util.concurrent.TimeUnit
 
 /**
  * Description : Base Like ViewHolder Class
@@ -67,7 +68,6 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
         likeChangeDisposable = RxBus.listen(RxBusEvent.SimpleLikeEvent::class.java)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                JLogger.d("LikeChange $it")
                 onRefreshLike()
             }, {
                 JLogger.e("LikeChange Error $it")
