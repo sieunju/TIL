@@ -57,11 +57,11 @@ router.post('/api/like', (req, res) => {
     }).end()
 })
 
-router.delete('/api/like', (req, res) => {
+router.delete('/api/like/:id', (req, res) => {
     res.status(200).send({
         status: true,
         data: {
-            id: req.body.id
+            id: req.params.id
         }
     }).end()
 })
