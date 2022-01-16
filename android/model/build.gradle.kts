@@ -14,4 +14,10 @@ dependencies {
      * Kotlinx Serialization
      */
     implementation(KotlinX.serialization)
+
+    /**
+     * Rx
+     */
+    implementation(Rx.java)
+    implementation(Rx.kotlin)
 }

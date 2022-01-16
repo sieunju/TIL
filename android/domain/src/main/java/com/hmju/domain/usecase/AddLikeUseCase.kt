@@ -1,6 +1,9 @@
 package com.hmju.domain.usecase
 
 import com.hmju.domain.repository.GoodsRepository
+import com.hmju.likemanager.LikeManager
+import com.til.model.RxBus
+import com.til.model.RxBusEvent
 import com.til.model.body.LikeRequestBody
 import com.til.model.like.LikeEntity
 import io.reactivex.rxjava3.core.Single
@@ -17,5 +20,10 @@ class AddLikeUseCase @Inject constructor(
     operator fun invoke(body: LikeRequestBody): Single<LikeEntity> {
         return repository.postLike(body)
             .map { it.data ?: throw NullPointerException("Data is Null") }
+            .map {
+                LikeManager.addLike(body.id)
+                RxBus.publish(RxBusEvent.SimpleLikeEvent(true,body.id))
+                return@map it
+            }
     }
 }
