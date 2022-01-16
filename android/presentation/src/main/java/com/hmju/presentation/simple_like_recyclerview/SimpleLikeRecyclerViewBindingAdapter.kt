@@ -7,11 +7,6 @@ import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
-/**
- * Description :
- *
- * Created by juhongmin on 2022/01/15
- */
 object SimpleLikeRecyclerViewBindingAdapter {
 
     @JvmStatic
