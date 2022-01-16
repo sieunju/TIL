@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap
  * Created by juhongmin on 2022/01/15
  */
 object LikeManager {
-    private val  likeSet: ConcurrentHashMap<Long, Boolean> by lazy {
+    private val likeSet: ConcurrentHashMap<Long, Boolean> by lazy {
         ConcurrentHashMap()
     }
 
