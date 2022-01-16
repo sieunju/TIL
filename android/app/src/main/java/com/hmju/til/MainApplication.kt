@@ -1,27 +1,17 @@
 package com.hmju.til
 
 import androidx.multidex.MultiDexApplication
-import dagger.hilt.EntryPoints
 import dagger.hilt.android.HiltAndroidApp
 import io.reactivex.rxjava3.exceptions.UndeliverableException
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import java.io.IOException
 import java.net.SocketException
-import javax.inject.Inject
-import javax.inject.Provider
 
 @HiltAndroidApp
 class MainApplication : MultiDexApplication() {
 
-    @Inject
-    lateinit var viewHolderComponent : Provider<ViewHolderComponent.Builder>
-
     override fun onCreate() {
         super.onCreate()
-
-        val likeViewHolder = EntryPoints.get(viewHolderComponent,ViewHolderEntryPoint::class.java)
-            .likeViewHolder()
-
 
         // Rx Exception 처리
         initRxJava()

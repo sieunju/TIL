@@ -19,7 +19,7 @@ class SimpleLike2ViewHolder(
 
     init {
         binding.imgLike.setOnClickListener {
-            simpleLikeChange(it, binding.item)
+            simpleLikeClick(it,binding.item)
         }
     }
 

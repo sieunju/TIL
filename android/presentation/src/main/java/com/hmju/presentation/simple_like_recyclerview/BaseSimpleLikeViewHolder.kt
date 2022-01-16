@@ -14,12 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hmju.domain.usecase.AddLikeUseCase
 import com.hmju.domain.usecase.RemoveLikeUseCase
 import com.hmju.likemanager.LikeManager
-import com.hmju.presentation.Environment
 import com.hmju.presentation.JLogger
 import com.til.model.RxBus
 import com.til.model.RxBusEvent
 import com.til.model.body.LikeRequestBody
 import com.til.model.goods.GoodsEntity
+import dagger.hilt.EntryPoints
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
 
@@ -35,13 +35,13 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
     LifecycleObserver {
 
     val binding: T by lazy { DataBindingUtil.bind(itemView)!! }
+    private val simpleLikeEntryPoint: SimpleLikeEntryPoint by lazy {
+        EntryPoints.get(itemView.context.applicationContext, SimpleLikeEntryPoint::class.java)
+    }
 
     private var likeChangeDisposable: Disposable? = null
     private var likeRequestDisposable: Disposable? = null
     private var lifecycleOwner: LifecycleOwner? = null
-
-    lateinit var addLikeUseCase: AddLikeUseCase
-    lateinit var removeLikeUseCase: RemoveLikeUseCase
 
     abstract fun onRefreshLike()
     abstract fun onBindView(item: Any)
@@ -59,7 +59,6 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
         itemView.doOnDetach {
             lifecycleOwner?.lifecycle?.removeObserver(this)
             lifecycleOwner = null
-
         }
     }
 
@@ -105,8 +104,9 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
         if (likeRequestDisposable != null) {
             closeRequestDisposable()
         }
-        val reqApi = if (isAdd) addLikeUseCase(LikeRequestBody(item.id))
-        else removeLikeUseCase(LikeRequestBody(item.id))
+        val reqApi =
+            if (isAdd) simpleLikeEntryPoint.goodsRepository().postLike(LikeRequestBody(item.id))
+            else simpleLikeEntryPoint.goodsRepository().deleteLike(LikeRequestBody(item.id))
 
         likeRequestDisposable = reqApi
             .observeOn(AndroidSchedulers.mainThread())

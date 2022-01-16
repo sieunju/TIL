@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            android:weightSum="1"
+            android:weightSum="2"
             app:layout_constraintBottom_toTopOf="@+id/button"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -26,7 +26,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="3"
+                app:spanCount="4"
                 tools:listitem="@layout/vh_simple_like_recyclerview_1" />
 
             <androidx.recyclerview.widget.RecyclerView

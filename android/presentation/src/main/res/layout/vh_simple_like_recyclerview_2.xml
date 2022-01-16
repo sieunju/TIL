@@ -18,23 +18,23 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="@{item.title}"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
+            android:ellipsize="end"
+            android:maxLines="3"
             app:htmlText="@{item.message}" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             app:imgPath="@{item.imagePath}"
@@ -42,9 +42,10 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgLike"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:background="#4CAF50"
             android:padding="20dp"
             android:src="@drawable/selector_favorite" />
 
