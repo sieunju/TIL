@@ -58,6 +58,8 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
         itemView.doOnDetach {
             lifecycleOwner?.lifecycle?.removeObserver(this)
             lifecycleOwner = null
+            closeLikeChangeDisposable()
+            closeRequestDisposable()
         }
     }
 
