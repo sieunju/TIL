@@ -21,5 +21,5 @@ interface GoodsRepository {
 
     fun postLike(body: LikeRequestBody): Single<JSendResponse<LikeEntity>>
 
-    fun deleteLike(body: LikeRequestBody): Single<JSendResponse<LikeEntity>>
+    fun deleteLike(id: Long): Single<JSendResponse<LikeEntity>>
 }
