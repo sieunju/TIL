@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class LikeRequestBody(
-    val id: Int
+    val id: Long
 )

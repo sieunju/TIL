@@ -1,7 +1,10 @@
 package com.til.data.impl
 
 import com.hmju.domain.repository.GoodsRepository
+import com.hmju.likemanager.LikeManager
 import com.til.data.network.GoodsApiService
+import com.til.model.RxBus
+import com.til.model.RxBusEvent
 import com.til.model.base.JSendListResponse
 import com.til.model.base.JSendResponse
 import com.til.model.body.LikeRequestBody
@@ -29,10 +32,22 @@ class GoodsRepositoryImpl @Inject constructor(
     }
 
     override fun postLike(body: LikeRequestBody): Single<JSendResponse<LikeEntity>> {
-        return goodsApiService.postLike(body)
+        return goodsApiService.postLike(body).map {
+            if (it.data != null) {
+                LikeManager.addLike(body.id)
+                RxBus.publish(RxBusEvent.SimpleLikeEvent(true, body.id))
+            }
+            return@map it
+        }
     }
 
     override fun deleteLike(body: LikeRequestBody): Single<JSendResponse<LikeEntity>> {
-        return goodsApiService.deleteLike(body)
+        return goodsApiService.deleteLike(body).map {
+            if (it.data != null) {
+                LikeManager.removeLike(body.id)
+                RxBus.publish(RxBusEvent.SimpleLikeEvent(false, body.id))
+            }
+            return@map it
+        }
     }
 }

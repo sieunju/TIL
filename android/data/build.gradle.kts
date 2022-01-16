@@ -39,6 +39,7 @@ dependencies {
     implementation(project(":model"))
     implementation(project(":domain"))
     implementation(project(":loginmanager"))
+    implementation(project(":likemanager"))
 
     /**
      * Kotlinx Serialization

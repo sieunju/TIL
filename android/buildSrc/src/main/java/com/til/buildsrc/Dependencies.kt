@@ -65,7 +65,7 @@ object Retrofit {
 }
 
 object Glide {
-    const val base = "com.github.bumptech.glide:glide${Versions.glide}"
+    const val base = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val okhttp = "com.github.bumptech.glide:okhttp3-integration:${Versions.glide}"
     const val compiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
 }

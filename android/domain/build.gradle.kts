@@ -40,6 +40,7 @@ java {
 
 dependencies {
     implementation(project(":model"))
+    implementation(project(":likemanager"))
 
 //    /**
 //     * Hilt

@@ -45,6 +45,7 @@ dependencies {
     implementation(project(":model"))
     implementation(project(":domain"))
     implementation(project(":loginmanager"))
+    implementation(project(":likemanager"))
 
     /**
      * Android X
@@ -81,6 +82,13 @@ dependencies {
     implementation(Rx.java)
     implementation(Rx.kotlin)
     implementation(Rx.android)
+
+    /**
+     * Glide
+     */
+    implementation(Glide.base)
+    implementation(Glide.compiler)
+    implementation(Glide.okhttp)
 
     /**
      * Unit Test

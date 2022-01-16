@@ -1,8 +1,6 @@
 package com.til.model.goods
 
-import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Serializer
 
 /**
  * Description :
@@ -11,7 +9,7 @@ import kotlinx.serialization.Serializer
  */
 @Serializable
 data class GoodsEntity(
-    val id: Int = 0,
+    val id: Long = 0,
     val title: String = "",
     val message: String = "",
     val imagePath: String = ""
