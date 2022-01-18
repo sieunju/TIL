@@ -54,7 +54,7 @@ class SimpleLikeRecyclerViewFragment : Fragment(R.layout.f_simple_like_recyclerv
                 }
             }
         }
-
+        oneTypeQuery.pageSize = 100
         getGoodsListUseCase(oneTypeQuery)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -126,16 +126,38 @@ class SimpleLikeRecyclerViewFragment : Fragment(R.layout.f_simple_like_recyclerv
             diffResult.dispatchUpdatesTo(this)
         }
 
+        override fun getItemViewType(pos: Int): Int {
+            return when {
+                pos % 4 == 1 -> {
+                    R.layout.vh_simple_like_recyclerview_1
+                }
+                pos % 4 == 2 -> {
+                    R.layout.vh_simple_like_recyclerview_2
+                }
+                pos % 4 == 3 -> {
+                    R.layout.vh_simple_like_recyclerview_3
+                }
+                else -> {
+                    R.layout.vh_simple_like_recyclerview_4
+                }
+            }
+        }
+
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            return if (isOneType) {
-                SimpleLike1ViewHolder(parent)
-            } else {
-                SimpleLike2ViewHolder(parent)
+            return when (viewType) {
+                R.layout.vh_simple_like_recyclerview_1 -> SimpleLike1ViewHolder(parent)
+                R.layout.vh_simple_like_recyclerview_2 -> SimpleLike2ViewHolder(parent)
+                R.layout.vh_simple_like_recyclerview_3 -> SimpleLike3ViewHolder(parent)
+                else -> SimpleLike4ViewHolder(parent)
             }
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             if (holder is BaseSimpleLikeViewHolder<*>) {
+                holder.onBindView(dataList[position])
+            } else if (holder is SimpleLike3ViewHolder) {
+                holder.onBindView(dataList[position])
+            } else if (holder is SimpleLike4ViewHolder) {
                 holder.onBindView(dataList[position])
             }
         }
