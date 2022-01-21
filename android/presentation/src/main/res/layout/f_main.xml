@@ -28,6 +28,14 @@
                 android:layout_gravity="center"
                 android:text="뷰모델과 리스트 의존성 제거하기!!" />
 
+            <Button
+                android:id="@+id/customPaging"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="커스텀 페이징 네이션 구현 하기" />
+
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
