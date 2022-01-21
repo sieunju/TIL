@@ -2,6 +2,7 @@ package com.hmju.presentation.simple_like_recyclerview
 
 import android.view.ViewGroup
 import com.hmju.presentation.BR
+import com.hmju.presentation.JLogger
 import com.hmju.presentation.R
 import com.hmju.presentation.databinding.VhSimpleLikeRecyclerview2Binding
 

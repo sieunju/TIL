@@ -59,6 +59,7 @@
                 android:background="#8BC34A"
                 android:padding="20dp"
                 android:src="@drawable/selector_favorite"
+                app:isLikeId="@{item.id}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

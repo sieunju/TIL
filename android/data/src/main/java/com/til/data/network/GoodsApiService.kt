@@ -29,8 +29,8 @@ interface GoodsApiService {
         @Body body: LikeRequestBody
     ): Single<JSendResponse<LikeEntity>>
 
-    @DELETE("/api/like")
+    @DELETE("/api/like/{id}")
     fun deleteLike(
-        @Body body: LikeRequestBody
+        @Path("id") id: Long
     ): Single<JSendResponse<LikeEntity>>
 }

@@ -47,7 +47,8 @@
             android:layout_gravity="center_horizontal"
             android:background="#4CAF50"
             android:padding="20dp"
-            android:src="@drawable/selector_favorite" />
+            android:src="@drawable/selector_favorite"
+            app:isLikeId="@{item.id}" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -11,8 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.RecyclerView
-import com.hmju.domain.usecase.AddLikeUseCase
-import com.hmju.domain.usecase.RemoveLikeUseCase
 import com.hmju.likemanager.LikeManager
 import com.hmju.presentation.JLogger
 import com.til.model.RxBus
@@ -22,6 +20,7 @@ import com.til.model.goods.GoodsEntity
 import dagger.hilt.EntryPoints
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
+import java.util.concurrent.TimeUnit
 
 /**
  * Description : Base Like ViewHolder Class
@@ -48,7 +47,7 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
 
     init {
         itemView.doOnAttach {
-            JLogger.d("${this.javaClass.simpleName} onAttach")
+            // JLogger.d("${this.javaClass.simpleName} onAttach")
             lifecycleOwner = it.findViewTreeLifecycleOwner()?.let { owner ->
                 owner.lifecycle.addObserver(this)
                 return@let owner
@@ -69,7 +68,6 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
         likeChangeDisposable = RxBus.listen(RxBusEvent.SimpleLikeEvent::class.java)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                JLogger.d("LikeChange $it")
                 onRefreshLike()
             }, {
                 JLogger.e("LikeChange Error $it")
@@ -86,11 +84,13 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
     protected fun simpleLikeChange(view: View, item: GoodsEntity?) {
         if (item == null) return
 
+        // 좋아요 표시를 해야 하는 아이템
         if (LikeManager.isLike(item.id)) {
             if (!view.isSelected) {
                 binding.invalidateAll()
             }
         } else if (view.isSelected) {
+            // 좋아요 표시를 하면 안되는 아이템이 선택이 되어있다 -> 해제.
             binding.invalidateAll()
         }
     }
@@ -106,7 +106,7 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
         }
         val reqApi =
             if (isAdd) simpleLikeEntryPoint.goodsRepository().postLike(LikeRequestBody(item.id))
-            else simpleLikeEntryPoint.goodsRepository().deleteLike(LikeRequestBody(item.id))
+            else simpleLikeEntryPoint.goodsRepository().deleteLike(item.id)
 
         likeRequestDisposable = reqApi
             .observeOn(AndroidSchedulers.mainThread())
@@ -139,7 +139,7 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     private fun onResume() {
-        JLogger.d("${this.javaClass.simpleName} onResume $bindingAdapterPosition ${itemView.isAttachedToWindow}")
+        // JLogger.d("${this.javaClass.simpleName} onResume $bindingAdapterPosition ${itemView.isAttachedToWindow}")
 
         if (itemView.isAttachedToWindow) {
             onRefreshLike()
@@ -150,7 +150,7 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     private fun onStop() {
-        JLogger.e("${this.javaClass.simpleName} onStop $bindingAdapterPosition")
+        // JLogger.e("${this.javaClass.simpleName} onStop $bindingAdapterPosition")
         closeLikeChangeDisposable()
         closeRequestDisposable()
     }
