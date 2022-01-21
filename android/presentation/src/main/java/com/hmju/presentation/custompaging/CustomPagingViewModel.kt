@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -42,12 +43,14 @@ class CustomPagingViewModel @Inject constructor(
     }
 
     fun onLoadNextPage() {
-        JLogger.d("Call onLoadNextPage")
+        JLogger.d("Call onLoadNextPage ${queryMap.pageNo}")
         getGoodsUseCase(queryMap)
             .doOnSubscribe { pagingModel.isLoading = true }
+            .delay(500,TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                JLogger.d("List $it")
+                JLogger.d("List ${it.size}")
+                queryMap.pageNo++
                 pagingModel.isLast = it.isEmpty()
                 pagingModel.isLoading = false
                 _dataList.addAll(it)

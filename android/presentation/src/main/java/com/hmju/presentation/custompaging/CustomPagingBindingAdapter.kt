@@ -24,8 +24,9 @@ object CustomPagingBindingAdapter {
         model: PagingModel,
         callback: PagingListener?
     ) {
-        if(callback == null) return
+        if (callback == null) return
 
+        JLogger.d("한번만 타야 합니다.")
         rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (model.isLast || model.isLoading || recyclerView.adapter == null) {
@@ -40,9 +41,8 @@ object CustomPagingBindingAdapter {
                         is LinearLayoutManager -> pos = lm.findLastVisibleItemPosition()
                     }
                     val updatePosition = itemCount - pos / 2
-                    JLogger.d("Update Position $updatePosition")
                     if (pos >= updatePosition) {
-                        callback?.loadPage()
+                        callback.loadPage()
                     }
                 }
             }
