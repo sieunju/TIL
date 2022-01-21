@@ -47,7 +47,7 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
 
     init {
         itemView.doOnAttach {
-            JLogger.d("${this.javaClass.simpleName} onAttach")
+            // JLogger.d("${this.javaClass.simpleName} onAttach")
             lifecycleOwner = it.findViewTreeLifecycleOwner()?.let { owner ->
                 owner.lifecycle.addObserver(this)
                 return@let owner
@@ -139,7 +139,7 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     private fun onResume() {
-        JLogger.d("${this.javaClass.simpleName} onResume $bindingAdapterPosition ${itemView.isAttachedToWindow}")
+        // JLogger.d("${this.javaClass.simpleName} onResume $bindingAdapterPosition ${itemView.isAttachedToWindow}")
 
         if (itemView.isAttachedToWindow) {
             onRefreshLike()
@@ -150,7 +150,7 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     private fun onStop() {
-        JLogger.e("${this.javaClass.simpleName} onStop $bindingAdapterPosition")
+        // JLogger.e("${this.javaClass.simpleName} onStop $bindingAdapterPosition")
         closeLikeChangeDisposable()
         closeRequestDisposable()
     }

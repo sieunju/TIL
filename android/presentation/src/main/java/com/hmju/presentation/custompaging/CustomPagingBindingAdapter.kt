@@ -26,11 +26,9 @@ object CustomPagingBindingAdapter {
     ) {
         if (callback == null) return
 
-        JLogger.d("한번만 타야 합니다.")
         rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (model.isLast || model.isLoading || recyclerView.adapter == null) {
-                    JLogger.d("유효성 검사 스킵스킵 ")
                     return
                 } else {
                     val itemCount = recyclerView.adapter?.itemCount ?: 0
