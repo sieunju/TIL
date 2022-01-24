@@ -34,8 +34,6 @@ object CustomPagingBindingAdapter {
                     val itemCount = recyclerView.adapter?.itemCount ?: 0
                     var pos = 0
                     when (val lm = recyclerView.layoutManager) {
-                        is GridLayoutManager -> pos =
-                            lm.findLastVisibleItemPosition() / lm.spanCount
                         is LinearLayoutManager -> pos = lm.findLastVisibleItemPosition()
                     }
                     val updatePosition = itemCount - pos / 2
