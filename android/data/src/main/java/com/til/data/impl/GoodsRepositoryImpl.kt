@@ -5,8 +5,7 @@ import com.hmju.likemanager.LikeManager
 import com.til.data.network.GoodsApiService
 import com.til.model.RxBus
 import com.til.model.RxBusEvent
-import com.til.model.base.JSendListResponse
-import com.til.model.base.JSendResponse
+import com.til.model.base.*
 import com.til.model.body.LikeRequestBody
 import com.til.model.goods.GoodsEntity
 import com.til.model.like.LikeEntity
@@ -23,7 +22,7 @@ import javax.inject.Inject
 class GoodsRepositoryImpl @Inject constructor(
     private val goodsApiService: GoodsApiService
 ) : GoodsRepository {
-    override fun fetchGoods(params: GoodsParamMap): Single<JSendResponse<JSendListResponse<GoodsEntity>>> {
+    override fun fetchGoods(params: GoodsParamMap): Single<JSendResponse<JSendListWithMetaResponse<GoodsEntity, CustomMetaEntity>>> {
         return goodsApiService.fetchGoods(params)
     }
 
