@@ -21,6 +21,7 @@
 ## ✔ 공부한 내용
 - 네트워크 통신
     - [토큰 만료 시 재인증 하는 방법](https://github.com/sieunju/TIL/wiki/%ED%86%A0%ED%81%B0-%EB%A7%8C%EB%A3%8C-%EC%8B%9C-%EC%9E%AC%EC%9D%B8%EC%A6%9D-%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95)
+    - [JSON jsend 규칙으로 데이터 모델 구성해보기](https://github.com/sieunju/TIL/wiki/JSON-jsend-%EA%B7%9C%EC%B9%99%EC%9C%BC%EB%A1%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%AA%A8%EB%8D%B8-%EA%B5%AC%EC%84%B1%ED%95%B4%EB%B3%B4%EA%B8%B0)
 
 - RecyclerView
     - [Controller 와 ViewHolder 간의 의존성 제거해보기](https://github.com/sieunju/TIL/wiki/Controller-%EC%99%80-ViewHolder-%EA%B0%84%EC%9D%98-%EC%9D%98%EC%A1%B4%EC%84%B1-%EC%A0%9C%EA%B1%B0-%ED%95%B4%EB%B3%B4%EA%B8%B0)
