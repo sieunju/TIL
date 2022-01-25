@@ -14,6 +14,6 @@ import kotlinx.serialization.Serializable
  * Created by juhongmin on 2022/01/11
  */
 @Serializable
-data class MetaEntity(
+open class MetaEntity(
     val limitSize: Int = -1
 )

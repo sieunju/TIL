@@ -1,7 +1,6 @@
 package com.til.data.network
 
-import com.til.model.base.JSendListResponse
-import com.til.model.base.JSendResponse
+import com.til.model.base.*
 import com.til.model.body.LikeRequestBody
 import com.til.model.goods.GoodsEntity
 import com.til.model.like.LikeEntity
@@ -19,7 +18,7 @@ interface GoodsApiService {
     @GET("/api/goods")
     fun fetchGoods(
         @QueryMap params: GoodsParamMap
-    ): Single<JSendResponse<JSendListResponse<GoodsEntity>>>
+    ): Single<JSendResponse<JSendListWithMetaResponse<GoodsEntity,CustomMetaEntity>>>
 
     @GET("/api/test")
     fun fetchTest(): Single<JSendResponse<TestEntity>>

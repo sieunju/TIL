@@ -1,6 +1,8 @@
 package com.hmju.domain.repository
 
+import com.til.model.base.CustomMetaEntity
 import com.til.model.base.JSendListResponse
+import com.til.model.base.JSendListWithMetaResponse
 import com.til.model.base.JSendResponse
 import com.til.model.body.LikeRequestBody
 import com.til.model.goods.GoodsEntity
@@ -15,7 +17,7 @@ import io.reactivex.rxjava3.core.Single
  * Created by juhongmin on 2022/01/12
  */
 interface GoodsRepository {
-    fun fetchGoods(params: GoodsParamMap): Single<JSendResponse<JSendListResponse<GoodsEntity>>>
+    fun fetchGoods(params: GoodsParamMap): Single<JSendResponse<JSendListWithMetaResponse<GoodsEntity,CustomMetaEntity>>>
 
     fun fetchTest(): Single<JSendResponse<TestEntity>>
 

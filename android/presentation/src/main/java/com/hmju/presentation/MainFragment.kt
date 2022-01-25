@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.hmju.presentation.custompaging.CustomPagingFragment
 import com.hmju.presentation.databinding.FMainBinding
+import com.hmju.presentation.json_jsend.JsonJsendFragment
 import com.hmju.presentation.refreshtoken.RefreshTokenFragment
 import com.hmju.presentation.simple_like_recyclerview.SimpleLikeRecyclerViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,6 +29,10 @@ class MainFragment : Fragment(R.layout.f_main) {
 
         binding.customPaging.setOnClickListener {
             moveFragment(CustomPagingFragment())
+        }
+
+        binding.jsonJSend.setOnClickListener {
+            moveFragment(JsonJsendFragment())
         }
     }
 
