@@ -2,9 +2,20 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvResponse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minLines="3"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -12,37 +23,35 @@
             android:gravity="center_horizontal"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/tvResponse">
 
             <Button
-                android:id="@+id/expiredToken"
+                android:id="@+id/jsend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="토큰 만료시에 대한 처리" />
+                android:text="JSEND Default" />
 
             <Button
-                android:id="@+id/simpleLike"
+                android:id="@+id/jsendMeta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="뷰모델과 리스트 의존성 제거하기!!" />
+                android:text="JSEND With Meta" />
 
             <Button
-                android:id="@+id/customPaging"
+                android:id="@+id/jsendPayload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="커스텀 페이징 네이션 구현 하기" />
+                android:text="JSEND Payload" />
+
 
             <Button
-                android:id="@+id/jsonJSend"
-                android:text="JSON jsend 규칙으로 데이터 모델 구성해보기"
+                android:id="@+id/jsendPayloadWithMeta"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
+                android:layout_height="wrap_content"
+                android:text="JSEND Payload With Meta" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
