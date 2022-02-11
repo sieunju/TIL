@@ -9,5 +9,6 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class CustomMetaEntity(
+    val metaSize : Int = 0,
     val customPage: Int = 0
 ) : MetaEntity()
