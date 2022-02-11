@@ -8,6 +8,7 @@ import com.til.data.interceptor.RefreshTokenInterceptor
 import com.til.data.interceptor.TokenAuthenticator
 import com.til.data.network.AuthApiService
 import com.til.data.network.GoodsApiService
+import com.til.data.network.JSendApiService
 import com.til.data.network.RefreshTokenApiService
 import com.til.data.qualifiers.*
 import dagger.Module
@@ -54,7 +55,7 @@ internal object RemoteModule {
     @Singleton
     @Provides
     @RefreshTokenJsonInterceptor
-    fun provideRefreshTokenInterceptor() : Interceptor = RefreshTokenInterceptor()
+    fun provideRefreshTokenInterceptor(): Interceptor = RefreshTokenInterceptor()
 
     @Singleton
     @Provides
@@ -133,5 +134,11 @@ internal object RemoteModule {
     fun provideAuthApiService(
         retrofit: Retrofit
     ): AuthApiService = retrofit.create(AuthApiService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideJSendApiService(
+        retrofit: Retrofit
+    ): JSendApiService = retrofit.create(JSendApiService::class.java)
     // [e] Main API Service
 }
