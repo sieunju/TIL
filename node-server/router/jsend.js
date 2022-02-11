@@ -22,7 +22,7 @@ router.get('/api/jsend/meta', (req, res) => {
                 id: new Date().getTime()
             },
             meta: {
-                metaSize = 1
+                metaSize: utils.randomInt()
             }
         }
     }).end()
@@ -47,7 +47,7 @@ router.get('/api/jsend/list/meta', (req, res) => {
                 "aaa", "bbb"
             ],
             meta: {
-                metaSize = 1
+                metaSize: utils.randomInt()
             }
         }
     }).end()

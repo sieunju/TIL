@@ -41,6 +41,10 @@ exports.randomMessage = function () {
     return randomMessageArr[Math.floor(Math.random() * randomMessageArr.length)]
 }
 
+exports.randomInt = function () {
+    return Math.floor(Math.random() * 100)
+}
+
 /**
  * Header Cookie 값 파싱 해주는 함수.
  * @param {String} cookie
