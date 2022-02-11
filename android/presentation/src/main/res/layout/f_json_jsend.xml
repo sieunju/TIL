@@ -38,17 +38,17 @@
                 android:text="JSEND With Meta" />
 
             <Button
-                android:id="@+id/jsendPayload"
+                android:id="@+id/jsendList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="JSEND Payload" />
+                android:text="JSEND List" />
 
 
             <Button
-                android:id="@+id/jsendPayloadWithMeta"
+                android:id="@+id/jsendListMeta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="JSEND Payload With Meta" />
+                android:text="JSEND List With Meta" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

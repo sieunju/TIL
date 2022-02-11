@@ -5,13 +5,14 @@ import com.til.data.network.JSendApiService
 import com.til.model.base.*
 import com.til.model.test.JSendTestEntity
 import io.reactivex.rxjava3.core.Single
+import javax.inject.Inject
 
 /**
  * Description :
  *
  * Created by juhongmin on 2022/02/11
  */
-class JSendRepositoryImpl(
+class JSendRepositoryImpl @Inject constructor(
     private val apiService: JSendApiService
 ) : JSendRepository {
     override fun fetchJSend(): Single<JSendResponse<JSendTestEntity>> {
