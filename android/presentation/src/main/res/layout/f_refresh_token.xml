@@ -9,8 +9,8 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center_horizontal"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -32,6 +32,11 @@
                 android:layout_height="wrap_content"
                 android:text="토큰 만료합니다." />
 
+            <Button
+                android:id="@+id/performance"
+                android:layout_width="wrap_content"
+                android:text="성능 테스트"
+                android:layout_height="wrap_content"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.constraintlayout.widget.ConstraintLayout>
