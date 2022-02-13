@@ -12,7 +12,6 @@ jobs:
     env:
       working-directory: ./android
 
-
     steps:
       # Check Current Branches
       - uses: actions/checkout@v2
