@@ -25,12 +25,16 @@ jobs:
           distribution: 'adopt'
           check-latest: true
 
+      # Android SDK 설정
+      # - name: SetUp Android SDK
+      #  uses: android-actions/setup-android@v2
+
       # gradlew 권한 획득
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
         working-directory: ${{ env.working-directory }}
 
-      # 최근에 커밋한 내용으로 릴리즈 노트 작성
+      # Android Build Debug: assembleDebug Release: assembleRelease
       - name: Generate Release Note
-        run: ./gradlew generateReleaseNote
+        run: ./gradlew clean assembleDebug
         working-directory: ${{ env.working-directory }}
