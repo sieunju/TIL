@@ -33,9 +33,8 @@ jobs:
       - name: Release Version
         id: release
         run: |
-          echo ::set-output name=code::$(grep versionCode buildSrc/src/main/java/Dependency.kt | awk '{print $5}')
-          echo ::set-output name=name::$(grep versionName buildSrc/src/main/java/Dependency.kt | awk '{print $5}')
-        working-directory: ${{ env.working-directory }}
+          echo ::set-output name=code::$(grep versionCode android/buildSrc/src/main/java/Dependency.kt | awk '{print $5}')
+          echo ::set-output name=name::$(grep versionName android/buildSrc/src/main/java/Dependency.kt | awk '{print $5}')
 
       # Tag 명 "" 제거해서 가져오기
       - name: Get Version Name
@@ -64,5 +63,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Generate Debug Apk
-          path: android/app/build/outputs/apk/debug/*.apk
+          path: android/app/build/outputs/apk/debug/til_${{steps.version_code.outputs.val}}_${{steps.version_name.outputs.val}}-debug.apk
 
