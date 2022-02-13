@@ -24,15 +24,13 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           check-latest: true
-        
-      # 확인
-      - name: Directory Check
-        run: ls
 
       # gradlew 권한 획득
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+        working-directory: ${{ env.working-directory }}
 
       # 최근에 커밋한 내용으로 릴리즈 노트 작성
       - name: Generate Release Note
         run: ./gradlew generateReleaseNote
+        working-directory: ${{ env.working-directory }}
