@@ -64,6 +64,5 @@ jobs:
         uses: actions/upload-artifact@latest
         with:
           name: app
-          path: app/build/outputs/apk/debug
-        working-directory: ${{ env.working-directory }}
+          path: android/app/build/outputs/apk/debug
 
