@@ -21,6 +21,10 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           check-latest: true
+      
+      # Android 폴더로 이동
+      - name: Move Android Directory
+        run: cd android
 
       # gradlew 권한 획득
       - name: Grant execute permission for gradlew
