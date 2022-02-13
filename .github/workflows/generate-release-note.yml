@@ -1,0 +1,35 @@
+name: Generate Release Note
+
+on:
+  push:
+    branches: [ develop, master,feature/github-ci-study ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./android
+
+    steps:
+      # Check Current Branches
+      - uses: actions/checkout@v2
+
+      # JDK 설정
+      - name: set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          check-latest: true
+
+      # gradlew 권한 획득
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+        working-directory: ${{ env.working-directory }}
+
+      # 최근에 커밋한 내용으로 릴리즈 노트 작성
+      - name: Generate Release Note
+        run: ./gradlew generateReleaseNote
+        working-directory: ${{ env.working-directory }}
