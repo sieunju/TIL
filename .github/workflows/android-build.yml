@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./android
+
 
     steps:
       # Check Current Branches
@@ -21,10 +24,6 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           check-latest: true
-      
-      # Android 폴더로 이동
-      - name: Move Android Directory
-        run: cd android/
         
       # 확인
       - name: Directory Check
