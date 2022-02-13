@@ -2,7 +2,7 @@ name: Android Build
 
 on:
   push:
-    branches: [ develop, master,feature/github-ci-study ]
+    branches: [ develop, master, feature/github-ci-study ]
   pull_request:
     branches: [ develop ]
 
@@ -64,5 +64,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Generate Debug Apk
-          path: android/app/build/outputs/apk/debug/til_${{ steps.version_code.outputs.val }}_${{ steps.version_name.outputs.val }}.apk
+          path: android/app/build/outputs/apk/debug/*.apk
 
