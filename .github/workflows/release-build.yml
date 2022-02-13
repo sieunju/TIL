@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./android
 
     steps:
       - uses: actions/checkout@v2
@@ -26,6 +28,7 @@ jobs:
           echo ::set-output name=code::$(grep versionCode buildSrc/src/main/java/Dependency.kt | awk '{print $5}')
           echo ::set-output name=name::$(grep versionName buildSrc/src/main/java/Dependency.kt | awk '{print $5}')
           echo ::set-output name=title::$(sed -n -e '1,1p' appRelease/release_note.txt)
+        working-directory: ${{ env.working-directory }}
 
       # Tag 명 "" 제거해서 가져오기
       - name: Get Tag Name
@@ -41,6 +44,7 @@ jobs:
           RELEASE_BODY="${RELEASE_BODY//$'\n'/'%0A'}"
           RELEASE_BODY="${RELEASE_BODY//$'\r'/'%0D'}"
           echo ::set-output name=val::${RELEASE_BODY}
+        working-directory: ${{ env.working-directory }}
 
       # 릴리즈 생성
       # release_name: 릴리즈 제목
