@@ -2,9 +2,7 @@ name: Libraray Generate Release
 
 on:
   push:
-    branches:
-      - 'master'
-      - 'feature/github-ci-study'
+    branches: [ master, feature/github-ci-study ]
 
 jobs:
   build:
