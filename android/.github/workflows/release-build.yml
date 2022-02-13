@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'master'
+      - 'feature/github-ci-study'
 
 jobs:
   build:
@@ -26,7 +27,7 @@ jobs:
         run: |
           echo ::set-output name=code::$(grep versionCode buildSrc/src/main/java/Dependency.kt | awk '{print $5}')
           echo ::set-output name=name::$(grep versionName buildSrc/src/main/java/Dependency.kt | awk '{print $5}')
-          echo ::set-output name=title::$(sed -n -e '1,1p' widget/release_note.txt)
+          echo ::set-output name=title::$(sed -n -e '1,1p' appRelease/release_note.txt)
 
       # Tag 명 "" 제거해서 가져오기
       - name: Get Tag Name
@@ -37,7 +38,7 @@ jobs:
       - name: Get Release Message
         id: get_release
         run: |
-          RELEASE_BODY=$(sed -n '2,$p' widget/release_note.txt | less)
+          RELEASE_BODY=$(sed -n '2,$p' appRelease/release_note.txt | less)
           RELEASE_BODY="${RELEASE_BODY//'%'/'%25'}"
           RELEASE_BODY="${RELEASE_BODY//$'\n'/'%0A'}"
           RELEASE_BODY="${RELEASE_BODY//$'\r'/'%0D'}"
