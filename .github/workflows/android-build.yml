@@ -39,15 +39,15 @@ jobs:
 
       # Tag 명 "" 제거해서 가져오기
       - name: Get Version Name
-        id: get_version_name
+        id: version_name
         run: echo ::set-output name=val::${{steps.release.outputs.name}}
 
       - name: Get Version Code
-        id: get_version_code
+        id: version_code
         run: echo ::set-output name=val::${{steps.release.outputs.code}}
       
       - name: Print version
-        run: echo "Version ${{steps.get_version_code.outputs.val}}_${{steps.get_version_name.outputs.val}}"
+        run: echo "Version ${{steps.version_code.outputs.val}}_${{steps.version_name.outputs.val}}"
 
       # gradlew 권한 획득
       - name: Grant execute permission for gradlew
@@ -59,10 +59,10 @@ jobs:
         run: ./gradlew clean assembleDebug
         working-directory: ${{ env.working-directory }}
 
-      # Upload Apk
-      - name: Upload Apk
-        uses: actions/upload-artifact@latest
+      # Debg Upload Apk
+      - name: Debug Apk
+        uses: actions/upload-artifact@v2
         with:
-          name: app
-          path: android/app/build/outputs/apk/debug
+          name: Generate Debug Apk
+          path: android/app/build/outputs/apk/debug/til_${{ steps.version_code.outputs.val }}_${{ steps.version_name.outputs.val }}.apk
 
