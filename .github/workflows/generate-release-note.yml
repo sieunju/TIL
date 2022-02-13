@@ -1,4 +1,4 @@
-name: Android Build
+name: Generate Release Note
 
 on:
   push:
