@@ -1,7 +1,8 @@
 package com.til.data.network
 
 import com.til.model.auth.TokenEntity
-import com.til.model.base.JSendResponse
+import com.til.model.base.JSend
+import com.til.model.base.JSendBaseResponse
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.POST
 
@@ -12,5 +13,5 @@ import retrofit2.http.POST
  */
 interface RefreshTokenApiService {
     @POST("/api/auth/refresh")
-    fun tokenRefresh(): Single<JSendResponse<TokenEntity>>
+    fun tokenRefresh(): Single<JSendBaseResponse<JSend<TokenEntity>>>
 }

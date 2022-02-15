@@ -5,7 +5,9 @@ import com.hmju.likemanager.LikeManager
 import com.til.data.network.GoodsApiService
 import com.til.model.RxBus
 import com.til.model.RxBusEvent
-import com.til.model.base.*
+import com.til.model.base.CustomMetaEntity
+import com.til.model.base.JSend
+import com.til.model.base.JSendListWithMeta
 import com.til.model.body.LikeRequestBody
 import com.til.model.goods.GoodsEntity
 import com.til.model.like.LikeEntity
@@ -22,32 +24,34 @@ import javax.inject.Inject
 class GoodsRepositoryImpl @Inject constructor(
     private val goodsApiService: GoodsApiService
 ) : GoodsRepository {
-    override fun fetchGoods(params: GoodsParamMap): Single<JSendResponse<JSendListWithMetaResponse<GoodsEntity, CustomMetaEntity>>> {
+    override fun fetchGoods(params: GoodsParamMap): Single<JSendListWithMeta<GoodsEntity, CustomMetaEntity>> {
         return goodsApiService.fetchGoods(params)
+            .map { it.data ?: throw NullPointerException("Data is Null") }
     }
 
-    override fun fetchTest(): Single<JSendResponse<TestEntity>> {
+    override fun fetchTest(): Single<JSend<TestEntity>> {
         return goodsApiService.fetchTest()
+            .map { it.data ?: throw NullPointerException("Data is Null") }
     }
 
-    override fun postLike(body: LikeRequestBody): Single<JSendResponse<LikeEntity>> {
+    override fun postLike(body: LikeRequestBody): Single<JSend<LikeEntity>> {
         return goodsApiService.postLike(body).map {
             if (it.data != null) {
                 LikeManager.addLike(body.id)
                 RxBus.publish(RxBusEvent.SimpleLikeEvent(true, body.id))
             }
-            return@map it
+            return@map it.data ?: throw NullPointerException("Data is Null")
         }
     }
 
-    override fun deleteLike(id: Long): Single<JSendResponse<LikeEntity>> {
+    override fun deleteLike(id: Long): Single<JSend<LikeEntity>> {
         return goodsApiService.deleteLike(id)
             .map {
                 if (it.data != null) {
                     LikeManager.removeLike(id)
                     RxBus.publish(RxBusEvent.SimpleLikeEvent(false, id))
                 }
-                return@map it
+                return@map it.data ?: throw NullPointerException("Data is Null")
             }
     }
 }

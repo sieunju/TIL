@@ -19,7 +19,7 @@ class AddLikeUseCase @Inject constructor(
 ) {
     operator fun invoke(body: LikeRequestBody): Single<LikeEntity> {
         return repository.postLike(body)
-            .map { it.data ?: throw NullPointerException("Data is Null") }
+            .map { it.obj ?: throw NullPointerException("Data is Null") }
             .map {
                 LikeManager.addLike(body.id)
                 RxBus.publish(RxBusEvent.SimpleLikeEvent(true,body.id))

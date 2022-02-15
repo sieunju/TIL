@@ -12,6 +12,6 @@ class GetGoodsUseCase @Inject constructor(
 ) {
     operator fun invoke(params: GoodsParamMap): Single<List<GoodsEntity>> {
         return repository.fetchGoods(params)
-            .map { it.data?.list ?: emptyList() }
+            .map { it.list }
     }
 }
