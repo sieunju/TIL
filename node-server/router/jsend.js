@@ -9,7 +9,9 @@ router.get('/api/jsend', (req, res) => {
     res.status(200).send({
         status: true,
         data: {
-            id: new Date().getTime()
+            payload: {
+                id: new Date().getTime()
+            }
         }
     }).end()
 })
