@@ -4,18 +4,15 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * Description : 리스트 형태의 Jsend 형식
  * status: true,
  * data: {
- * [list]: list,
- * [meta]: {
- *      limitSize: 30
- *  }
+ *  [payload]: [],
+ *  [meta]: {}
  * }
- * Created by juhongmin on 2022/01/25
+ * Created by juhongmin on 2022/02/15
  */
 @Serializable
-data class JSendListWithMetaResponse<T : Any, M : MetaEntity>(
+data class JSendListWithMeta<T : Any, M : MetaEntity>(
     @SerialName("payload")
     val list: List<T> = listOf(),
     @SerialName("meta")

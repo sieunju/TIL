@@ -1,0 +1,8 @@
+Build Date 2022년 02월 13일 일요일 20:19:47
+Version Name: 0.0.1
+Branch: develop
+
+Message: commit 15d69b7b6b8cb83acdf985b32b6fcc0f9933664c
+Update README.md
+
+Author: Sieun Ju

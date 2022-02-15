@@ -16,7 +16,7 @@ android {
         targetSdkVersion(Apps.targetSdkVersion)
         versionCode = Apps.versionCode
         versionName = Apps.versionName
-
+        setProperty("archivesBaseName", "til_${versionCode}_${versionName}")
         multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

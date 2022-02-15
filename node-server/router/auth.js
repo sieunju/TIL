@@ -14,7 +14,9 @@ router.post('/api/auth/refresh', (req, res) => {
     res.status(200).send({
         status: true,
         data: {
-            token: refreshToken
+            payload: {
+                token: refreshToken
+            }
         }
     }).end()
 })
@@ -28,7 +30,9 @@ router.post('/api/auth/expired', (req, res) => {
     res.status(200).send({
         status: true,
         data: {
-            token: expiredToken
+            payload: {
+                token: expiredToken
+            }
         }
     }).end()
 })
@@ -37,8 +41,10 @@ router.get('/api/test', (req, res) => {
     res.status(200).send({
         status: true,
         data: {
-            integer: new Date().getTime(),
-            str: utils.randomMessage()
+            payload: {
+                integer: new Date().getTime(),
+                str: utils.randomMessage()
+            }
         }
     }).end()
 })

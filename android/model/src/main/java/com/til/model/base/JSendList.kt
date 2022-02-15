@@ -4,15 +4,14 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * Description : 리스트 형태의 Jsend 형식
  * status: true,
  * data: {
- * [list]: list
+ *  [payload] : []
  * }
- * Created by juhongmin on 2022/01/11
+ * Created by juhongmin on 2022/02/15
  */
 @Serializable
-data class JSendListResponse<T : Any>(
+data class JSendList<T : Any>(
     @SerialName("payload")
     val list: List<T> = listOf()
 )
