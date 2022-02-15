@@ -12,14 +12,14 @@ import retrofit2.http.GET
  */
 interface JSendApiService {
     @GET("/api/jsend")
-    fun fetchJSend(): Single<JSendResponse<JSendTestEntity>>
+    fun fetchJSend(): Single<JSendBaseResponse<JSend<JSendTestEntity>>>
 
     @GET("/api/jsend/meta")
-    fun fetchJSendWithMeta(): Single<JSendWithMetaResponse<JSendTestEntity, CustomMetaEntity>>
+    fun fetchJSendWithMeta(): Single<JSendBaseResponse<JSendWithMeta<JSendTestEntity, CustomMetaEntity>>>
 
     @GET("/api/jsend/list")
-    fun fetchJSendList(): Single<JSendListResponse<List<String>>>
+    fun fetchJSendList(): Single<JSendBaseResponse<JSendList<String>>>
 
     @GET("/api/jsend/list/meta")
-    fun fetchJSendListWithMeta(): Single<JSendListWithMetaResponse<List<String>, CustomMetaEntity>>
+    fun fetchJSendListWithMeta(): Single<JSendBaseResponse<JSendListWithMeta<String, MetaEntity>>>
 }

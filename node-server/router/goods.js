@@ -52,7 +52,9 @@ router.post('/api/like', (req, res) => {
     res.status(200).send({
         status: true,
         data: {
-            id: req.body.id
+            payload: {
+                id: req.body.id
+            }
         }
     }).end()
 })
@@ -61,7 +63,9 @@ router.delete('/api/like/:id', (req, res) => {
     res.status(200).send({
         status: true,
         data: {
-            id: req.params.id
+            payload: {
+                id: req.params.id
+            }
         }
     }).end()
 })

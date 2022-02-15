@@ -1,7 +1,8 @@
 package com.hmju.domain.usecase
 
 import com.hmju.domain.repository.JSendRepository
-import com.til.model.base.JSendListResponse
+import com.til.model.base.JSendBaseResponse
+import com.til.model.base.JSendList
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
@@ -12,8 +13,8 @@ import javax.inject.Inject
  */
 class GetJSendListUseCase @Inject constructor(
     private val repository: JSendRepository
-){
-    operator fun invoke() : Single<JSendListResponse<List<String>>> {
+) {
+    operator fun invoke(): Single<JSendBaseResponse<JSendList<String>>> {
         return repository.fetchJSendList()
     }
 }

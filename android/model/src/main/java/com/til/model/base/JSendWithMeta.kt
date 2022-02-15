@@ -4,21 +4,17 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * Description : Meta 형태를 가지고 있는 JSend Format
  * status: true,
  * data: {
- *  [payload] : {
- *  },
- *  [meta] : {
- *  }
+ *  [payload] : {},
+ *  [meta]: {}
  * }
- *
- * Created by juhongmin on 2022/01/25
+ * Created by juhongmin on 2022/02/15
  */
 @Serializable
-data class JSendWithMetaResponse<T : Any, M : MetaEntity>(
+data class JSendWithMeta<T : Any, M : MetaEntity>(
     @SerialName("payload")
-    val data: T? = null,
+    val obj: T? = null,
     @SerialName("meta")
     val meta: M? = null
 )

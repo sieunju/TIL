@@ -15,19 +15,19 @@ import javax.inject.Inject
 class JSendRepositoryImpl @Inject constructor(
     private val apiService: JSendApiService
 ) : JSendRepository {
-    override fun fetchJSend(): Single<JSendResponse<JSendTestEntity>> {
+    override fun fetchJSend(): Single<JSendBaseResponse<JSend<JSendTestEntity>>> {
         return apiService.fetchJSend()
     }
 
-    override fun fetchJSendWithMeta(): Single<JSendWithMetaResponse<JSendTestEntity, CustomMetaEntity>> {
+    override fun fetchJSendWithMeta(): Single<JSendBaseResponse<JSendWithMeta<JSendTestEntity, CustomMetaEntity>>> {
         return apiService.fetchJSendWithMeta()
     }
 
-    override fun fetchJSendList(): Single<JSendListResponse<List<String>>> {
+    override fun fetchJSendList(): Single<JSendBaseResponse<JSendList<String>>> {
         return apiService.fetchJSendList()
     }
 
-    override fun fetchJSendListWithMeta(): Single<JSendListWithMetaResponse<List<String>, CustomMetaEntity>> {
+    override fun fetchJSendListWithMeta(): Single<JSendBaseResponse<JSendListWithMeta<String, MetaEntity>>> {
         return apiService.fetchJSendListWithMeta()
     }
 }
