@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./android
 
     steps:
       - uses: actions/checkout@v2
@@ -26,6 +28,7 @@ jobs:
           echo ::set-output name=code::$(grep versionCode buildSrc/src/main/java/Dependency.kt | awk '{print $5}')
           echo ::set-output name=name::$(grep versionName buildSrc/src/main/java/Dependency.kt | awk '{print $5}')
           echo ::set-output name=title::$(sed -n -e '1,1p' appRelease/release_note.txt)
+        working-directory: ${{ env.working-directory }}
 
       # Tag 명 "" 제거해서 가져오기
       - name: Get Tag Name
@@ -41,6 +44,7 @@ jobs:
           RELEASE_BODY="${RELEASE_BODY//$'\n'/'%0A'}"
           RELEASE_BODY="${RELEASE_BODY//$'\r'/'%0D'}"
           echo ::set-output name=val::${RELEASE_BODY}
+        working-directory: ${{ env.working-directory }}
 
       # 릴리즈 생성
       # release_name: 릴리즈 제목
@@ -57,16 +61,3 @@ jobs:
             ${{steps.get_release.outputs.val}}
           draft: false
           prerelease: false
-
-      # Android SDK 설정
-      # - name: SetUp Android SDK
-      #  uses: android-actions/setup-android@v2
-
-      # gradlew 권한 획득
-      # - name: Grant execute permission for gradlew
-      #  run: chmod +x gradlew
-
-      # 릴리즈 노트 작성
-      # - name: Generate Release Note
-      #   run: |
-      #    ./gradlew generateReleaseNote --stacktrace

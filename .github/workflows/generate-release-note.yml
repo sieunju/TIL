@@ -2,7 +2,7 @@ name: Generate Release Note
 
 on:
   push:
-    branches: [ develop, master,feature/github-ci-study ]
+    branches: [ develop, master ]
   pull_request:
     branches: [ develop ]
 
