@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hmju.presentation.BR
 import com.hmju.presentation.R
 import com.hmju.presentation.databinding.FCustomPagingBinding
-import com.hmju.presentation.simple_like_recyclerview.BaseSimpleLikeViewHolder
+import com.hmju.presentation.base.BaseSimpleLikeViewHolder
 import com.hmju.presentation.simple_like_recyclerview.SimpleLike1ViewHolder
 import com.hmju.presentation.simple_like_recyclerview.SimpleLikeRecyclerViewFragment
 import com.til.model.goods.GoodsEntity

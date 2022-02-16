@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hmju.domain.usecase.GetGoodsUseCase
 import com.hmju.presentation.R
+import com.hmju.presentation.base.BaseSimpleLikeViewHolder
 import com.hmju.presentation.databinding.FSimpleLikeRecyclerviewBinding
 import com.til.model.goods.GoodsEntity
 import com.til.model.params.GoodsParamMap

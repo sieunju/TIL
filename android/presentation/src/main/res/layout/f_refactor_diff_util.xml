@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.hmju.presentation.refactor_diff_util.RefactorDiffUtilViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="false"
+            android:overScrollMode="always"
+            android:splitMotionEvents="false"
+            app:contentsTheSame="@{(old,new)->vm.onContentsTheSame(old,new)}"
+            app:dataList="@{vm.dataList}"
+            app:itemTheSame="@{(old,new)->vm.onItemTheSame(old,new)}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:onLoadNextPage="@{()->vm.onLoadNextPage()}"
+            app:pagingModel="@{vm.pagingModel}"
+            tools:listitem="@layout/vh_simple_like_recyclerview_1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
