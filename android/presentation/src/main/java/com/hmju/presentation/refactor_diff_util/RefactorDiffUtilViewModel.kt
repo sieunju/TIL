@@ -31,12 +31,14 @@ class RefactorDiffUtilViewModel @Inject constructor(
         getGoodsUseCase(queryMap)
             .map { list ->
                 val uiList = mutableListOf<BaseUiModel>()
-                list.map {
-                    if (Random.nextBoolean()) {
-                        GoodsOneUiModel(it)
-                    } else {
-                        GoodsTwoUiModel(it)
-                    }
+                list.forEach {
+                    uiList.add(
+                        if (Random.nextBoolean()) {
+                            GoodsOneUiModel(it)
+                        } else {
+                            GoodsTwoUiModel(it)
+                        }
+                    )
                 }
                 uiList
             }
@@ -58,12 +60,14 @@ class RefactorDiffUtilViewModel @Inject constructor(
             .delay(500, TimeUnit.MILLISECONDS)
             .map { list ->
                 val uiList = mutableListOf<BaseUiModel>()
-                list.map {
-                    if (Random.nextBoolean()) {
-                        GoodsOneUiModel(it)
-                    } else {
-                        GoodsTwoUiModel(it)
-                    }
+                list.forEach {
+                    uiList.add(
+                        if (Random.nextBoolean()) {
+                            GoodsOneUiModel(it)
+                        } else {
+                            GoodsTwoUiModel(it)
+                        }
+                    )
                 }
                 uiList
             }

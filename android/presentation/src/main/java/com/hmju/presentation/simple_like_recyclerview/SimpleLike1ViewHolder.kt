@@ -5,6 +5,7 @@ import com.hmju.presentation.BR
 import com.hmju.presentation.R
 import com.hmju.presentation.base.BaseSimpleLikeViewHolder
 import com.hmju.presentation.databinding.VhSimpleLikeRecyclerview1Binding
+import com.hmju.presentation.refactor_diff_util.GoodsOneUiModel
 
 /**
  * Description : 간단한 좋아요 아이템 샘플 1
@@ -20,15 +21,19 @@ class SimpleLike1ViewHolder(
 
     init {
         binding.imgLike.setOnClickListener {
-            simpleLikeClick(it,binding.item)
+            simpleLikeClick(it, binding.item)
         }
     }
 
     override fun onBindView(item: Any) {
-        binding.setVariable(BR.item,item)
+        if (item is GoodsOneUiModel) {
+            binding.setVariable(BR.item, item.item)
+        } else {
+            binding.setVariable(BR.item, item)
+        }
     }
 
     override fun onRefreshLike() {
-        simpleLikeChange(binding.imgLike,binding.item)
+        simpleLikeChange(binding.imgLike, binding.item)
     }
 }

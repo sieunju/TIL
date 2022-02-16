@@ -14,4 +14,4 @@ data class GoodsOneUiModel(
 
 data class GoodsTwoUiModel(
     val item: GoodsEntity
-) : BaseUiModel(R.layout.vh_simple_like_recyclerview_1)
+) : BaseUiModel(R.layout.vh_simple_like_recyclerview_2)
