@@ -5,7 +5,6 @@ import com.hmju.domain.usecase.GetGoodsUseCase
 import com.hmju.presentation.JLogger
 import com.hmju.presentation.custompaging.ListLiveData
 import com.hmju.presentation.custompaging.PagingModel
-import com.til.model.goods.GoodsEntity
 import com.til.model.params.GoodsParamMap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -50,7 +49,10 @@ class RefactorDiffUtilViewModel @Inject constructor(
             }).addTo(compositeDisposable)
     }
 
-    fun onLoadNextPage(){
+    /**
+     * Load Next Pagea
+     */
+    fun onLoadNextPage() {
         getGoodsUseCase(queryMap)
             .doOnSubscribe { pagingModel.isLoading = true }
             .delay(500, TimeUnit.MILLISECONDS)
@@ -75,6 +77,32 @@ class RefactorDiffUtilViewModel @Inject constructor(
             }, {
                 pagingModel.isLast = true
             }).addTo(compositeDisposable)
+    }
+
+    /**
+     * 간단한 아이디 값정보만 비교처리하는 함수
+     */
+    fun onItemTheSame(oldItem: Any, newItem: Any): Boolean {
+        return if (oldItem is GoodsOneUiModel && newItem is GoodsOneUiModel) {
+            oldItem.item.id == newItem.item.id
+        } else if (oldItem is GoodsTwoUiModel && newItem is GoodsTwoUiModel) {
+            oldItem.item.id == newItem.item.id
+        } else {
+            false
+        }
+    }
+
+    /**
+     * 좀더 디테일 하게 비교처리하는 함수
+     */
+    fun onContentsTheSame(oldItem: Any, newItem: Any): Boolean {
+        return if (oldItem is GoodsOneUiModel && newItem is GoodsOneUiModel) {
+            oldItem.item == newItem.item
+        } else if (oldItem is GoodsTwoUiModel && newItem is GoodsTwoUiModel) {
+            oldItem.item == newItem.item
+        } else {
+            false
+        }
     }
 
     override fun onCleared() {

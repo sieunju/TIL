@@ -17,7 +17,13 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="false"
+            android:splitMotionEvents="false"
+            app:contentsTheSame="@{(old,new)->vm.onContentsTheSame(old,new)}"
+            app:dataList="@{vm.dataList}"
+            app:itemTheSame="@{(old,new)->vm.onItemTheSame(old,new)}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:onLoadNextPage="@{()->vm.onLoadNextPage()}"
             app:spanCount="2"
             tools:listitem="@layout/vh_simple_like_recyclerview_1" />
 

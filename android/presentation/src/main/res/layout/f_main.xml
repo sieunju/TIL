@@ -41,6 +41,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+            <Button
+                android:id="@+id/refactorDiffUtil"
+                android:text="유지보수하기 쉬운 DiffUtil 구성해보기"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
