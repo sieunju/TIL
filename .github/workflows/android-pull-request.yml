@@ -18,13 +18,17 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           check-latest: true
+          
+      - name: Review Dog
+        uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
 
       - name: ktlint
-        uses: ScaCap/action-ktlint@1.1
+        uses: ScaCap/action-ktlint@master
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
-        working-directory: ${{ env.working-directory }}
 
        # Android Build Debug: assembleDebug Release: assembleRelease
       - name: Android Build
