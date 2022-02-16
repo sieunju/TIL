@@ -1,8 +1,9 @@
-Build Date 2022년 02월 13일 일요일 20:19:47
+Build Date 2022년 02월 17일 목요일 08:41:38
 Version Name: 0.0.1
-Branch: develop
+Branch: feature/test-pr-build
 
-Message: commit 15d69b7b6b8cb83acdf985b32b6fcc0f9933664c
-Update README.md
+Message: commit 0f087046cad8cd5375284b4ca288923b58415dd7
+chore: ktlint 작업 디렉토리 변경
 
-Author: Sieun Ju
+
+Author: sieunju
