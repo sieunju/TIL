@@ -12,11 +12,11 @@ import com.hmju.presentation.base.ItemListAdapter
 object RefactorDiffUtilBindingAdapter {
 
     interface DiffIdTheSameListener {
-        fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean
+        fun callback(oldItem: Any, newItem: Any): Boolean
     }
 
     interface DiffContentsTheSameListener {
-        fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean
+        fun callback(oldItem: Any, newItem: Any): Boolean
     }
 
     @JvmStatic

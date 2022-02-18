@@ -18,16 +18,15 @@ class ItemListAdapter : RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     private val dataList: MutableList<BaseUiModel> by lazy { mutableListOf() }
 
-    fun submitList(
-        newList: List<BaseUiModel>?,
-        itemTheSame: RefactorDiffUtilBindingAdapter.DiffIdTheSameListener,
-        contentsTheSame: RefactorDiffUtilBindingAdapter.DiffContentsTheSameListener
-    ) {
-        if (newList == null) return
-
-        val diffResult = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+    companion object {
+        class BaseDiffUtil(
+            private val oldList: List<BaseUiModel>,
+            private val newList: List<BaseUiModel>,
+            private val idCompareListener: RefactorDiffUtilBindingAdapter.DiffIdTheSameListener,
+            private val contentsCompareListener: RefactorDiffUtilBindingAdapter.DiffContentsTheSameListener
+        ) : DiffUtil.Callback() {
             override fun getOldListSize(): Int {
-                return dataList.size
+                return oldList.size
             }
 
             override fun getNewListSize(): Int {
@@ -35,18 +34,35 @@ class ItemListAdapter : RecyclerView.Adapter<BaseViewHolder<*>>() {
             }
 
             override fun areItemsTheSame(oldPos: Int, newPos: Int): Boolean {
-                val oldItem = dataList[oldPos]
-                val newItem = newList[newPos]
-                return itemTheSame.areItemsTheSame(oldItem, newItem)
+                return idCompareListener.callback(oldList[oldPos], newList[newPos])
             }
 
             override fun areContentsTheSame(oldPos: Int, newPos: Int): Boolean {
-                val oldItem = dataList[oldPos]
-                val newItem = newList[newPos]
-                return contentsTheSame.areContentsTheSame(oldItem, newItem)
+                return contentsCompareListener.callback(oldList[oldPos], newList[newPos])
             }
-        })
+        }
+    }
 
+    /**
+     * 데이터가 변경되었을때 이전 데이터들 비교하여 갱신 처리 함수
+     * @param newList oldList + 새로운 데이터 리스트
+     * @param idCompareListener 아이템의 간단한 정보만 비교하는 [DiffUtil.Callback.areItemsTheSame] 리스너
+     * @param contentsCompareListener 아이템의 자세한 정보를 비교하는 [DiffUtil.Callback.areContentsTheSame]] 리스너
+     */
+    fun submitList(
+        newList: List<BaseUiModel>?,
+        idCompareListener: RefactorDiffUtilBindingAdapter.DiffIdTheSameListener,
+        contentsCompareListener: RefactorDiffUtilBindingAdapter.DiffContentsTheSameListener
+    ) {
+        if (newList == null) return
+        val diffResult = DiffUtil.calculateDiff(
+            BaseDiffUtil(
+                dataList,
+                newList,
+                idCompareListener,
+                contentsCompareListener
+            )
+        ) 
         dataList.clear()
         dataList.addAll(newList)
         diffResult.dispatchUpdatesTo(this)
