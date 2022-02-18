@@ -47,7 +47,7 @@ class ItemListAdapter : RecyclerView.Adapter<BaseViewHolder<*>>() {
      * 데이터가 변경되었을때 이전 데이터들 비교하여 갱신 처리 함수
      * @param newList oldList + 새로운 데이터 리스트
      * @param idCompareListener 아이템의 간단한 정보만 비교하는 [DiffUtil.Callback.areItemsTheSame] 리스너
-     * @param contentsCompareListener 아이템의 자세한 정보를 비교하는 [DiffUtil.Callback.areContentsTheSame]] 리스너
+     * @param contentsCompareListener 아이템의 자세한 정보를 비교하는 [DiffUtil.Callback.areContentsTheSame] 리스너
      */
     fun submitList(
         newList: List<BaseUiModel>?,
