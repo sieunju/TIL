@@ -37,15 +37,21 @@
 
             <Button
                 android:id="@+id/jsonJSend"
-                android:text="JSON jsend 규칙으로 데이터 모델 구성해보기"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="JSON jsend 규칙으로 데이터 모델 구성해보기" />
 
             <Button
                 android:id="@+id/refactorDiffUtil"
-                android:text="유지보수하기 쉬운 DiffUtil 구성해보기"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="유지보수하기 쉬운 DiffUtil 구성해보기" />
+
+            <Button
+                android:id="@+id/performDiffUtil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="자다가 생각난 DiffUtil 고민" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>

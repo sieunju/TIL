@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <NumberPicker
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/number">
+
+        <TextView
+            android:id="@+id/tvCurrCount"
+            android:layout_width="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/purple_500"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tvLegacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            tools:text="1000ms" />
+
+        <TextView
+            android:id="@+id/tvBetterLegacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvBetter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/llTop">
+
+        <Button
+            android:id="@+id/legacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="레거시" />
+
+        <Button
+            android:id="@+id/betterLegacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="좀더 나은" />
+
+        <Button
+            android:id="@+id/better"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="좋은 방안" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
