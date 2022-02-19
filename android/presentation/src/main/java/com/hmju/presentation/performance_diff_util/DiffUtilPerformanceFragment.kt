@@ -111,7 +111,7 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                 dumpList.clear()
                 dumpList.addAll(newList)
                 legacyTimeList.add(System.currentTimeMillis() - time)
-                JLogger.d("Legacy Count ${dumpList.size}")
+                JLogger.d("Legacy Count ${legacyTimeList.size}")
                 return@map newList
             }
             .onBackpressureBuffer()
@@ -123,7 +123,7 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                     sumTime += it
                 }
                 tvLegacy.text = "Legacy ${sumTime / legacyTimeList.size}MS"
-                Toast.makeText(requireContext(), "The End", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Legacy The End", Toast.LENGTH_SHORT).show()
             }
             .subscribe({
 
@@ -148,7 +148,7 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                 dumpList.clear()
                 dumpList.addAll(newList)
                 betterLegacyTimeList.add(System.currentTimeMillis() - time)
-                JLogger.d("Better Legacy Count ${dumpList.size}")
+                JLogger.d("Better Legacy Count ${betterLegacyTimeList.size}")
                 return@map newList
             }
             .onBackpressureBuffer()
@@ -160,7 +160,7 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                     sumTime += it
                 }
                 tvBetterLegacy.text = "Better Legacy ${sumTime / betterLegacyTimeList.size}MS"
-                Toast.makeText(requireContext(), "The End", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Better Legacy The End", Toast.LENGTH_SHORT).show()
             }
             .subscribe({
 
@@ -185,7 +185,7 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                 dumpList.clear()
                 dumpList.addAll(newList)
                 betterTimeList.add(System.currentTimeMillis() - time)
-                JLogger.d("Better Count ${dumpList.size}")
+                JLogger.d("Better Count ${betterTimeList.size}")
                 return@map newList
             }
             .onBackpressureBuffer()
@@ -197,7 +197,7 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                     sumTime += it
                 }
                 tvBetter.text = "Better ${sumTime / betterTimeList.size}MS"
-                Toast.makeText(requireContext(), "The End", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Better The End", Toast.LENGTH_SHORT).show()
             }
             .subscribe({
 
