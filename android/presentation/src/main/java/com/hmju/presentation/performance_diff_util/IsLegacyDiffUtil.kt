@@ -138,6 +138,106 @@ class IsLegacyDiffUtil(
             oldItem.id == newItem.id
         } else if (oldItem is Model60 && newItem is Model60) {
             oldItem.id == newItem.id
+        } else if (oldItem is Model61 && newItem is Model61) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model62 && newItem is Model62) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model63 && newItem is Model63) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model64 && newItem is Model64) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model65 && newItem is Model65) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model66 && newItem is Model66) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model67 && newItem is Model67) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model68 && newItem is Model68) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model69 && newItem is Model69) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model70 && newItem is Model70) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model71 && newItem is Model71) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model72 && newItem is Model72) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model73 && newItem is Model73) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model74 && newItem is Model74) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model75 && newItem is Model75) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model76 && newItem is Model76) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model77 && newItem is Model77) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model78 && newItem is Model78) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model79 && newItem is Model79) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model80 && newItem is Model80) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model81 && newItem is Model81) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model82 && newItem is Model82) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model83 && newItem is Model83) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model84 && newItem is Model84) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model85 && newItem is Model85) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model86 && newItem is Model86) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model87 && newItem is Model87) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model88 && newItem is Model88) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model89 && newItem is Model89) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model90 && newItem is Model90) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model91 && newItem is Model91) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model92 && newItem is Model92) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model93 && newItem is Model93) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model94 && newItem is Model94) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model95 && newItem is Model95) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model96 && newItem is Model96) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model97 && newItem is Model97) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model98 && newItem is Model98) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model99 && newItem is Model99) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model100 && newItem is Model100) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model101 && newItem is Model101) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model102 && newItem is Model102) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model103 && newItem is Model103) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model104 && newItem is Model104) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model105 && newItem is Model105) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model106 && newItem is Model106) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model107 && newItem is Model107) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model108 && newItem is Model108) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model109 && newItem is Model109) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model110 && newItem is Model110) {
+            oldItem.id == newItem.id
         } else {
             false
         }
@@ -265,6 +365,106 @@ class IsLegacyDiffUtil(
         } else if (oldItem is Model59 && newItem is Model59) {
             oldItem.id == newItem.id
         } else if (oldItem is Model60 && newItem is Model60) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model61 && newItem is Model61) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model62 && newItem is Model62) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model63 && newItem is Model63) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model64 && newItem is Model64) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model65 && newItem is Model65) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model66 && newItem is Model66) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model67 && newItem is Model67) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model68 && newItem is Model68) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model69 && newItem is Model69) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model70 && newItem is Model70) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model71 && newItem is Model71) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model72 && newItem is Model72) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model73 && newItem is Model73) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model74 && newItem is Model74) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model75 && newItem is Model75) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model76 && newItem is Model76) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model77 && newItem is Model77) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model78 && newItem is Model78) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model79 && newItem is Model79) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model80 && newItem is Model80) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model81 && newItem is Model81) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model82 && newItem is Model82) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model83 && newItem is Model83) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model84 && newItem is Model84) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model85 && newItem is Model85) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model86 && newItem is Model86) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model87 && newItem is Model87) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model88 && newItem is Model88) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model89 && newItem is Model89) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model90 && newItem is Model90) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model91 && newItem is Model91) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model92 && newItem is Model92) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model93 && newItem is Model93) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model94 && newItem is Model94) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model95 && newItem is Model95) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model96 && newItem is Model96) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model97 && newItem is Model97) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model98 && newItem is Model98) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model99 && newItem is Model99) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model100 && newItem is Model100) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model101 && newItem is Model101) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model102 && newItem is Model102) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model103 && newItem is Model103) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model104 && newItem is Model104) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model105 && newItem is Model105) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model106 && newItem is Model106) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model107 && newItem is Model107) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model108 && newItem is Model108) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model109 && newItem is Model109) {
+            oldItem.id == newItem.id
+        } else if (oldItem is Model110 && newItem is Model110) {
             oldItem.id == newItem.id
         } else {
             false

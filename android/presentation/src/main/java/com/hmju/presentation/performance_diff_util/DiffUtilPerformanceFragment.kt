@@ -3,21 +3,18 @@ package com.hmju.presentation.performance_diff_util
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import com.hmju.presentation.JLogger
 import com.hmju.presentation.R
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.internal.functions.Functions
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.concurrent.Executors
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -29,8 +26,10 @@ import kotlin.random.nextInt
  */
 class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
 
-    private lateinit var number: NumberPicker
+    private lateinit var npCount: NumberPicker
+    private lateinit var npListCount: NumberPicker
     private lateinit var tvCurrCount: TextView
+    private lateinit var tvListCount: TextView
     private lateinit var tvLegacy: TextView
     private lateinit var tvBetterLegacy: TextView
     private lateinit var tvBetter: TextView
@@ -39,26 +38,41 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
     private val betterLegacyTimeList = mutableListOf<Long>()
     private val betterTimeList = mutableListOf<Long>()
 
+
     private var countNumber = 100
+    private var listCount = 1000
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(view) {
-            number = findViewById(R.id.number)
+            npCount = findViewById(R.id.npCount)
+            npListCount = findViewById(R.id.npListCount)
             tvCurrCount = findViewById(R.id.tvCurrCount)
+            tvListCount = findViewById(R.id.tvListCount)
+
             tvLegacy = findViewById(R.id.tvLegacy)
             tvBetterLegacy = findViewById(R.id.tvBetterLegacy)
             tvBetter = findViewById(R.id.tvBetter)
 
-            number.wrapSelectorWheel = false
-            number.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-            number.minValue = 100
-            number.maxValue = 500
+            npCount.wrapSelectorWheel = false
+            npCount.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+            npCount.minValue = 1
+            npCount.maxValue = 50
 
-            number.setOnValueChangedListener { picker, oldVal, newVal ->
-                countNumber = newVal
-                tvCurrCount.text = "$newVal 번 반복"
+            npCount.setOnValueChangedListener { picker, oldVal, newVal ->
+                countNumber = newVal * 50
+                tvCurrCount.text = "$countNumber 번 반복"
+            }
+
+            npListCount.wrapSelectorWheel = false
+            npListCount.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+            npListCount.minValue = 1
+            npListCount.maxValue = 50
+
+            npListCount.setOnValueChangedListener { picker, oldVal, newVal ->
+                listCount = newVal * 500
+                tvListCount.text = "리스트 $listCount 개"
             }
 
             findViewById<Button>(R.id.legacy).setOnClickListener {
@@ -75,20 +89,6 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
         }
     }
 
-    class Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            TODO("Not yet implemented")
-        }
-
-        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            TODO("Not yet implemented")
-        }
-
-        override fun getItemCount(): Int {
-            TODO("Not yet implemented")
-        }
-    }
-
     private fun flowableList(count: Int): Flowable<List<Any>> {
         return Flowable.just(count)
             .map { ranList(it) }
@@ -101,11 +101,11 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
         val dumpList = mutableListOf<Any>()
         val workList = mutableListOf<Flowable<List<Any>>>()
         for (idx in 0 until count) {
-            workList.add(flowableList(1_000))
+            workList.add(flowableList(listCount))
         }
         Flowable.fromIterable(workList)
             .map { it.blockingFirst() }
-            .map { newList->
+            .map { newList ->
                 val time = System.currentTimeMillis()
                 val diffResult = DiffUtil.calculateDiff(IsLegacyDiffUtil(dumpList, newList))
                 dumpList.clear()
@@ -115,86 +115,94 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                 return@map newList
             }
             .onBackpressureBuffer()
-            .subscribeOn(Schedulers.io())
+            .subscribeOn(Schedulers.from(Executors.newFixedThreadPool(2)))
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally {
                 var sumTime = 0L
                 legacyTimeList.forEach {
                     sumTime += it
                 }
-                tvLegacy.text = "AVG ${sumTime / legacyTimeList.size}MS"
+                tvLegacy.text = "Legacy ${sumTime / legacyTimeList.size}MS"
                 Toast.makeText(requireContext(), "The End", Toast.LENGTH_SHORT).show()
             }
             .subscribe({
 
-            },{
+            }, {
 
             })
     }
 
+    @SuppressLint("SetTextI18n")
     private fun performBetterLegacy(count: Int) {
         betterLegacyTimeList.clear()
         val dumpList = mutableListOf<Any>()
         val workList = mutableListOf<Flowable<List<Any>>>()
         for (idx in 0 until count) {
-            workList.add(flowableList(1_000))
+            workList.add(flowableList(listCount))
         }
         Flowable.fromIterable(workList)
             .map { it.blockingFirst() }
-            .map { newList->
+            .map { newList ->
                 val time = System.currentTimeMillis()
-                val diffResult = DiffUtil.calculateDiff(IsLegacyDiffUtil(dumpList, newList))
+                val diffResult = DiffUtil.calculateDiff(IsDiffUtil(dumpList, newList))
                 dumpList.clear()
                 dumpList.addAll(newList)
                 betterLegacyTimeList.add(System.currentTimeMillis() - time)
-                JLogger.d("Legacy Count ${dumpList.size}")
+                JLogger.d("Better Legacy Count ${dumpList.size}")
                 return@map newList
             }
             .onBackpressureBuffer()
-            .subscribeOn(Schedulers.io())
+            .subscribeOn(Schedulers.from(Executors.newFixedThreadPool(2)))
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally {
                 var sumTime = 0L
                 betterLegacyTimeList.forEach {
                     sumTime += it
                 }
-                tvBetterLegacy.text = "AVG ${sumTime / betterLegacyTimeList.size}MS"
+                tvBetterLegacy.text = "Better Legacy ${sumTime / betterLegacyTimeList.size}MS"
                 Toast.makeText(requireContext(), "The End", Toast.LENGTH_SHORT).show()
             }
             .subscribe({
 
-            },{
+            }, {
 
             })
     }
 
+    @SuppressLint("SetTextI18n")
     private fun performBetter(count: Int) {
         betterTimeList.clear()
-        Flowable.fromCallable {
-            val dumpList = mutableListOf<Any>()
-            for (idx in 0 until count) {
+        val dumpList = mutableListOf<Any>()
+        val workList = mutableListOf<Flowable<List<Any>>>()
+        for (idx in 0 until count) {
+            workList.add(flowableList(listCount))
+        }
+        Flowable.fromIterable(workList)
+            .map { it.blockingFirst() }
+            .map { newList ->
                 val time = System.currentTimeMillis()
-                val newList = ranList(5_000)
-                val diffResult = DiffUtil.calculateDiff(IsLegacyDiffUtil(dumpList, newList))
+                val diffResult = DiffUtil.calculateDiff(BetterDiffUtil(dumpList, newList))
                 dumpList.clear()
                 dumpList.addAll(newList)
                 betterTimeList.add(System.currentTimeMillis() - time)
-                JLogger.d("Legacy Count ${dumpList.size}")
+                JLogger.d("Better Count ${dumpList.size}")
+                return@map newList
             }
-            return@fromCallable dumpList
-        }.subscribeOn(Schedulers.computation())
+            .onBackpressureBuffer()
+            .subscribeOn(Schedulers.from(Executors.newFixedThreadPool(2)))
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally {
                 var sumTime = 0L
                 betterTimeList.forEach {
                     sumTime += it
                 }
-                tvBetter.text = "AVG ${sumTime / betterTimeList.size}MS"
+                tvBetter.text = "Better ${sumTime / betterTimeList.size}MS"
+                Toast.makeText(requireContext(), "The End", Toast.LENGTH_SHORT).show()
             }
             .subscribe({
 
             }, {
-                JLogger.e("ERROR $it")
+
             })
     }
 
@@ -207,7 +215,7 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
     }
 
     private fun ranDataModel(): Any {
-        return when (Random.nextInt(0..59)) {
+        return when (Random.nextInt(0..110)) {
             0 -> Model1()
             1 -> Model2()
             2 -> Model3()
@@ -267,7 +275,58 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
             56 -> Model57()
             57 -> Model58()
             58 -> Model59()
-            else -> Model60()
+            59 -> Model60()
+            60 -> Model61()
+            61 -> Model62()
+            62 -> Model63()
+            63 -> Model64()
+            64 -> Model65()
+            65 -> Model66()
+            66 -> Model67()
+            67 -> Model68()
+            68 -> Model69()
+            69 -> Model70()
+            70 -> Model71()
+            71 -> Model72()
+            72 -> Model73()
+            73 -> Model74()
+            74 -> Model75()
+            75 -> Model76()
+            76 -> Model77()
+            77 -> Model78()
+            78 -> Model79()
+            79 -> Model80()
+            80 -> Model81()
+            81 -> Model82()
+            82 -> Model83()
+            83 -> Model84()
+            84 -> Model85()
+            85 -> Model86()
+            86 -> Model87()
+            87 -> Model88()
+            88 -> Model89()
+            89 -> Model90()
+            90 -> Model91()
+            91 -> Model92()
+            92 -> Model93()
+            93 -> Model94()
+            94 -> Model95()
+            95 -> Model96()
+            96 -> Model97()
+            97 -> Model98()
+            98 -> Model99()
+            99 -> Model100()
+            100 -> Model101()
+            101 -> Model102()
+            102 -> Model103()
+            103 -> Model104()
+            104 -> Model105()
+            105 -> Model106()
+            106 -> Model107()
+            107 -> Model108()
+            108 -> Model109()
+            109 -> Model110()
+            else -> Model110()
         }
     }
 }
