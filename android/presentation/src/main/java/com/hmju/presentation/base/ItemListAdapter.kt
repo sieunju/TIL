@@ -62,7 +62,7 @@ class ItemListAdapter : RecyclerView.Adapter<BaseViewHolder<*>>() {
                 idCompareListener,
                 contentsCompareListener
             )
-        ) 
+        )
         dataList.clear()
         dataList.addAll(newList)
         diffResult.dispatchUpdatesTo(this)
