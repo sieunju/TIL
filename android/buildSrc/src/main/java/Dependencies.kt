@@ -75,7 +75,7 @@ object KotlinX {
 }
 
 object Log {
-    const val timber = "implementation 'com.jakewharton.timber:timber:5.0.1"
+    const val timber = "com.jakewharton.timber:timber:5.0.1"
 }
 
 object UnitTest {
