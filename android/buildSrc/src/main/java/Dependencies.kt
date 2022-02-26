@@ -8,7 +8,7 @@ object Apps {
 }
 
 object Versions {
-    const val kotlin = "1.4.30"
+    const val kotlin = "1.5.0"
     const val ktx = "1.5.0"
     const val retrofit = "2.9.0"
     const val glide = "4.11.0"
