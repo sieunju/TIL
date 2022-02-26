@@ -1,18 +1,16 @@
-package com.hmju.presentation.simple_like_recyclerview
+package com.hmju.presentation.base
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.core.view.doOnAttach
 import androidx.core.view.doOnDetach
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.*
-import androidx.recyclerview.widget.RecyclerView
 import com.hmju.likemanager.LikeManager
 import com.hmju.presentation.JLogger
+import com.hmju.presentation.simple_like_recyclerview.SimpleLikeEntryPoint
 import com.til.model.RxBus
 import com.til.model.RxBusEvent
 import com.til.model.body.LikeRequestBody
@@ -20,7 +18,6 @@ import com.til.model.goods.GoodsEntity
 import dagger.hilt.EntryPoints
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
-import java.util.concurrent.TimeUnit
 
 /**
  * Description : Base Like ViewHolder Class
@@ -30,10 +27,9 @@ import java.util.concurrent.TimeUnit
 abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
     parent: ViewGroup,
     @LayoutRes layoutId: Int
-) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId, parent, false)),
+) : BaseViewHolder<T>(parent, layoutId),
     LifecycleObserver {
 
-    val binding: T by lazy { DataBindingUtil.bind(itemView)!! }
     private val simpleLikeEntryPoint: SimpleLikeEntryPoint by lazy {
         EntryPoints.get(itemView.context.applicationContext, SimpleLikeEntryPoint::class.java)
     }
@@ -43,7 +39,6 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
     private var lifecycleOwner: LifecycleOwner? = null
 
     abstract fun onRefreshLike()
-    abstract fun onBindView(item: Any)
 
     init {
         itemView.doOnAttach {

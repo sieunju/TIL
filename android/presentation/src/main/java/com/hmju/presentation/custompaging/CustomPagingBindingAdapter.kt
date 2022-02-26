@@ -4,7 +4,6 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.hmju.presentation.JLogger
 
 /**
  * Description : DataBinding 방식의 페이징 처리 BindingAdapter

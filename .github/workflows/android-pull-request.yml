@@ -1,0 +1,37 @@
+name: Android Pull Request ktlint
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./android
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # JDK 설정
+      - name: set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          check-latest: true
+          
+      - name: Review Dog
+        uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
+          github_token: ${{ secrets.github_token }}
+
+      - name: ktlint
+        uses: ScaCap/action-ktlint@master
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+
+       # Android Build Debug: assembleDebug Release: assembleRelease
+      - name: Android Build
+        run: ./gradlew clean assembleDebug
+        working-directory: ${{ env.working-directory }}

@@ -27,6 +27,11 @@
     - [Controller 와 ViewHolder 간의 의존성 제거해보기](https://github.com/sieunju/TIL/wiki/Controller-%EC%99%80-ViewHolder-%EA%B0%84%EC%9D%98-%EC%9D%98%EC%A1%B4%EC%84%B1-%EC%A0%9C%EA%B1%B0-%ED%95%B4%EB%B3%B4%EA%B8%B0)
     - [AAC Paging 라이브러리 안쓰고 페이징 구현해보기](https://github.com/sieunju/TIL/wiki/AAC-Paging-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EC%95%88%EC%93%B0%EA%B3%A0-MVVM-&-DataBinding-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-%ED%8E%98%EC%9D%B4%EC%A7%95-%EA%B5%AC%ED%98%84%ED%95%B4%EB%B3%B4%EA%B8%B0)
     - [유지보수하기 쉽게 DiffUtil 사용해보기](https://github.com/sieunju/TIL/wiki/%EC%9C%A0%EC%A7%80%EB%B3%B4%EC%88%98%ED%95%98%EA%B8%B0-%EC%89%BD%EA%B2%8C-DiffUtil-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0)
+    - [유지보수하기 쉽게 DiffUtil 사용해보기-2](https://github.com/sieunju/TIL/wiki/%EC%9C%A0%EC%A7%80%EB%B3%B4%EC%88%98%ED%95%98%EA%B8%B0-%EC%89%BD%EA%B2%8C-DiffUtil-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0-2)
 
 - CI
     - [Github Action으로 라이브러리 배포 돌려보기](https://github.com/sieunju/TIL/wiki/Github-Action%EC%9C%BC%EB%A1%9C-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%B0%B0%ED%8F%AC-%EB%8F%8C%EB%A0%A4%EB%B3%B4%EA%B8%B0)
+
+- Lifecycle
+    - [MVVM Lifecycle 의존하여 관리해보기](https://github.com/sieunju/TIL/wiki/ViewModel-%EC%97%90%EC%84%9C-Lifecycle-%EC%9D%98%EC%A1%B4%ED%95%98%EC%97%AC-%EA%B4%80%EB%A6%AC%ED%95%B4%EB%B3%B4%EA%B8%B0)
+
