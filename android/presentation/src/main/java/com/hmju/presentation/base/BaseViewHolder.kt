@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
  */
 abstract class BaseViewHolder<T : ViewDataBinding>(
     parent: ViewGroup,
-    @LayoutRes layoutId : Int
-) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId,parent,false)){
+    @LayoutRes layoutId: Int
+) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId, parent, false)) {
 
     val binding: T by lazy { DataBindingUtil.bind(itemView)!! }
 

@@ -125,11 +125,7 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                 tvLegacy.text = "Legacy ${sumTime / legacyTimeList.size}MS"
                 Toast.makeText(requireContext(), "Legacy The End", Toast.LENGTH_SHORT).show()
             }
-            .subscribe({
-
-            }, {
-
-            })
+            .subscribe({}, {})
     }
 
     @SuppressLint("SetTextI18n")
@@ -162,11 +158,7 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                 tvBetterLegacy.text = "Better Legacy ${sumTime / betterLegacyTimeList.size}MS"
                 Toast.makeText(requireContext(), "Better Legacy The End", Toast.LENGTH_SHORT).show()
             }
-            .subscribe({
-
-            }, {
-
-            })
+            .subscribe({}, {})
     }
 
     @SuppressLint("SetTextI18n")
@@ -199,11 +191,7 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                 tvBetter.text = "Better ${sumTime / betterTimeList.size}MS"
                 Toast.makeText(requireContext(), "Better The End", Toast.LENGTH_SHORT).show()
             }
-            .subscribe({
-
-            }, {
-
-            })
+            .subscribe({}, {})
     }
 
     private fun ranList(size: Int): List<Any> {
