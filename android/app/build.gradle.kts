@@ -7,13 +7,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Apps.compileSdkVersion)
-    buildToolsVersion(Apps.buildToolsVersion)
+    compileSdk = Apps.compileSdkVersion
+    buildToolsVersion = Apps.buildToolsVersion
 
     defaultConfig {
         applicationId = "com.hmju.til"
-        minSdkVersion(Apps.minSdkVersion)
-        targetSdkVersion(Apps.targetSdkVersion)
+        minSdk = Apps.minSdkVersion
+        targetSdk = Apps.targetSdkVersion
         versionCode = Apps.versionCode
         versionName = Apps.versionName
         setProperty("archivesBaseName", "til_${versionCode}_${versionName}")
@@ -37,7 +37,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         dataBinding = true
