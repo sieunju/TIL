@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hmju.presentation.BR
 import com.hmju.presentation.R
-import com.hmju.presentation.databinding.FCustomPagingBinding
+import com.hmju.presentation.base.BaseFragment
 import com.hmju.presentation.base.BaseSimpleLikeViewHolder
+import com.hmju.presentation.databinding.FCustomPagingBinding
 import com.hmju.presentation.simple_like_recyclerview.SimpleLike1ViewHolder
 import com.hmju.presentation.simple_like_recyclerview.SimpleLikeRecyclerViewFragment
 import com.til.model.goods.GoodsEntity
@@ -23,9 +23,9 @@ import dagger.hilt.android.AndroidEntryPoint
  * Created by juhongmin on 2022/01/21
  */
 @AndroidEntryPoint
-class CustomPagingFragment : Fragment(R.layout.f_custom_paging){
+class CustomPagingFragment : BaseFragment<CustomPagingViewModel>(R.layout.f_custom_paging) {
 
-    private val viewModel : CustomPagingViewModel by viewModels()
+    override val viewModel: CustomPagingViewModel by viewModels()
 
     private val adapter = Adapter()
 
@@ -33,18 +33,18 @@ class CustomPagingFragment : Fragment(R.layout.f_custom_paging){
         super.onViewCreated(view, savedInstanceState)
         DataBindingUtil.bind<FCustomPagingBinding>(view)?.run {
             lifecycleOwner = this@CustomPagingFragment
-            setVariable(BR.vm,viewModel)
+            setVariable(BR.vm, viewModel)
             rvContents.adapter = adapter
         }
         with(viewModel) {
-            dataList.observe(viewLifecycleOwner,{ list->
+            dataList.observe(viewLifecycleOwner) { list ->
                 adapter.submitList(list)
-            })
+            }
             start()
         }
     }
 
-    class Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+    class Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         companion object {
             class CustomPagingDiffUtil(
@@ -93,7 +93,7 @@ class CustomPagingFragment : Fragment(R.layout.f_custom_paging){
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            if(holder is BaseSimpleLikeViewHolder<*>) {
+            if (holder is BaseSimpleLikeViewHolder<*>) {
                 holder.onBindView(dataList[position])
             }
         }
