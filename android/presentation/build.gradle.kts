@@ -91,6 +91,11 @@ dependencies {
     implementation(Glide.okhttp)
 
     /**
+     * Timber
+     */
+    implementation(Log.timber)
+
+    /**
      * Unit Test
      */
     androidTestImplementation(Retrofit.okhttp)

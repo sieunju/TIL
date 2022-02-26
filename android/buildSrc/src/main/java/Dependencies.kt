@@ -74,6 +74,10 @@ object KotlinX {
     const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1"
 }
 
+object Log {
+    const val timber = "implementation 'com.jakewharton.timber:timber:5.0.1"
+}
+
 object UnitTest {
     const val junit = "junit:junit:4.12"
     const val androidXJunit = "androidx.test.ext:junit:1.1.3"

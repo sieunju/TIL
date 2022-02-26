@@ -88,6 +88,11 @@ dependencies {
     implementation(Rx.java)
     implementation(Rx.kotlin)
 
+    /**
+     * Timber
+     */
+    implementation(Log.timber)
+
     testImplementation(UnitTest.junit)
     androidTestImplementation(UnitTest.androidXJunit)
     androidTestImplementation(UnitTest.Espresso.core)
