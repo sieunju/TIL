@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.hmju.presentation.R
 import com.hmju.presentation.base.BaseFragment
 import com.hmju.presentation.base.BaseSimpleLikeViewHolder
@@ -26,6 +27,7 @@ class CustomPagingFragment : BaseFragment<CustomPagingViewModel, FCustomPagingBi
 ) {
 
     override val viewModel: CustomPagingViewModel by viewModels()
+    override val binding: FCustomPagingBinding by viewBinding()
 
     private val adapter = Adapter()
 

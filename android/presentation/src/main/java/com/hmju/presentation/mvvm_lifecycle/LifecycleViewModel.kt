@@ -36,4 +36,9 @@ class LifecycleViewModel @Inject constructor() : BaseViewModel() {
                 })
         }
     }
+
+    fun onTestBusEvent(){
+        Timber.d("Click!!!!@!@!@")
+        TestBusEvent.publish("Test Hahah ${System.currentTimeMillis()}")
+    }
 }
