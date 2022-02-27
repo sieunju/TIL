@@ -43,9 +43,15 @@ class RxLifecycle : LifecycleObserver {
 
     override fun onInvisible() {
         Timber.d("onInvisible ${visibleDisposable?.isDisposed}")
+        if(visibleDisposable?.isDisposed == false) {
+            visibleDisposable?.dispose()
+        }
     }
 
     override fun onRelease() {
         Timber.d("onRelease ${initDisposable?.isDisposed}")
+        if(initDisposable?.isDisposed == false) {
+            initDisposable?.dispose()
+        }
     }
 }
