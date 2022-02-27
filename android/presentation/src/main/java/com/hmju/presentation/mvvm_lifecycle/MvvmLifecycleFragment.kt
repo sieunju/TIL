@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.hmju.presentation.R
 import com.hmju.presentation.base.BaseFragment
+import com.hmju.presentation.databinding.FMvvmLifecycleBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -14,7 +15,9 @@ import dagger.hilt.android.AndroidEntryPoint
  * Created by juhongmin on 2022/02/26
  */
 @AndroidEntryPoint
-class MvvmLifecycleFragment : BaseFragment<LifecycleViewModel>(R.layout.f_mvvm_lifecycle) {
+class MvvmLifecycleFragment : BaseFragment<LifecycleViewModel, FMvvmLifecycleBinding>(
+    R.layout.f_mvvm_lifecycle
+) {
 
     override val viewModel: LifecycleViewModel by viewModels()
 

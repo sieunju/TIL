@@ -3,11 +3,9 @@ package com.hmju.presentation.custompaging
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.hmju.presentation.BR
 import com.hmju.presentation.R
 import com.hmju.presentation.base.BaseFragment
 import com.hmju.presentation.base.BaseSimpleLikeViewHolder
@@ -23,7 +21,9 @@ import dagger.hilt.android.AndroidEntryPoint
  * Created by juhongmin on 2022/01/21
  */
 @AndroidEntryPoint
-class CustomPagingFragment : BaseFragment<CustomPagingViewModel>(R.layout.f_custom_paging) {
+class CustomPagingFragment : BaseFragment<CustomPagingViewModel, FCustomPagingBinding>(
+    R.layout.f_custom_paging
+) {
 
     override val viewModel: CustomPagingViewModel by viewModels()
 
@@ -31,11 +31,7 @@ class CustomPagingFragment : BaseFragment<CustomPagingViewModel>(R.layout.f_cust
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        DataBindingUtil.bind<FCustomPagingBinding>(view)?.run {
-            lifecycleOwner = this@CustomPagingFragment
-            setVariable(BR.vm, viewModel)
-            rvContents.adapter = adapter
-        }
+        binding.rvContents.adapter = adapter
         with(viewModel) {
             dataList.observe(viewLifecycleOwner) { list ->
                 adapter.submitList(list)
