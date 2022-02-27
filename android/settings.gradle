@@ -6,5 +6,6 @@ include(
         ":domain",
         ":presentation",
         ":loginmanager",
-        ":likemanager"
+        ":likemanager",
+        ":rxbus"
 )
