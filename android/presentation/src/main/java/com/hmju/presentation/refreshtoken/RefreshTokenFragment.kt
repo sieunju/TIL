@@ -6,7 +6,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.hmju.domain.usecase.*
 import com.hmju.loginmanager.LoginManager
-import com.hmju.presentation.JLogger
 import com.hmju.presentation.R
 import com.hmju.presentation.databinding.FRefreshTokenBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,6 +14,7 @@ import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.random.Random
@@ -60,10 +60,10 @@ class RefreshTokenFragment : Fragment(R.layout.f_refresh_token) {
                 getRefreshTokenUseCase()
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
-                        JLogger.d("Response $it")
+                        Timber.d("Response $it")
                         loginManager.setToken(it.token)
                     }, {
-                        JLogger.e("Error $it")
+                        Timber.e("Error $it")
                     }).addTo(compositeDisposable)
             }
 
@@ -71,9 +71,9 @@ class RefreshTokenFragment : Fragment(R.layout.f_refresh_token) {
                 getTestUseCase()
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
-                        JLogger.d("Response $it")
+                        Timber.d("Response $it")
                     }, {
-                        JLogger.e("Error $it")
+                        Timber.e("Error $it")
                     }).addTo(compositeDisposable)
             }
 
@@ -81,10 +81,10 @@ class RefreshTokenFragment : Fragment(R.layout.f_refresh_token) {
                 getExpiredTokenUseCase()
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
-                        JLogger.d("Response $it")
+                        Timber.d("Response $it")
                         loginManager.setToken(it.token)
                     }, {
-                        JLogger.e("Error $it")
+                        Timber.e("Error $it")
                     }).addTo(compositeDisposable)
             }
 
@@ -114,12 +114,12 @@ class RefreshTokenFragment : Fragment(R.layout.f_refresh_token) {
             .take(10)
             .flatMap { multiApi() }
             .doOnComplete {
-                JLogger.d("MultiApi SUCCESS")
+                Timber.d("MultiApi SUCCESS")
             }
             .subscribe({
 
             }, {
-                JLogger.e("ERROR $it")
+                Timber.e("Error $it")
             }).addTo(compositeDisposable)
     }
 

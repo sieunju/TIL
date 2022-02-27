@@ -3,13 +3,13 @@ package com.hmju.presentation.custompaging
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hmju.domain.usecase.GetGoodsUseCase
-import com.hmju.presentation.JLogger
 import com.hmju.presentation.base.BaseViewModel
 import com.til.model.goods.GoodsEntity
 import com.til.model.params.GoodsParamMap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.addTo
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -35,18 +35,18 @@ class CustomPagingViewModel @Inject constructor(
                 _dataList.clear()
                 _dataList.addAll(it)
             }, {
-                JLogger.e("Error $it")
+                Timber.e("Error $it")
             }).addTo(compositeDisposable)
     }
 
     fun onLoadNextPage() {
-        JLogger.d("Call onLoadNextPage ${queryMap.pageNo}")
+        Timber.d("Call onLoadNextPage $queryMap.pageNo")
         getGoodsUseCase(queryMap)
             .doOnSubscribe { pagingModel.isLoading = true }
             .delay(500, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                JLogger.d("List ${it.size}")
+                Timber.d("List ${it.size}")
                 queryMap.pageNo++
                 pagingModel.isLast = it.isEmpty()
                 pagingModel.isLoading = false

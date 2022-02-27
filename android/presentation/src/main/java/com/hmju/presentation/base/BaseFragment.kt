@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import com.hmju.presentation.JLogger
+import com.hmju.presentation.lifecycle.LifecycleController
 
 /**
  * Description :
@@ -15,13 +15,14 @@ abstract class BaseFragment<VM : BaseViewModel>(@LayoutRes layoutId: Int) : Frag
 
     abstract val viewModel: VM
 
+    protected fun lifecycle(): LifecycleController = viewModel.lifecycleController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        JLogger.d("onViewCreated!!")
+
     }
 }
