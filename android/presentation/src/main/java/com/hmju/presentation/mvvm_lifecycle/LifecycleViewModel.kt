@@ -1,6 +1,7 @@
 package com.hmju.presentation.mvvm_lifecycle
 
 import com.hmju.presentation.base.BaseViewModel
+import com.hmju.presentation.lifecycle.onInit
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -12,5 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LifecycleViewModel @Inject constructor() : BaseViewModel() {
 
-
+    override fun onCreate() {
+        super.onCreate()
+    }
 }

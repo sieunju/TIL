@@ -46,6 +46,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":loginmanager"))
     implementation(project(":likemanager"))
+    implementation(project(":rxbus"))
 
     /**
      * Android X
