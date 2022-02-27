@@ -32,7 +32,6 @@ class MvvmLifecycleFragment : BaseFragment<LifecycleViewModel, FMvvmLifecycleBin
         super.onAttach(context)
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                Timber.d("onBackPress!!! ")
                 if(childFragmentManager.backStackEntryCount > 0) {
                     childFragmentManager.popBackStack()
                 } else {
@@ -53,6 +52,11 @@ class MvvmLifecycleFragment : BaseFragment<LifecycleViewModel, FMvvmLifecycleBin
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        Timber.d("onResume!!@!@!@!@! ")
+    }
+
     override fun onDetach() {
         super.onDetach()
         callback.remove()
@@ -60,7 +64,7 @@ class MvvmLifecycleFragment : BaseFragment<LifecycleViewModel, FMvvmLifecycleBin
 
     private fun moveFragment(fragment: Fragment) {
         childFragmentManager.beginTransaction().apply {
-            replace(R.id.childFragment,fragment)
+            replace(R.id.clRoot,fragment)
             addToBackStack(null)
             commit()
         }

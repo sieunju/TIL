@@ -34,7 +34,7 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
 
     override fun onResume() {
         super.onResume()
-        Timber.d("onResume $isInit")
+        Timber.d("onResume ${javaClass.simpleName} $isInit")
         if (isInit) {
             lifecycle().onVisible()
         }
@@ -52,7 +52,7 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
 
     override fun onStop() {
         super.onStop()
-        Timber.d("onStop")
+        Timber.d("onStop ${javaClass.simpleName}")
         lifecycle().onInVisible()
     }
 

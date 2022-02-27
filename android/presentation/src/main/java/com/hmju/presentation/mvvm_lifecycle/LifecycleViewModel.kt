@@ -23,22 +23,22 @@ class LifecycleViewModel @Inject constructor(
     private val loginManager: LoginManager
 ) : BaseViewModel() {
 
-    val moveFragment : MutableLiveData<Unit> by lazy { MutableLiveData() }
+    val moveFragment: MutableLiveData<Unit> by lazy { MutableLiveData() }
 
-    private val _text : MutableLiveData<String> by lazy { MutableLiveData() }
-    val text : LiveData<String> get() = _text
+    private val _text: MutableLiveData<String> by lazy { MutableLiveData() }
+    val text: LiveData<String> get() = _text
 
     override fun onCreate() {
         super.onCreate()
         _text.value = "Hello"
-        +onInit {
-            TestBusEvent.listen()
-                .subscribe({
-                    Timber.d("Init MSG $it")
-                }, {
-                    Timber.d("ERROR $it")
-                })
-        }
+//        +onInit {
+//            TestBusEvent.listen()
+//                .subscribe({
+//                    Timber.d("Init MSG $it")
+//                }, {
+//                    Timber.d("ERROR $it")
+//                })
+//        }
 
         +onInit {
             LoginBusEvent.listen()
@@ -49,13 +49,21 @@ class LifecycleViewModel @Inject constructor(
                 .subscribe()
         }
 
+//        +onVisible {
+//            TestBusEvent.listen()
+//                .subscribe({
+//                    Timber.d("onVisible MSG $it")
+//                }, {
+//                    Timber.d("ERROR $it")
+//                })
+//        }
+
         +onVisible {
-            TestBusEvent.listen()
-                .subscribe({
-                    Timber.d("onVisible MSG $it")
-                }, {
-                    Timber.d("ERROR $it")
-                })
+            LoginBusEvent.listen()
+                .doOnNext {
+                    Timber.d("onResume $it")
+                }
+                .subscribe()
         }
 
         +onVisible {
@@ -63,18 +71,17 @@ class LifecycleViewModel @Inject constructor(
                 .subscribeOn(Schedulers.computation())
                 .subscribe({
                     Timber.d("Is Login? $it")
-                },{
+                }, {
 
                 })
         }
     }
 
-    fun onTestBusEvent(){
+    fun onTestBusEvent() {
         TestBusEvent.publish("Test Hahah ${System.currentTimeMillis()}")
     }
 
-    fun moveFragment(){
+    fun moveFragment() {
         moveFragment.value = Unit
     }
-
 }
