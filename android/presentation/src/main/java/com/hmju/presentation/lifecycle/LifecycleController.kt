@@ -1,7 +1,5 @@
 package com.hmju.presentation.lifecycle
 
-import timber.log.Timber
-
 /**
  * Description :
  *
@@ -25,22 +23,22 @@ class LifecycleController : RxLifecycleDelegate {
         }
     }
 
-    fun onInit(){
+    fun onInit() {
         observers.forEach { it.onInit() }
         state = LifecycleState.Init
     }
 
-    fun onVisible(){
+    fun onVisible() {
         observers.forEach { it.onVisible() }
         state = LifecycleState.Visible
     }
 
-    fun onInVisible(){
+    fun onInVisible() {
         observers.forEach { it.onInvisible() }
         state = LifecycleState.InVisible
     }
 
-    fun onRelease(){
+    fun onRelease() {
         observers.forEach { it.onRelease() }
         state = LifecycleState.Release
     }

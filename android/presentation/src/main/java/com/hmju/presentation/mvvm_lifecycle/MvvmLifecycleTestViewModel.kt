@@ -5,7 +5,6 @@ import com.hmju.presentation.base.BaseViewModel
 import com.til.rxbus.TestBusEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlin.random.Random
 
 /**
  * Description :
@@ -17,15 +16,11 @@ class MvvmLifecycleTestViewModel @Inject constructor(
     private val loginManager: LoginManager
 ) : BaseViewModel() {
 
-    fun onRandomToken(){
-        if(Random.nextBoolean()) {
-            loginManager.setToken("")
-        } else {
-            loginManager.setToken("Token ${System.currentTimeMillis()}")
-        }
+    fun onRandomToken() {
+        loginManager.setToken("Token ${System.currentTimeMillis()}")
     }
 
-    fun onClick1(){
+    fun onClick1() {
         TestBusEvent.publish("테스트 버튼 클릭 ${System.currentTimeMillis()}")
     }
 }

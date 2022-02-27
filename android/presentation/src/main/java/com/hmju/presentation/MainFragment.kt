@@ -12,10 +12,7 @@ import com.hmju.presentation.performance_diff_util.DiffUtilPerformanceFragment
 import com.hmju.presentation.refactor_diff_util.RefactorDiffUtilFragment
 import com.hmju.presentation.refreshtoken.RefreshTokenFragment
 import com.hmju.presentation.simple_like_recyclerview.SimpleLikeRecyclerViewFragment
-import com.til.rxbus.TestBusEvent
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.rxjava3.core.Flowable
-import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.f_main) {
@@ -51,14 +48,6 @@ class MainFragment : Fragment(R.layout.f_main) {
         binding.mvvmLifecycle.setOnClickListener {
             moveFragment(MvvmLifecycleFragment())
         }
-
-//        Flowable.interval(0,3000, TimeUnit.MILLISECONDS)
-//            .take(20)
-//            .subscribe({
-//                TestBusEvent.publish("RanEvent ${System.currentTimeMillis()}")
-//            },{
-//
-//            })
     }
 
     private fun moveFragment(fragment: Fragment) {

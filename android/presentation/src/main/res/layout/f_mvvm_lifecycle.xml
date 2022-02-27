@@ -9,42 +9,51 @@
             type="com.hmju.presentation.mvvm_lifecycle.LifecycleViewModel" />
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clRoot"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:gravity="center_horizontal"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{()->vm.onTestBusEvent()}"
-                android:text="테스트 이벤트" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{()->vm.moveFragment()}"
-                android:text="이동이동" />
-
-            <TextView
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:gravity="center_horizontal"
-                android:text="@{vm.text}"
-                android:textSize="30dp" />
+                android:orientation="vertical">
 
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->vm.onTestBusEvent()}"
+                    android:text="테스트 이벤트" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->vm.moveFragment()}"
+                    android:text="이동이동" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@{vm.text}"
+                    android:textSize="30dp" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <FrameLayout
+                android:id="@+id/childFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <FrameLayout
-            android:id="@+id/childFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </layout>
