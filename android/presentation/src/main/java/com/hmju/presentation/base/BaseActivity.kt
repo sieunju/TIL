@@ -3,9 +3,10 @@ package com.hmju.presentation.base
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import com.hmju.presentation.BR
 import com.hmju.presentation.lifecycle.LifecycleController
-import com.hmju.presentation.lifecycle.LifecycleObserver
-import com.hmju.presentation.lifecycle.RxLifecycleDelegate
 import timber.log.Timber
 
 /**
@@ -13,19 +14,23 @@ import timber.log.Timber
  *
  * Created by juhongmin on 2022/02/26
  */
-abstract class BaseActivity<VM : BaseViewModel>(
+abstract class BaseActivity<VM : BaseViewModel, B : ViewDataBinding>(
     @LayoutRes private val layoutId: Int
 ) : AppCompatActivity() {
 
     abstract val viewModel: VM
+    lateinit var binding: B
 
     private var isInit = false
-    protected fun lifecycle() : LifecycleController = viewModel.lifecycleController
+    protected fun lifecycle(): LifecycleController = viewModel.lifecycleController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView<B>(this, layoutId).apply {
+            lifecycleOwner = this@BaseActivity
+            setVariable(BR.vm, viewModel)
+        }
         Timber.d("onCreate $isInit")
-        setContentView(layoutId)
         viewModel.onCreate()
         lifecycle().onInit()
     }
@@ -33,7 +38,7 @@ abstract class BaseActivity<VM : BaseViewModel>(
     override fun onResume() {
         super.onResume()
         Timber.d("onResume $isInit")
-        if(isInit) {
+        if (isInit) {
             lifecycle().onVisible()
         }
         isInit = true
