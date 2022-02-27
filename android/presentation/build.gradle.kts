@@ -97,6 +97,12 @@ dependencies {
     implementation(Log.timber)
 
     /**
+     * Libs
+     */
+    implementation(Libs.binding)
+    implementation(Libs.bindingReflection)
+
+    /**
      * Unit Test
      */
     androidTestImplementation(Retrofit.okhttp)

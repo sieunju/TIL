@@ -78,6 +78,11 @@ object Log {
     const val timber = "com.jakewharton.timber:timber:5.0.1"
 }
 
+object Libs {
+    const val binding = "com.github.kirich1409:viewbindingpropertydelegate:1.5.3"
+    const val bindingReflection = "com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.3"
+}
+
 object UnitTest {
     const val junit = "junit:junit:4.12"
     const val androidXJunit = "androidx.test.ext:junit:1.1.3"

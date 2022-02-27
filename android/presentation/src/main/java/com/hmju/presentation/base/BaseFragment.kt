@@ -1,11 +1,9 @@
 package com.hmju.presentation.base
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.hmju.presentation.BR
@@ -18,14 +16,14 @@ import timber.log.Timber
  * Created by juhongmin on 2022/02/26
  */
 abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
-    @LayoutRes private val layoutId: Int
-) : Fragment() {
+    @LayoutRes layoutId: Int
+) : Fragment(layoutId) {
 
     abstract val viewModel: VM
-    lateinit var binding: B
+    abstract val binding: B
+    protected fun lifecycle(): LifecycleController = viewModel.lifecycleController
 
     private var isInit = false
-    protected fun lifecycle(): LifecycleController = viewModel.lifecycleController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,17 +32,17 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
         lifecycle().onInit()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate<B>(inflater, layoutId, container, false).apply {
-            lifecycleOwner = this@BaseFragment
-            setVariable(BR.vm, viewModel)
-        }
-        return binding.root
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater,
+//        container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        binding.apply {
+//            lifecycleOwner = this@BaseFragment
+//            setVariable(BR.vm, viewModel)
+//        }
+//        return binding.root
+//    }
 
     override fun onResume() {
         super.onResume()
@@ -53,6 +51,15 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
             lifecycle().onVisible()
         }
         isInit = true
+    }
+
+    @CallSuper
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            lifecycleOwner = this@BaseFragment
+            setVariable(BR.vm, viewModel)
+        }
     }
 
     override fun onStop() {
