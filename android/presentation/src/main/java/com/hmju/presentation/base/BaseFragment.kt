@@ -32,18 +32,6 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
         lifecycle().onInit()
     }
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        binding.apply {
-//            lifecycleOwner = this@BaseFragment
-//            setVariable(BR.vm, viewModel)
-//        }
-//        return binding.root
-//    }
-
     override fun onResume() {
         super.onResume()
         Timber.d("onResume $isInit")
