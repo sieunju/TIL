@@ -2,16 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hmju.presentation">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".mvvm_lifecycle.MvvmLifecycleTestActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|fontScale"
+            android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,4 +21,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
