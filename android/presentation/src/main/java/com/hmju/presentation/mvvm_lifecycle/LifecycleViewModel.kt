@@ -24,6 +24,7 @@ class LifecycleViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val moveFragment: MutableLiveData<Unit> by lazy { MutableLiveData() }
+    val moveActivity : MutableLiveData<Unit> by lazy { MutableLiveData() }
 
     private val _text: MutableLiveData<String> by lazy { MutableLiveData() }
     val text: LiveData<String> get() = _text
@@ -70,7 +71,7 @@ class LifecycleViewModel @Inject constructor(
             loginManager.rxIsLogin()
                 .subscribeOn(Schedulers.computation())
                 .subscribe({
-                    Timber.d("Is Login? $it")
+                    Timber.d("Is Login $it")
                 }, {
 
                 })
@@ -83,5 +84,9 @@ class LifecycleViewModel @Inject constructor(
 
     fun moveFragment() {
         moveFragment.value = Unit
+    }
+
+    fun moveActivity(){
+        moveActivity.value = Unit
     }
 }

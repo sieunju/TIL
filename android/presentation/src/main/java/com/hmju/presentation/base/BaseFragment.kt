@@ -36,6 +36,7 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
         super.onResume()
         Timber.d("onResume ${javaClass.simpleName} $isInit")
         if (isInit) {
+            viewModel.performResumeDisposable()
             lifecycle().onVisible()
         }
         isInit = true

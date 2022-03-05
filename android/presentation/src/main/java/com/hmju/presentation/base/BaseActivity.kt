@@ -1,6 +1,7 @@
 package com.hmju.presentation.base
 
 import android.os.Bundle
+import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -24,6 +25,7 @@ abstract class BaseActivity<VM : BaseViewModel, B : ViewDataBinding>(
     private var isInit = false
     protected fun lifecycle(): LifecycleController = viewModel.lifecycleController
 
+    @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView<B>(this, layoutId).apply {
@@ -40,6 +42,7 @@ abstract class BaseActivity<VM : BaseViewModel, B : ViewDataBinding>(
         Timber.d("onResume $isInit")
         if (isInit) {
             lifecycle().onVisible()
+            viewModel.performResumeDisposable()
         }
         isInit = true
     }
