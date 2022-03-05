@@ -2,6 +2,7 @@ package com.hmju.presentation
 
 import androidx.lifecycle.SavedStateHandle
 import com.hmju.presentation.base.BaseViewModel
+import com.hmju.presentation.lifecycle.Resume
 import dagger.hilt.android.lifecycle.HiltViewModel
 import timber.log.Timber
 import javax.inject.Inject
@@ -19,5 +20,10 @@ class MainViewModel @Inject constructor(
     override fun onCreate() {
         super.onCreate()
         Timber.d("Handle ${stateHandle.get<String>("KEY")}")
+    }
+
+    @Resume
+    fun checkResume(){
+
     }
 }

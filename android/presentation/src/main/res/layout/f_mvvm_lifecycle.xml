@@ -16,42 +16,40 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->vm.onTestBusEvent()}"
+                android:text="테스트 이벤트" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->vm.moveFragment()}"
+                android:text="이동이동" />
+
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:text="@{vm.text}"
+                android:textSize="30dp" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{()->vm.onTestBusEvent()}"
-                    android:text="테스트 이벤트" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{()->vm.moveFragment()}"
-                    android:text="이동이동" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="@{vm.text}"
-                    android:textSize="30dp" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <FrameLayout
-                android:id="@+id/childFragment"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:onClick="@{()->vm.moveActivity()}"
+                android:text="하이요요용"
+                android:textSize="30dp" />
 
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

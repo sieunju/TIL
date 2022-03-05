@@ -1,6 +1,7 @@
 package com.hmju.presentation.mvvm_lifecycle
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
@@ -48,6 +49,12 @@ class MvvmLifecycleFragment : BaseFragment<LifecycleViewModel, FMvvmLifecycleBin
         with(viewModel) {
             moveFragment.observe(viewLifecycleOwner) {
                 moveFragment(MvvmLifecycleTestFragment())
+            }
+
+            moveActivity.observe(viewLifecycleOwner) {
+                Intent(requireContext(),MvvmLifecycleTestActivity::class.java).apply {
+                    startActivity(this)
+                }
             }
         }
     }
