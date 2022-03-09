@@ -49,6 +49,7 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
             lifecycleOwner = this@BaseFragment
             setVariable(BR.vm, viewModel)
         }
+        viewModel.performOnViewCreated()
     }
 
     override fun onStop() {

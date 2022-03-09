@@ -50,9 +50,23 @@ open class BaseViewModel : ViewModel(), RxLifecycleDelegate {
      * onStopped 선언된 함수를 실행 하는 함수
      * @see OnStopped
      */
-    fun performOnStopped(){
-        javaClass.methods.forEach { method->
+    fun performOnStopped() {
+        javaClass.methods.forEach { method ->
             if (method.isAnnotationPresent(OnStopped::class.java)) {
+                runCatching {
+                    method.invoke(this)
+                }
+            }
+        }
+    }
+
+    /**
+     * Fragment 에서 OnViewCreated 가 선언된 함수를 실행 하는 함수
+     * @see OnViewCreated
+     */
+    fun performOnViewCreated() {
+        javaClass.methods.forEach { method ->
+            if (method.isAnnotationPresent(OnViewCreated::class.java)) {
                 runCatching {
                     method.invoke(this)
                 }
