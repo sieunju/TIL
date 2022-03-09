@@ -16,5 +16,6 @@ class MvvmLifecycleTestActivity : BaseActivity<MvvmLifecycleTestViewModel, Activ
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 }

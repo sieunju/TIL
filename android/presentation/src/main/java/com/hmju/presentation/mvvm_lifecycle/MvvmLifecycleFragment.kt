@@ -61,7 +61,6 @@ class MvvmLifecycleFragment : BaseFragment<LifecycleViewModel, FMvvmLifecycleBin
 
     override fun onResume() {
         super.onResume()
-        Timber.d("onResume!!@!@!@!@! ")
     }
 
     override fun onDetach() {

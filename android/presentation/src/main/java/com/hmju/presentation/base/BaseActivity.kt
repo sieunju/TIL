@@ -32,17 +32,17 @@ abstract class BaseActivity<VM : BaseViewModel, B : ViewDataBinding>(
             lifecycleOwner = this@BaseActivity
             setVariable(BR.vm, viewModel)
         }
-        Timber.d("onCreate $isInit")
-        viewModel.onCreate()
+        Timber.d("${javaClass.simpleName} onCreate $isInit")
         lifecycle().onInit()
+        viewModel.performOnCreated()
     }
 
     override fun onResume() {
         super.onResume()
-        Timber.d("onResume $isInit")
+        Timber.d("${javaClass.simpleName} onResume $isInit")
         if (isInit) {
             lifecycle().onVisible()
-            viewModel.performResumeDisposable()
+            viewModel.performOnResumed()
         }
         isInit = true
     }
@@ -51,11 +51,12 @@ abstract class BaseActivity<VM : BaseViewModel, B : ViewDataBinding>(
         super.onStop()
         Timber.d("onStop")
         lifecycle().onInVisible()
+        viewModel.performOnStopped()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Timber.d("onDestroy $isInit")
+        Timber.d("${javaClass.simpleName} onDestroy $isInit")
         viewModel.clearDisposable()
         isInit = false
         lifecycle().onRelease()

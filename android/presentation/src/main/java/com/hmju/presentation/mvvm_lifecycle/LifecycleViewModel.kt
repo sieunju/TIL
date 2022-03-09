@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hmju.loginmanager.LoginManager
 import com.hmju.presentation.base.BaseViewModel
+import com.hmju.presentation.lifecycle.OnCreated
 import com.hmju.presentation.lifecycle.onInit
 import com.hmju.presentation.lifecycle.onVisible
 import com.til.rxbus.LoginBusEvent
@@ -24,13 +25,13 @@ class LifecycleViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val moveFragment: MutableLiveData<Unit> by lazy { MutableLiveData() }
-    val moveActivity : MutableLiveData<Unit> by lazy { MutableLiveData() }
+    val moveActivity: MutableLiveData<Unit> by lazy { MutableLiveData() }
 
     private val _text: MutableLiveData<String> by lazy { MutableLiveData() }
     val text: LiveData<String> get() = _text
 
-    override fun onCreate() {
-        super.onCreate()
+    @OnCreated
+    fun onCreate() {
         _text.value = "Hello"
 //        +onInit {
 //            TestBusEvent.listen()
@@ -86,7 +87,7 @@ class LifecycleViewModel @Inject constructor(
         moveFragment.value = Unit
     }
 
-    fun moveActivity(){
+    fun moveActivity() {
         moveActivity.value = Unit
     }
 }

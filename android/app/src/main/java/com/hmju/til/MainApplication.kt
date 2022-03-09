@@ -61,8 +61,9 @@ class MainApplication : MultiDexApplication() {
     private fun initTimber() {
         if (BuildConfig.DEBUG) {
             Timber.plant(object : Timber.DebugTree() {
+
                 override fun createStackElementTag(element: StackTraceElement): String {
-                    return "${element.className.substringAfterLast(".")}:${element.methodName}"
+                    return "Timber_${element.methodName.substringBeforeLast(".")}"
                 }
             })
         }

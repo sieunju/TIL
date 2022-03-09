@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:onClick="@{()->vm.moveActivity()}"
-                android:text="하이요요용"
+                android:text="액티비티 이동"
                 android:textSize="30dp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

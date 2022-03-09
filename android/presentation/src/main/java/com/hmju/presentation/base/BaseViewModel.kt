@@ -1,13 +1,8 @@
 package com.hmju.presentation.base
 
-import androidx.annotation.CallSuper
 import androidx.lifecycle.ViewModel
-import com.hmju.presentation.lifecycle.LifecycleController
-import com.hmju.presentation.lifecycle.LifecycleObserver
-import com.hmju.presentation.lifecycle.Resume
-import com.hmju.presentation.lifecycle.RxLifecycleDelegate
+import com.hmju.presentation.lifecycle.*
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import timber.log.Timber
 
 /**
  * Description : BaseViewModel
@@ -17,19 +12,50 @@ import timber.log.Timber
 open class BaseViewModel : ViewModel(), RxLifecycleDelegate {
 
     protected val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
-    val lifecycleController : LifecycleController by lazy { LifecycleController() }
+    val lifecycleController: LifecycleController by lazy { LifecycleController() }
 
     override fun LifecycleObserver.unaryPlus() {
         lifecycleController += this
     }
 
-    @CallSuper
-    open fun onCreate() {}
-
-    fun performResumeDisposable() {
+    /**
+     * OnCreated 선언된 함수를 실행 하는 함수
+     * @see OnCreated
+     */
+    fun performOnCreated() {
         javaClass.methods.forEach { method ->
-            if(method.isAnnotationPresent(Resume::class.java)) {
-                Timber.d("Resume 이있는 함수 ${method.name}")
+            if (method.isAnnotationPresent(OnCreated::class.java)) {
+                runCatching {
+                    method.invoke(this)
+                }
+            }
+        }
+    }
+
+    /**
+     * onResumed 선언된 함수를 실행 하는 함수
+     * @see OnResumed
+     */
+    fun performOnResumed() {
+        javaClass.methods.forEach { method ->
+            if (method.isAnnotationPresent(OnResumed::class.java)) {
+                runCatching {
+                    method.invoke(this)
+                }
+            }
+        }
+    }
+
+    /**
+     * onStopped 선언된 함수를 실행 하는 함수
+     * @see OnStopped
+     */
+    fun performOnStopped(){
+        javaClass.methods.forEach { method->
+            if (method.isAnnotationPresent(OnStopped::class.java)) {
+                runCatching {
+                    method.invoke(this)
+                }
             }
         }
     }

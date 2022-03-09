@@ -27,17 +27,17 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Timber.d("onCreate $isInit")
-        viewModel.onCreate()
+        Timber.d("${javaClass.simpleName} onCreate $isInit")
+        viewModel.performOnCreated()
         lifecycle().onInit()
     }
 
     override fun onResume() {
         super.onResume()
-        Timber.d("onResume ${javaClass.simpleName} $isInit")
+        Timber.d("${javaClass.simpleName} onResume $isInit")
         if (isInit) {
-            viewModel.performResumeDisposable()
             lifecycle().onVisible()
+            viewModel.performOnResumed()
         }
         isInit = true
     }
@@ -53,20 +53,21 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
 
     override fun onStop() {
         super.onStop()
-        Timber.d("onStop ${javaClass.simpleName}")
+        Timber.d("${javaClass.simpleName} onStop")
         lifecycle().onInVisible()
+        viewModel.performOnStopped()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Timber.d("onDestroyView $isInit")
+        Timber.d("${javaClass.simpleName} onDestroyView $isInit")
         isInit = false
         viewModel.clearDisposable()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Timber.d("onDestroy")
+        Timber.d("${javaClass.simpleName} onDestroy")
         lifecycle().onRelease()
     }
 }
