@@ -1,5 +1,7 @@
 package com.hmju.presentation.mvvm_lifecycle
 
+import android.content.Intent
+import com.hmju.lifecycle.IntentEntity
 import com.hmju.lifecycle.OnResumed
 import com.hmju.lifecycle.OnStopped
 import com.hmju.loginmanager.LoginManager
@@ -26,6 +28,23 @@ class MvvmLifecycleTestViewModel @Inject constructor(
 
     fun onClick1() {
         TestBusEvent.publish("테스트 버튼 클릭 ${System.currentTimeMillis()}")
+    }
+
+    fun onClick2() {
+        startActivity.value = IntentEntity(
+            target = MvvmLifecycleTestActivity2::class.java,
+            bundle = null,
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        )
+    }
+
+    fun onClick3() {
+        startActivityResult.value = IntentEntity(
+            target = MvvmLifecycleTestActivity2::class.java,
+            bundle = null,
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT,
+            requestCode = 3000
+        )
     }
 
     @OnResumed

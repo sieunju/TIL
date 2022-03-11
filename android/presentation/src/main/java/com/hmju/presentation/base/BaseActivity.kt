@@ -1,5 +1,6 @@
 package com.hmju.presentation.base
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.CallSuper
@@ -31,13 +32,15 @@ abstract class BaseActivity<VM : BaseViewModel, B : ViewDataBinding>(
 
     protected fun lifecycle(): LifecycleController = viewModel.lifecycleController
 
-    private val activityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        Timber.d("Activity Result $it")
-    }
+    private val activityResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            Timber.d("Activity Result $it")
+        }
 
-    private val permissionResult = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-        Timber.d("Permission Result $it")
-    }
+    private val permissionResult =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            Timber.d("Permission Result $it")
+        }
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,9 +49,42 @@ abstract class BaseActivity<VM : BaseViewModel, B : ViewDataBinding>(
             lifecycleOwner = this@BaseActivity
             setVariable(BR.vm, viewModel)
         }
+        performLiveData()
         Timber.d("${javaClass.simpleName} onCreate $isInit")
         lifecycle().onInit()
         viewModel.performLifecycle<OnCreated>()
+    }
+
+    /**
+     * BaseActivity 에서 공통으로 처리할 LiveData 을 셋팅하는 함수
+     */
+    private fun performLiveData() {
+        with(viewModel) {
+            startActivity.observe(this@BaseActivity) { entity ->
+                Timber.d("Activity $entity")
+                Intent(this@BaseActivity, entity.target).apply {
+                    entity.flags?.let { flags = it }
+                    entity.bundle?.let { putExtras(it) }
+                    this@BaseActivity.startActivity(this)
+                }
+            }
+
+            startActivityResult.observe(this@BaseActivity) { entity ->
+                Timber.d("ActivityResult $entity")
+                entity.requestCode?.let { code ->
+                    activityResult.launch(
+                        Intent(
+                            this@BaseActivity,
+                            entity.target
+                        ).apply {
+                            entity.flags?.let { flags = it }
+                            entity.bundle?.let { putExtras(it) }
+                            putExtra(BaseViewModel.REQ_CODE, code)
+                        })
+                }
+
+            }
+        }
     }
 
     override fun onResume() {
@@ -75,4 +111,6 @@ abstract class BaseActivity<VM : BaseViewModel, B : ViewDataBinding>(
         isInit = false
         lifecycle().onRelease()
     }
+
+    
 }

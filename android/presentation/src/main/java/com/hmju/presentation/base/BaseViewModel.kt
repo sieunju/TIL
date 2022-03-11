@@ -1,10 +1,10 @@
 package com.hmju.presentation.base
 
+import android.os.Bundle
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.hmju.lifecycle.OnCreated
-import com.hmju.lifecycle.OnResumed
-import com.hmju.lifecycle.OnStopped
-import com.hmju.lifecycle.OnViewCreated
+import com.hmju.lifecycle.*
 import com.hmju.presentation.lifecycle.LifecycleController
 import com.hmju.presentation.lifecycle.LifecycleObserver
 import com.hmju.presentation.lifecycle.RxLifecycleDelegate
@@ -17,9 +17,20 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
  */
 open class BaseViewModel : ViewModel(), RxLifecycleDelegate {
 
+    companion object {
+        const val REQ_CODE = "req_code"
+    }
+
     protected val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
     val lifecycleController: LifecycleController by lazy { LifecycleController() }
 
+    val startActivity: MutableLiveData<IntentEntity> by lazy { MutableLiveData() }
+    val startActivityResult: MutableLiveData<IntentEntity> by lazy { MutableLiveData() }
+
+    @Deprecated(
+        message = "ViewModel 에서 Annotation 으로 처리하는것으로 변경했습니다.",
+        replaceWith = ReplaceWith("OnCreated, OnResumed, OnStopped")
+    )
     override fun LifecycleObserver.unaryPlus() {
         lifecycleController += this
     }

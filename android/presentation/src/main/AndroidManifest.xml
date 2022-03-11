@@ -6,9 +6,6 @@
 
     <application android:usesCleartextTraffic="true">
         <activity
-            android:name=".mvvm_lifecycle.MvvmLifecycleTestActivity2"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|fontScale"
             android:exported="true"
@@ -23,6 +20,10 @@
         <activity
             android:name=".mvvm_lifecycle.MvvmLifecycleTestActivity"
             android:exported="false" />
+        <activity
+            android:name=".mvvm_lifecycle.MvvmLifecycleTestActivity2"
+            android:exported="false" />
+
     </application>
 
 </manifest>

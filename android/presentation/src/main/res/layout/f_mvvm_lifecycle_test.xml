@@ -34,6 +34,20 @@
                 android:onClick="@{()->vm.onClick1()}"
                 android:text="클릭합니다." />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->vm.onClick2()}"
+                android:text="테스트2 페이지로 이동합니다.." />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->vm.onClick3()}"
+                android:text="테스트2 페이지로 RequestCode 답아서 보냅니다.." />
+
+
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
