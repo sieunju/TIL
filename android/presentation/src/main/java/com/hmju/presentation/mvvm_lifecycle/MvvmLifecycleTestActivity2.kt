@@ -1,12 +1,21 @@
 package com.hmju.presentation.mvvm_lifecycle
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import com.hmju.presentation.R
+import com.hmju.presentation.base.BaseActivity
+import com.hmju.presentation.databinding.ActivityMvvmLifecycleTest2Binding
+import dagger.hilt.android.AndroidEntryPoint
 
-class MvvmLifecycleTestActivity2 : AppCompatActivity() {
+@AndroidEntryPoint
+class MvvmLifecycleTestActivity2 :
+    BaseActivity<MvvmLifecycleTestViewModel2, ActivityMvvmLifecycleTest2Binding>(
+        R.layout.activity_mvvm_lifecycle_test2
+    ) {
+
+    override val viewModel: MvvmLifecycleTestViewModel2 by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mvvm_lifecycle_test2)
     }
 }

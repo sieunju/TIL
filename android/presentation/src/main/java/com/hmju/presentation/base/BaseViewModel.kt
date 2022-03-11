@@ -5,7 +5,9 @@ import com.hmju.lifecycle.OnCreated
 import com.hmju.lifecycle.OnResumed
 import com.hmju.lifecycle.OnStopped
 import com.hmju.lifecycle.OnViewCreated
-import com.hmju.presentation.lifecycle.*
+import com.hmju.presentation.lifecycle.LifecycleController
+import com.hmju.presentation.lifecycle.LifecycleObserver
+import com.hmju.presentation.lifecycle.RxLifecycleDelegate
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 /**
@@ -23,54 +25,12 @@ open class BaseViewModel : ViewModel(), RxLifecycleDelegate {
     }
 
     /**
-     * OnCreated 선언된 함수를 실행 하는 함수
-     * @see OnCreated
+     * [OnCreated], [OnResumed], [OnStopped], [OnViewCreated]
+     * 으로 선언된 함수를 실행 하는 함수
      */
-    fun performOnCreated() {
+    inline fun <reified T : Annotation> performLifecycle() {
         javaClass.methods.forEach { method ->
-            if (method.isAnnotationPresent(OnCreated::class.java)) {
-                runCatching {
-                    method.invoke(this)
-                }
-            }
-        }
-    }
-
-    /**
-     * onResumed 선언된 함수를 실행 하는 함수
-     * @see OnResumed
-     */
-    fun performOnResumed() {
-        javaClass.methods.forEach { method ->
-            if (method.isAnnotationPresent(OnResumed::class.java)) {
-                runCatching {
-                    method.invoke(this)
-                }
-            }
-        }
-    }
-
-    /**
-     * onStopped 선언된 함수를 실행 하는 함수
-     * @see OnStopped
-     */
-    fun performOnStopped() {
-        javaClass.methods.forEach { method ->
-            if (method.isAnnotationPresent(OnStopped::class.java)) {
-                runCatching {
-                    method.invoke(this)
-                }
-            }
-        }
-    }
-
-    /**
-     * Fragment 에서 OnViewCreated 가 선언된 함수를 실행 하는 함수
-     * @see OnViewCreated
-     */
-    fun performOnViewCreated() {
-        javaClass.methods.forEach { method ->
-            if (method.isAnnotationPresent(OnViewCreated::class.java)) {
+            if (method.isAnnotationPresent(T::class.java)) {
                 runCatching {
                     method.invoke(this)
                 }
