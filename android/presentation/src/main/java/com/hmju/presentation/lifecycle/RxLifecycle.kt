@@ -9,12 +9,14 @@ import timber.log.Timber
  *
  * Created by juhongmin on 2022/02/27
  */
+@Deprecated(message = "ViewModel 에서 Annotation 으로 처리하는것으로 변경했습니다.")
 typealias DisposableFunction = () -> Disposable
 
 fun onInit(function: DisposableFunction): RxLifecycle = RxLifecycle().init(function)
 
 fun onVisible(function: DisposableFunction): RxLifecycle = RxLifecycle().visible(function)
 
+@Deprecated(message = "ViewModel 에서 Annotation 으로 처리하는것으로 변경했습니다.")
 class RxLifecycle : LifecycleObserver {
     private var onInit: DisposableFunction? = null
     private var initDisposable: Disposable? = null

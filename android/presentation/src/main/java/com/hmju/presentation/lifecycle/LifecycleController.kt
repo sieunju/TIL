@@ -5,6 +5,7 @@ package com.hmju.presentation.lifecycle
  *
  * Created by juhongmin on 2022/02/27
  */
+@Deprecated(message = "ViewModel 에서 Annotation 으로 처리하는것으로 변경했습니다.")
 class LifecycleController : RxLifecycleDelegate {
     private val observers = mutableListOf<LifecycleObserver>()
     private var state: LifecycleState = LifecycleState.Unknown

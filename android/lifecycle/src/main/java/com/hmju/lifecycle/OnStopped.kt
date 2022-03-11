@@ -1,8 +1,8 @@
-package com.hmju.presentation.lifecycle
+package com.hmju.lifecycle
 
 /**
- * Description : Fragment
- * onViewCreated 상태일때 호출
+ * Description : Activity or Fragment
+ * onStop 상태일때 호출
  * BaseViewModel 상속 받은 ViewModel 에서만 사용 가능
  * 함수 생성시 public, No Parameter
  *
@@ -10,4 +10,4 @@ package com.hmju.presentation.lifecycle
  */
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class OnViewCreated
+annotation class OnStopped

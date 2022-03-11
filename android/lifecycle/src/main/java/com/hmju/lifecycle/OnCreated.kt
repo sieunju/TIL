@@ -1,4 +1,4 @@
-package com.hmju.presentation.lifecycle
+package com.hmju.lifecycle
 
 /**
  * Description : Activity or Fragment 에서

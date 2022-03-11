@@ -2,8 +2,8 @@ package com.hmju.presentation
 
 import androidx.lifecycle.SavedStateHandle
 import com.hmju.presentation.base.BaseViewModel
-import com.hmju.presentation.lifecycle.OnCreated
-import com.hmju.presentation.lifecycle.OnResumed
+import com.hmju.lifecycle.OnCreated
+import com.hmju.lifecycle.OnResumed
 import dagger.hilt.android.lifecycle.HiltViewModel
 import timber.log.Timber
 import javax.inject.Inject
@@ -18,12 +18,12 @@ class MainViewModel @Inject constructor(
     private val stateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
-    @OnCreated
+    @com.hmju.lifecycle.OnCreated
     fun onCreate() {
         Timber.d("Handle ${stateHandle.get<String>("KEY")}")
     }
 
-    @OnResumed
+    @com.hmju.lifecycle.OnResumed
     fun checkResume() {
         Timber.d("함수 실행합니다. Resume")
     }
