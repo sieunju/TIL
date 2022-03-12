@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentActivity
  *
  * Created by juhongmin on 2022/03/11
  */
-data class MovePage(
+data class MovePageEvent(
     val target: Class<out FragmentActivity>,
     val bundle: Bundle = Bundle.EMPTY,
     val flags: Int? = null,

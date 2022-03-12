@@ -42,6 +42,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
     private val permissionResult =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
             Timber.d("Permission Result $it")
+
         }
 
     @CallSuper
@@ -84,7 +85,10 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
                             putExtras(entity.bundle)
                         })
                 }
+            }
 
+            startPermission.observe(this@BaseActivity) { list ->
+                permissionResult.launch(list.toTypedArray())
             }
         }
     }

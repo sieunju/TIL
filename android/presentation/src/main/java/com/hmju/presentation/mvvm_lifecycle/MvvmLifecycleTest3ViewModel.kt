@@ -3,7 +3,7 @@ package com.hmju.presentation.mvvm_lifecycle
 import android.os.Bundle
 import androidx.lifecycle.SavedStateHandle
 import com.hmju.domain.usecase.GetGoodsUseCase
-import com.hmju.lifecycle.MovePage
+import com.hmju.lifecycle.MovePageEvent
 import com.hmju.lifecycle.OnCreated
 import com.hmju.loginmanager.LoginManager
 import com.hmju.presentation.IntentKey
@@ -47,11 +47,11 @@ class MvvmLifecycleTest3ViewModel @Inject constructor(
     }
 
     fun moveTest2Page() {
-        startActivity.value = MovePage(
+        movePage(MovePageEvent(
             MvvmLifecycleTest2Activity::class.java,
             bundle = Bundle().apply {
                 putLong(IntentKey.NOW_TIME, System.currentTimeMillis())
             }
-        )
+        ))
     }
 }

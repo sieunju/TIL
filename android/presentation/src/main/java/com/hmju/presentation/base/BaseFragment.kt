@@ -90,7 +90,12 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
                             putExtras(entity.bundle)
                         })
                 }
+            }
 
+            startPermission.observe(viewLifecycleOwner) { list ->
+                runCatching {
+                    permissionResult.launch(list.toTypedArray())
+                }
             }
         }
     }

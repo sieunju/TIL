@@ -59,13 +59,13 @@ class MainApplication : MultiDexApplication() {
     }
 
     private fun initTimber() {
-        if (BuildConfig.DEBUG) {
+//        if (BuildConfig.DEBUG) {
             Timber.plant(object : Timber.DebugTree() {
 
                 override fun createStackElementTag(element: StackTraceElement): String {
                     return "Timber_${element.methodName.substringBeforeLast(".")}"
                 }
             })
-        }
+//        }
     }
 }

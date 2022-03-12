@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hmju.presentation" >
+    package="com.hmju.presentation">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
-    <application android:usesCleartextTraffic="true" >
+    <application android:usesCleartextTraffic="true">
         <activity
             android:name=".mvvm_lifecycle.MvvmLifecycleTest3Activity"
             android:exported="false" />
@@ -13,7 +19,7 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|fontScale"
             android:exported="true"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

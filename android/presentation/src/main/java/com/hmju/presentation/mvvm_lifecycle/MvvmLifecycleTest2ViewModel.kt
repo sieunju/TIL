@@ -2,7 +2,7 @@ package com.hmju.presentation.mvvm_lifecycle
 
 import android.os.Bundle
 import androidx.lifecycle.SavedStateHandle
-import com.hmju.lifecycle.MovePage
+import com.hmju.lifecycle.MovePageEvent
 import com.hmju.lifecycle.OnActivityResult
 import com.hmju.lifecycle.OnCreated
 import com.hmju.loginmanager.LoginManager
@@ -32,22 +32,24 @@ class MvvmLifecycleTest2ViewModel @Inject constructor(
     }
 
     fun moveTest3() {
-        startActivity.value = MovePage(MvvmLifecycleTest3Activity::class.java)
+        movePage(MovePageEvent(MvvmLifecycleTest3Activity::class.java))
     }
 
     fun moveTest3Req111() {
-        startActivityResult.value = MovePage(
-            MvvmLifecycleTest3Activity::class.java,
-            bundle = Bundle().apply {
-                putString(IntentKey.TOKEN, loginManager.getToken())
-                putLong(IntentKey.NOW_TIME, System.currentTimeMillis())
-            },
-            requestCode = RequestCode.MVVM_LIFECYCLE_3
+        movePage(
+            MovePageEvent(
+                MvvmLifecycleTest3Activity::class.java,
+                bundle = Bundle().apply {
+                    putString(IntentKey.TOKEN, loginManager.getToken())
+                    putLong(IntentKey.NOW_TIME, System.currentTimeMillis())
+                },
+                requestCode = RequestCode.MVVM_LIFECYCLE_3
+            )
         )
     }
 
     @OnActivityResult(RequestCode.MVVM_LIFECYCLE_3)
-    fun onActivityResult(data : Bundle?) {
+    fun onActivityResult(data: Bundle?) {
         data?.let {
             Timber.d("Result Token ${it.getString(IntentKey.TOKEN)}")
             Timber.d("Result Time ${it.getLong(IntentKey.NOW_TIME)}")
