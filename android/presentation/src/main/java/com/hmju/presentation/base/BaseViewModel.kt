@@ -1,7 +1,5 @@
 package com.hmju.presentation.base
 
-import android.os.Bundle
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hmju.lifecycle.*
@@ -24,8 +22,8 @@ open class BaseViewModel : ViewModel(), RxLifecycleDelegate {
     protected val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
     val lifecycleController: LifecycleController by lazy { LifecycleController() }
 
-    val startActivity: MutableLiveData<IntentEntity> by lazy { MutableLiveData() }
-    val startActivityResult: MutableLiveData<IntentEntity> by lazy { MutableLiveData() }
+    val startActivity: MutableLiveData<MovePage> by lazy { MutableLiveData() }
+    val startActivityResult: MutableLiveData<MovePage> by lazy { MutableLiveData() }
 
     @Deprecated(
         message = "ViewModel 에서 Annotation 으로 처리하는것으로 변경했습니다.",

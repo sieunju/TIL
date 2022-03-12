@@ -11,8 +11,12 @@ import javax.inject.Inject
  * Created by juhongmin on 2022/03/11
  */
 @HiltViewModel
-class MvvmLifecycleTestViewModel2 @Inject constructor(
+class MvvmLifecycleTest2ViewModel @Inject constructor(
     private val loginManager : LoginManager
 ) : BaseViewModel() {
 
+
+    fun moveTest3(){
+
+    }
 }

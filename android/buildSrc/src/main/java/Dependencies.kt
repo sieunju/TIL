@@ -47,7 +47,6 @@ object Hilt {
     const val android = "com.google.dagger:hilt-android:${Versions.hilt}"
     const val compiler = "com.google.dagger:hilt-compiler:${Versions.hilt}"
     const val androidx = "androidx.hilt:hilt-compiler:1.0.0-alpha01"
-    const val lifecycle = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01"
 }
 
 object Rx {

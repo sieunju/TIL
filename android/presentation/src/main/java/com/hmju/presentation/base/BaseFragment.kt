@@ -21,7 +21,7 @@ import timber.log.Timber
  *
  * Created by juhongmin on 2022/02/26
  */
-abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
+abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes layoutId: Int
 ) : Fragment(layoutId) {
 
@@ -34,12 +34,12 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
 
     private val activityResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            Timber.d("Activity Result $it")
+            Timber.d("Fragment Result ${it.resultCode}  ${it.data?.extras}")
         }
 
     private val permissionResult =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-            Timber.d("Permission Result $it")
+            Timber.d("Fragment Permission Result $it")
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,16 +66,16 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
     private fun performLiveData() {
         with(viewModel) {
             startActivity.observe(viewLifecycleOwner) { entity ->
-                Timber.d("Activity $entity")
+                Timber.d("Fragment Activity $entity")
                 Intent(requireContext(), entity.target).apply {
                     entity.flags?.let { flags = it }
-                    entity.bundle?.let { putExtras(it) }
+                    putExtras(entity.bundle)
                     requireContext().startActivity(this)
                 }
             }
 
             startActivityResult.observe(viewLifecycleOwner) { entity ->
-                Timber.d("ActivityResult $entity")
+                Timber.d("Fragment ActivityResult $entity")
                 entity.requestCode?.let { code ->
                     activityResult.launch(
                         Intent(
@@ -83,8 +83,8 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
                             entity.target
                         ).apply {
                             entity.flags?.let { flags = it }
-                            entity.bundle?.let { putExtras(it) }
-                            putExtra(BaseViewModel.REQ_CODE, code)
+                            entity.bundle.putInt(BaseViewModel.REQ_CODE, code)
+                            putExtras(entity.bundle)
                         })
                 }
 

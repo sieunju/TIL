@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 class MvvmLifecycleTestFragment :
-    BaseFragment<MvvmLifecycleTestViewModel, FMvvmLifecycleTestBinding>(
+    BaseFragment<FMvvmLifecycleTestBinding, MvvmLifecycleTestViewModel>(
         R.layout.f_mvvm_lifecycle_test
     ) {
 

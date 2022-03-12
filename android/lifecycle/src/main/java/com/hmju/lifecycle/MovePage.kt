@@ -9,9 +9,9 @@ import androidx.fragment.app.FragmentActivity
  *
  * Created by juhongmin on 2022/03/11
  */
-data class IntentEntity(
+data class MovePage(
     val target: Class<out FragmentActivity>,
-    val bundle: Bundle? = null,
+    val bundle: Bundle = Bundle.EMPTY,
     val flags: Int? = null,
     val requestCode: Int? = null
 )

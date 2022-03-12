@@ -20,7 +20,7 @@ import timber.log.Timber
  * Created by juhongmin on 2022/02/26
  */
 @AndroidEntryPoint
-class MvvmLifecycleFragment : BaseFragment<LifecycleViewModel, FMvvmLifecycleBinding>(
+class MvvmLifecycleFragment : BaseFragment<FMvvmLifecycleBinding, LifecycleViewModel>(
     R.layout.f_mvvm_lifecycle
 ) {
 

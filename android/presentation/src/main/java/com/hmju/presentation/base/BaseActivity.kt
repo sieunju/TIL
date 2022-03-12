@@ -6,7 +6,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.PermissionChecker
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.hmju.lifecycle.OnCreated
@@ -21,7 +20,7 @@ import timber.log.Timber
  *
  * Created by juhongmin on 2022/02/26
  */
-abstract class BaseActivity<VM : BaseViewModel, B : ViewDataBinding>(
+abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes private val layoutId: Int
 ) : AppCompatActivity() {
 
@@ -34,7 +33,7 @@ abstract class BaseActivity<VM : BaseViewModel, B : ViewDataBinding>(
 
     private val activityResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            Timber.d("Activity Result $it")
+            Timber.d("Activity Result ${it.resultCode}  ${it.data?.extras}")
         }
 
     private val permissionResult =
@@ -64,7 +63,7 @@ abstract class BaseActivity<VM : BaseViewModel, B : ViewDataBinding>(
                 Timber.d("Activity $entity")
                 Intent(this@BaseActivity, entity.target).apply {
                     entity.flags?.let { flags = it }
-                    entity.bundle?.let { putExtras(it) }
+                    putExtras(entity.bundle)
                     this@BaseActivity.startActivity(this)
                 }
             }
@@ -78,8 +77,8 @@ abstract class BaseActivity<VM : BaseViewModel, B : ViewDataBinding>(
                             entity.target
                         ).apply {
                             entity.flags?.let { flags = it }
-                            entity.bundle?.let { putExtras(it) }
-                            putExtra(BaseViewModel.REQ_CODE, code)
+                            entity.bundle.putInt(BaseViewModel.REQ_CODE, code)
+                            putExtras(entity.bundle)
                         })
                 }
 
@@ -112,5 +111,14 @@ abstract class BaseActivity<VM : BaseViewModel, B : ViewDataBinding>(
         lifecycle().onRelease()
     }
 
-    
+    override fun finish() {
+        intent.extras?.let { bundle ->
+            val reqCode = bundle.getInt(BaseViewModel.REQ_CODE, -1)
+            Timber.d("Finish ReqCode $reqCode $bundle")
+            if (reqCode != -1) {
+                setResult(reqCode, intent)
+            }
+        }
+        super.finish()
+    }
 }

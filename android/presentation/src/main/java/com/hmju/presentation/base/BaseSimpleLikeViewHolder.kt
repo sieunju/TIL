@@ -28,7 +28,7 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
     parent: ViewGroup,
     @LayoutRes layoutId: Int
 ) : BaseViewHolder<T>(parent, layoutId),
-    LifecycleObserver {
+    LifecycleEventObserver {
 
     private val simpleLikeEntryPoint: SimpleLikeEntryPoint by lazy {
         EntryPoints.get(itemView.context.applicationContext, SimpleLikeEntryPoint::class.java)
@@ -132,18 +132,32 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
         likeRequestDisposable = null
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    private fun onResume() {
-        if (itemView.isAttachedToWindow) {
-            onRefreshLike()
+    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+        Timber.d("onStateChange $event")
+        if (event == Lifecycle.Event.ON_RESUME) {
+            if (itemView.isAttachedToWindow) {
+                onRefreshLike()
+            }
+
+            initLikeChange()
+        } else if (event == Lifecycle.Event.ON_STOP) {
+            closeLikeChangeDisposable()
+            closeRequestDisposable()
         }
-
-        initLikeChange()
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    private fun onStop() {
-        closeLikeChangeDisposable()
-        closeRequestDisposable()
-    }
+//    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+//    private fun onResume() {
+//        if (itemView.isAttachedToWindow) {
+//            onRefreshLike()
+//        }
+//
+//        initLikeChange()
+//    }
+//
+//    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+//    private fun onStop() {
+//        closeLikeChangeDisposable()
+//        closeRequestDisposable()
+//    }
 }

@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * Created by juhongmin on 2022/01/21
  */
 @AndroidEntryPoint
-class CustomPagingFragment : BaseFragment<CustomPagingViewModel, FCustomPagingBinding>(
+class CustomPagingFragment : BaseFragment<FCustomPagingBinding, CustomPagingViewModel>(
     R.layout.f_custom_paging
 ) {
 

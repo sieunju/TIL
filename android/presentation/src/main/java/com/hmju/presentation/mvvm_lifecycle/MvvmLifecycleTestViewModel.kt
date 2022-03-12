@@ -1,7 +1,8 @@
 package com.hmju.presentation.mvvm_lifecycle
 
 import android.content.Intent
-import com.hmju.lifecycle.IntentEntity
+import android.os.Bundle
+import com.hmju.lifecycle.MovePage
 import com.hmju.lifecycle.OnResumed
 import com.hmju.lifecycle.OnStopped
 import com.hmju.loginmanager.LoginManager
@@ -31,17 +32,19 @@ class MvvmLifecycleTestViewModel @Inject constructor(
     }
 
     fun onClick2() {
-        startActivity.value = IntentEntity(
-            target = MvvmLifecycleTestActivity2::class.java,
-            bundle = null,
+        startActivity.value = MovePage(
+            target = MvvmLifecycleTest2Activity::class.java,
             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         )
     }
 
     fun onClick3() {
-        startActivityResult.value = IntentEntity(
-            target = MvvmLifecycleTestActivity2::class.java,
-            bundle = null,
+        startActivityResult.value = MovePage(
+            target = MvvmLifecycleTest2Activity::class.java,
+            bundle = Bundle().apply {
+                putString("test", "testValue")
+                putInt("testInt", 13333)
+            },
             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT,
             requestCode = 3000
         )
