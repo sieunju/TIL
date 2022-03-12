@@ -1,6 +1,5 @@
 package com.hmju.presentation.mvvm_lifecycle
 
-import android.os.Bundle
 import androidx.activity.viewModels
 import com.hmju.presentation.R
 import com.hmju.presentation.base.BaseActivity
@@ -14,8 +13,4 @@ class MvvmLifecycleTest2Activity :
     ) {
 
     override val viewModel: MvvmLifecycleTest2ViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 }

@@ -35,6 +35,9 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     private val activityResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             Timber.d("Fragment Result ${it.resultCode}  ${it.data?.extras}")
+            runCatching {
+                viewModel.performActivityResult(it.resultCode, it.data?.extras)
+            }
         }
 
     private val permissionResult =

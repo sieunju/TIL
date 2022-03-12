@@ -34,6 +34,9 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
     private val activityResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             Timber.d("Activity Result ${it.resultCode}  ${it.data?.extras}")
+            runCatching {
+                viewModel.performActivityResult(it.resultCode, it.data?.extras)
+            }
         }
 
     private val permissionResult =

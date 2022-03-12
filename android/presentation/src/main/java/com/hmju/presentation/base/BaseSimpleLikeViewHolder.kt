@@ -7,7 +7,10 @@ import androidx.annotation.LayoutRes
 import androidx.core.view.doOnAttach
 import androidx.core.view.doOnDetach
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.*
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.hmju.likemanager.LikeManager
 import com.hmju.presentation.simple_like_recyclerview.SimpleLikeEntryPoint
 import com.til.model.RxBus
@@ -133,7 +136,6 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
     }
 
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-        Timber.d("onStateChange $event")
         if (event == Lifecycle.Event.ON_RESUME) {
             if (itemView.isAttachedToWindow) {
                 onRefreshLike()

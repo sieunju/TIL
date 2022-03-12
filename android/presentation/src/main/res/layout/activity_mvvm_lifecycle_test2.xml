@@ -19,7 +19,14 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{()->vm.moveTest3()}"
             android:text="테스트 3 액티비티 이동" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->vm.moveTest3Req111()}"
+            android:text="테스트 3 ReqCode 이동" />
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

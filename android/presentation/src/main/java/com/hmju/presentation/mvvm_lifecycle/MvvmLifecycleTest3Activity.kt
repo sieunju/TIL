@@ -8,8 +8,9 @@ import com.hmju.presentation.databinding.ActivityMvvmLifecycleTest3Binding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MvvmLifecycleTest3Activity : BaseActivity<ActivityMvvmLifecycleTest3Binding, MvvmLifecycleTest3ViewModel>
-    (
+class MvvmLifecycleTest3Activity :
+    BaseActivity<ActivityMvvmLifecycleTest3Binding, MvvmLifecycleTest3ViewModel>
+        (
         R.layout.activity_mvvm_lifecycle_test3
     ) {
 

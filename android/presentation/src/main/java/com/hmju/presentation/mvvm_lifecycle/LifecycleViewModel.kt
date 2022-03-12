@@ -30,7 +30,7 @@ class LifecycleViewModel @Inject constructor(
     private val _text: MutableLiveData<String> by lazy { MutableLiveData() }
     val text: LiveData<String> get() = _text
 
-    @com.hmju.lifecycle.OnCreated
+    @OnCreated
     fun onCreate() {
         _text.value = "Hello"
 //        +onInit {
