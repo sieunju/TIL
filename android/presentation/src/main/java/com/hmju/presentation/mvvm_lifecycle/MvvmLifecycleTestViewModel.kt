@@ -4,10 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.SavedStateHandle
-import com.hmju.lifecycle.MovePageEvent
-import com.hmju.lifecycle.OnCreated
-import com.hmju.lifecycle.OnResumed
-import com.hmju.lifecycle.OnStopped
+import com.hmju.lifecycle.*
 import com.hmju.loginmanager.LoginManager
 import com.hmju.presentation.IntentKey
 import com.hmju.presentation.RequestCode
@@ -87,7 +84,8 @@ class MvvmLifecycleTestViewModel @Inject constructor(
         movePermissions(
             listOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.CAMERA
+                Manifest.permission.CAMERA,
+                Manifest.permission.READ_EXTERNAL_STORAGE
             )
         )
     }
@@ -112,5 +110,20 @@ class MvvmLifecycleTestViewModel @Inject constructor(
     @OnStopped
     fun testOnStopped() {
         Timber.d("stopped ")
+    }
+
+    @OnPermissionResult([Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA])
+    fun onPermissionResult1(map: Map<String, Boolean>) {
+        Timber.d("Permission1 Map $map")
+    }
+
+    @OnPermissionResult([Manifest.permission.CAMERA])
+    fun onPermissionResult2(map: Map<String, Boolean>) {
+        Timber.d("Permission2 Map $map")
+    }
+
+    @OnPermissionResult([Manifest.permission.READ_EXTERNAL_STORAGE])
+    fun onStorageResult(map: Map<String, Boolean>) {
+        Timber.d("Permission3 Map $map")
     }
 }

@@ -42,7 +42,10 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
 
     private val permissionResult =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-            Timber.d("Fragment Permission Result $it")
+            Timber.d("Permission Result $it")
+            runCatching {
+                viewModel.performPermissionResult(it)
+            }
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {

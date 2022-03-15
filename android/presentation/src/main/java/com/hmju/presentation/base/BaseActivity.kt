@@ -1,7 +1,10 @@
 package com.hmju.presentation.base
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
@@ -42,7 +45,9 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
     private val permissionResult =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
             Timber.d("Permission Result $it")
-
+            runCatching {
+                viewModel.performPermissionResult(it)
+            }
         }
 
     @CallSuper

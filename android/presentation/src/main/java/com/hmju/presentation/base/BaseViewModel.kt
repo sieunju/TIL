@@ -75,6 +75,30 @@ open class BaseViewModel : ViewModel(), RxLifecycleDelegate {
     }
 
     /**
+     * onPermissionResult 에 대한 처리
+     * @param resultPermissionMap 전달 받은 권한 리턴 맵
+     */
+    fun performPermissionResult(resultPermissionMap: Map<String, Boolean>) {
+        javaClass.methods.forEach { method ->
+            if (method.isAnnotationPresent(OnPermissionResult::class.java)) {
+                method.getAnnotation(OnPermissionResult::class.java)?.let { annotation ->
+                    val map = ConcurrentHashMap<String, Boolean>()
+                    annotation.permissions.forEach { permission ->
+                        resultPermissionMap[permission]?.let { isGranted ->
+                            map[permission] = isGranted
+                        }
+                    }
+                    if (map.size > 0) {
+                        runCatching {
+                            method.invoke(this, map)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * 간단하게 페이지 이동 처리
      * @param movePageEvent MovePage Data Model
      */
@@ -90,7 +114,7 @@ open class BaseViewModel : ViewModel(), RxLifecycleDelegate {
      * 권한 요청 처리 함수
      * @param list 검증되지 않은 권한들
      */
-    protected fun movePermissions(list : List<String>) {
+    protected fun movePermissions(list: List<String>) {
         startPermission.value = validatePermission(list)
     }
 
@@ -118,7 +142,7 @@ open class BaseViewModel : ViewModel(), RxLifecycleDelegate {
             }
         }
 
-        Timber.d("Permission Map $cachePermissionMap")
+        // Timber.d("Permission Map $cachePermissionMap")
 
         list.forEach { str ->
             if (cachePermissionMap.containsKey(str)) {
