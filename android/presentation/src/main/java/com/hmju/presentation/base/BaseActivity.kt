@@ -1,10 +1,7 @@
 package com.hmju.presentation.base
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
@@ -15,7 +12,6 @@ import com.hmju.lifecycle.OnCreated
 import com.hmju.lifecycle.OnResumed
 import com.hmju.lifecycle.OnStopped
 import com.hmju.presentation.BR
-import com.hmju.presentation.lifecycle.LifecycleController
 import timber.log.Timber
 
 /**
@@ -31,8 +27,6 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
     lateinit var binding: B
 
     private var isInit = false
-
-    protected fun lifecycle(): LifecycleController = viewModel.lifecycleController
 
     private val activityResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -59,8 +53,9 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
         }
         performLiveData()
         Timber.d("${javaClass.simpleName} onCreate $isInit")
-        lifecycle().onInit()
-        viewModel.performLifecycle<OnCreated>()
+        viewModel.runCatching {
+            addDisposable(performLifecycleRx<OnCreated>())
+        }
     }
 
     /**
@@ -102,8 +97,9 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
         super.onResume()
         Timber.d("${javaClass.simpleName} onResume $isInit")
         if (isInit) {
-            lifecycle().onVisible()
-            viewModel.performLifecycle<OnResumed>()
+            viewModel.runCatching {
+                addDisposable(performLifecycleRx<OnResumed>())
+            }
         }
         isInit = true
     }
@@ -111,8 +107,9 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
     override fun onStop() {
         super.onStop()
         Timber.d("onStop")
-        lifecycle().onInVisible()
-        viewModel.performLifecycle<OnStopped>()
+        viewModel.runCatching {
+            addDisposable(performLifecycleRx<OnStopped>())
+        }
     }
 
     override fun onDestroy() {
@@ -120,7 +117,6 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
         Timber.d("${javaClass.simpleName} onDestroy $isInit")
         viewModel.clearDisposable()
         isInit = false
-        lifecycle().onRelease()
     }
 
     override fun finish() {

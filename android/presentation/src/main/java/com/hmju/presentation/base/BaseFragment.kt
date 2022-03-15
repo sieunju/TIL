@@ -13,7 +13,6 @@ import com.hmju.lifecycle.OnResumed
 import com.hmju.lifecycle.OnStopped
 import com.hmju.lifecycle.OnViewCreated
 import com.hmju.presentation.BR
-import com.hmju.presentation.lifecycle.LifecycleController
 import timber.log.Timber
 
 /**
@@ -29,8 +28,6 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     abstract val binding: B
 
     private var isInit = false
-
-    protected fun lifecycle(): LifecycleController = viewModel.lifecycleController
 
     private val activityResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -51,8 +48,9 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.d("${javaClass.simpleName} onCreate $isInit")
-        lifecycle().onInit()
-        viewModel.performLifecycle<OnCreated>()
+        viewModel.runCatching {
+            addDisposable(performLifecycleRx<OnCreated>())
+        }
     }
 
     @CallSuper
@@ -63,7 +61,10 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
             setVariable(BR.vm, viewModel)
         }
         performLiveData()
-        viewModel.performLifecycle<OnViewCreated>()
+
+        viewModel.runCatching {
+            addDisposable(performLifecycleRx<OnViewCreated>())
+        }
     }
 
     /**
@@ -107,8 +108,9 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
         super.onResume()
         Timber.d("${javaClass.simpleName} onResume $isInit")
         if (isInit) {
-            lifecycle().onVisible()
-            viewModel.performLifecycle<OnResumed>()
+            viewModel.runCatching {
+                addDisposable(performLifecycleRx<OnResumed>())
+            }
         }
         isInit = true
     }
@@ -116,8 +118,9 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     override fun onStop() {
         super.onStop()
         Timber.d("${javaClass.simpleName} onStop")
-        lifecycle().onInVisible()
-        viewModel.performLifecycle<OnStopped>()
+        viewModel.runCatching {
+            addDisposable(performLifecycleRx<OnStopped>())
+        }
     }
 
     override fun onDestroyView() {
@@ -130,6 +133,5 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     override fun onDestroy() {
         super.onDestroy()
         Timber.d("${javaClass.simpleName} onDestroy")
-        lifecycle().onRelease()
     }
 }

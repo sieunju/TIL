@@ -29,7 +29,7 @@ class MainApplication : MultiDexApplication() {
         RxJavaPlugins.setErrorHandler { e ->
             var error = e
             if (error is UndeliverableException) {
-                error = e.cause
+                error = e.cause ?: Throwable("UndeliverableException")
             }
             if (error is IOException || error is SocketException) {
                 // fine, irrelevant network problem or API that throws on cancellation

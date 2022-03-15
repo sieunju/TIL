@@ -5,10 +5,11 @@ import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hmju.lifecycle.*
-import com.hmju.presentation.lifecycle.LifecycleController
-import com.hmju.presentation.lifecycle.LifecycleObserver
-import com.hmju.presentation.lifecycle.RxLifecycleDelegate
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.kotlin.addTo
 import timber.log.Timber
 import java.util.concurrent.ConcurrentHashMap
 
@@ -17,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap
  *
  * Created by juhongmin on 2022/02/26
  */
-open class BaseViewModel : ViewModel(), RxLifecycleDelegate {
+open class BaseViewModel : ViewModel() {
 
     companion object {
         const val REQ_CODE = "req_code"
@@ -27,19 +28,10 @@ open class BaseViewModel : ViewModel(), RxLifecycleDelegate {
     }
 
     protected val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
-    val lifecycleController: LifecycleController by lazy { LifecycleController() }
 
     val startActivity: MutableLiveData<MovePageEvent> by lazy { MutableLiveData() }
     val startActivityResult: MutableLiveData<MovePageEvent> by lazy { MutableLiveData() }
     val startPermission: MutableLiveData<List<String>> by lazy { MutableLiveData() }
-
-    @Deprecated(
-        message = "ViewModel 에서 Annotation 으로 처리하는것으로 변경했습니다.",
-        replaceWith = ReplaceWith("OnCreated, OnResumed, OnStopped")
-    )
-    override fun LifecycleObserver.unaryPlus() {
-        lifecycleController += this
-    }
 
     /**
      * [OnCreated], [OnResumed], [OnStopped], [OnViewCreated]
@@ -53,6 +45,22 @@ open class BaseViewModel : ViewModel(), RxLifecycleDelegate {
                 }
             }
         }
+    }
+
+    /**
+     * [OnCreated], [OnResumed], [OnStopped], [OnViewCreated]
+     * ReactiveX 타입
+     * 선언된 함수를 실행 하는 함수
+     */
+    inline fun <reified T : Annotation> performLifecycleRx(): Disposable {
+        return Flowable.fromIterable(javaClass.methods.toList())
+            .filter { it.isAnnotationPresent(T::class.java) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.invoke(this)
+            }, {
+                Timber.d("PerformLifecycleRx $it")
+            })
     }
 
     /**
@@ -150,6 +158,14 @@ open class BaseViewModel : ViewModel(), RxLifecycleDelegate {
             }
         }
         return permissionList
+    }
+
+    /**
+     * CompositeDisposable 를 public 으로 처리할수 있는 함수
+     * @param disposable Disposable
+     */
+    fun addDisposable(disposable: Disposable) {
+        disposable.addTo(compositeDisposable)
     }
 
     fun clearDisposable() {

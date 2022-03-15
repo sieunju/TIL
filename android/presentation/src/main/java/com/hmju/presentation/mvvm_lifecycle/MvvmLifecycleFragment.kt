@@ -12,7 +12,6 @@ import com.hmju.presentation.R
 import com.hmju.presentation.base.BaseFragment
 import com.hmju.presentation.databinding.FMvvmLifecycleBinding
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 /**
  * Description :
@@ -27,20 +26,20 @@ class MvvmLifecycleFragment : BaseFragment<FMvvmLifecycleBinding, LifecycleViewM
     override val viewModel: LifecycleViewModel by viewModels()
     override val binding: FMvvmLifecycleBinding by viewBinding()
 
-    private lateinit var callback : OnBackPressedCallback
+    private lateinit var callback: OnBackPressedCallback
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if(childFragmentManager.backStackEntryCount > 0) {
+                if (childFragmentManager.backStackEntryCount > 0) {
                     childFragmentManager.popBackStack()
                 } else {
                     parentFragmentManager.popBackStack()
                 }
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(this,callback)
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,15 +51,11 @@ class MvvmLifecycleFragment : BaseFragment<FMvvmLifecycleBinding, LifecycleViewM
             }
 
             moveActivity.observe(viewLifecycleOwner) {
-                Intent(requireContext(),MvvmLifecycleTestActivity::class.java).apply {
+                Intent(requireContext(), MvvmLifecycleTestActivity::class.java).apply {
                     startActivity(this)
                 }
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 
     override fun onDetach() {
@@ -70,7 +65,7 @@ class MvvmLifecycleFragment : BaseFragment<FMvvmLifecycleBinding, LifecycleViewM
 
     private fun moveFragment(fragment: Fragment) {
         childFragmentManager.beginTransaction().apply {
-            replace(R.id.clRoot,fragment)
+            replace(R.id.clRoot, fragment)
             addToBackStack(null)
             commit()
         }
