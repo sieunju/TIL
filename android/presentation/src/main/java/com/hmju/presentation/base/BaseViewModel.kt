@@ -10,6 +10,7 @@ import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.addTo
+import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 import java.util.concurrent.ConcurrentHashMap
 
@@ -55,11 +56,12 @@ open class BaseViewModel : ViewModel() {
     inline fun <reified T : Annotation> performLifecycleRx(): Disposable {
         return Flowable.fromIterable(javaClass.methods.toList())
             .filter { it.isAnnotationPresent(T::class.java) }
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 it.invoke(this)
             }, {
-                Timber.d("PerformLifecycleRx $it")
+                Timber.e("PerformLifecycleRx Error $it")
             })
     }
 
@@ -72,7 +74,7 @@ open class BaseViewModel : ViewModel() {
         javaClass.methods.forEach { method ->
             if (method.isAnnotationPresent(OnActivityResult::class.java)) {
                 method.getAnnotation(OnActivityResult::class.java)?.let { annotation ->
-                    if (annotation.code == code) {
+                    if (annotation.requestCode == code) {
                         runCatching {
                             method.invoke(this, data)
                         }
@@ -80,6 +82,29 @@ open class BaseViewModel : ViewModel() {
                 }
             }
         }
+    }
+
+    /**
+     * onActivityResult 에 대한 처리
+     * ReactiveX 타입
+     * @param code RequestCode
+     * @param data 전달 받을 데이터
+     */
+    fun performActivityResultRx(code: Int, data: Bundle?) {
+        Flowable.fromIterable(javaClass.methods.toList())
+            .filter { it.isAnnotationPresent(OnActivityResult::class.java) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ method ->
+                method.getAnnotation(OnActivityResult::class.java)?.let { annotation ->
+                    // RequestCode 와 같은 함수만 호출
+                    if (annotation.requestCode == code) {
+                        method.invoke(this, data)
+                    }
+                }
+            }, {
+                Timber.e("performActivityResultRx Error $it")
+            }).addTo(compositeDisposable)
     }
 
     /**
@@ -104,6 +129,44 @@ open class BaseViewModel : ViewModel() {
                 }
             }
         }
+    }
+
+    /**
+     * onPermissionResult 에 대한 처리
+     * ReactiveX 타입
+     * @param resultPermissionMap 전달 받은 권한 리턴 맵
+     */
+    fun performPermissionResultRx(resultPermissionMap: Map<String, Boolean>) {
+        Flowable.fromIterable(javaClass.methods.toList())
+            .filter { it.isAnnotationPresent(OnPermissionResult::class.java) }
+            .map { method ->
+                return@map method.getAnnotation(OnPermissionResult::class.java)?.let {
+                    method to it
+                } ?: run {
+                    throw NullPointerException("Annotation is Null")
+                }
+            }
+            .map { pair ->
+                val map = ConcurrentHashMap<String, Boolean>()
+                pair.second.permissions.forEach { permission ->
+                    resultPermissionMap[permission]?.let { isGranted ->
+                        map[permission] = isGranted
+                    }
+                }
+                if (map.size > 0) {
+                    return@map pair.first to map
+                } else {
+                    throw NullPointerException("Map is Null")
+                }
+            }
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ pair ->
+                pair.first.invoke(this, pair.second)
+            }, {
+
+            })
+
     }
 
     /**

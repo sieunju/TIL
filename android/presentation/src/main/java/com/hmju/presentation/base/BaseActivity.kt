@@ -32,7 +32,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             Timber.d("Activity Result ${it.resultCode}  ${it.data?.extras}")
             runCatching {
-                viewModel.performActivityResult(it.resultCode, it.data?.extras)
+                viewModel.performActivityResultRx(it.resultCode, it.data?.extras)
             }
         }
 
@@ -40,7 +40,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
             Timber.d("Permission Result $it")
             runCatching {
-                viewModel.performPermissionResult(it)
+                viewModel.performPermissionResultRx(it)
             }
         }
 
