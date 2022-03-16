@@ -8,10 +8,7 @@ import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import com.hmju.lifecycle.OnCreated
-import com.hmju.lifecycle.OnResumed
-import com.hmju.lifecycle.OnStopped
-import com.hmju.lifecycle.OnViewCreated
+import com.hmju.lifecycle.*
 import com.hmju.presentation.BR
 import timber.log.Timber
 
@@ -23,6 +20,10 @@ import timber.log.Timber
 abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes layoutId: Int
 ) : Fragment(layoutId) {
+
+    companion object {
+        val fragmentStackList = mutableListOf<String>()
+    }
 
     abstract val viewModel: VM
     abstract val binding: B
@@ -65,6 +66,9 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
         viewModel.runCatching {
             addDisposable(performLifecycleRx<OnViewCreated>())
         }
+
+        // TEST
+        fragmentStackList.add(javaClass.simpleName)
     }
 
     /**
@@ -130,8 +134,20 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
         viewModel.clearDisposable()
     }
 
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden) {
+            viewModel.runCatching {
+                addDisposable(performLifecycleRx<OnFragmentShown>())
+            }
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         Timber.d("${javaClass.simpleName} onDestroy")
+
+        // TEST
+        fragmentStackList.removeLast()
     }
 }

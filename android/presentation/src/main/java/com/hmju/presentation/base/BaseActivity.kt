@@ -8,6 +8,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.FragmentActivity
 import com.hmju.lifecycle.OnCreated
 import com.hmju.lifecycle.OnResumed
 import com.hmju.lifecycle.OnStopped
@@ -22,6 +23,10 @@ import timber.log.Timber
 abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes private val layoutId: Int
 ) : AppCompatActivity() {
+
+    companion object {
+        val activityStackList = mutableListOf<String>()
+    }
 
     abstract val viewModel: VM
     lateinit var binding: B
@@ -56,6 +61,9 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
         viewModel.runCatching {
             addDisposable(performLifecycleRx<OnCreated>())
         }
+
+        // TEST
+        activityStackList.add(javaClass.simpleName)
     }
 
     /**
@@ -128,5 +136,8 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
             }
         }
         super.finish()
+
+        // TEST
+        activityStackList.removeLast()
     }
 }
