@@ -57,7 +57,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
             setVariable(BR.vm, viewModel)
         }
         performLiveData()
-        Timber.d("${javaClass.simpleName} onCreate $isInit")
+        // Timber.d("${javaClass.simpleName} onCreate $isInit")
         viewModel.runCatching {
             addDisposable(performLifecycleRx<OnCreated>())
         }
@@ -98,12 +98,16 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
             startPermission.observe(this@BaseActivity) { list ->
                 permissionResult.launch(list.toTypedArray())
             }
+
+            resultIntentData.observe(this@BaseActivity) {
+                intent.putExtras(it)
+            }
         }
     }
 
     override fun onResume() {
         super.onResume()
-        Timber.d("${javaClass.simpleName} onResume $isInit")
+        // Timber.d("${javaClass.simpleName} onResume $isInit")
         if (isInit) {
             viewModel.runCatching {
                 addDisposable(performLifecycleRx<OnResumed>())
@@ -114,7 +118,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
 
     override fun onStop() {
         super.onStop()
-        Timber.d("onStop")
+        // Timber.d("onStop")
         viewModel.runCatching {
             addDisposable(performLifecycleRx<OnStopped>())
         }
@@ -122,7 +126,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
 
     override fun onDestroy() {
         super.onDestroy()
-        Timber.d("${javaClass.simpleName} onDestroy $isInit")
+        // Timber.d("${javaClass.simpleName} onDestroy $isInit")
         viewModel.clearDisposable()
         isInit = false
     }

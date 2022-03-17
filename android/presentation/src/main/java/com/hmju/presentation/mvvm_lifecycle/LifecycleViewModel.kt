@@ -1,12 +1,12 @@
 package com.hmju.presentation.mvvm_lifecycle
 
+import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hmju.domain.usecase.GetGoodsUseCase
-import com.hmju.lifecycle.OnCreated
-import com.hmju.lifecycle.OnResumed
-import com.hmju.lifecycle.OnStopped
+import com.hmju.lifecycle.*
 import com.hmju.loginmanager.LoginManager
+import com.hmju.presentation.IntentKey
 import com.hmju.presentation.base.BaseViewModel
 import com.til.model.params.GoodsParamMap
 import com.til.rxbus.TestBusEvent
@@ -27,60 +27,61 @@ class LifecycleViewModel @Inject constructor(
     private val goodsUseCase: GetGoodsUseCase
 ) : BaseViewModel() {
 
-    val moveFragment: MutableLiveData<Unit> by lazy { MutableLiveData() }
-    val moveActivity: MutableLiveData<Unit> by lazy { MutableLiveData() }
-
-    private val _text: MutableLiveData<String> by lazy { MutableLiveData() }
-    val text: LiveData<String> get() = _text
+    private val _activityResult: MutableLiveData<String> by lazy { MutableLiveData() }
+    val activityResult: LiveData<String> get() = _activityResult
     private val queryMap: GoodsParamMap by lazy { GoodsParamMap() }
 
     @OnCreated
     fun onCreate() {
-        _text.value = "Hello"
+        activityStack.value = getActivityStackStr()
+        fragmentStack.value = getFragmentStackStr()
         goodsUseCase(queryMap)
             .subscribe({
                 loginManager.setToken(it[0].imagePath)
             }, {
-
             }).addTo(compositeDisposable)
     }
 
     @OnResumed
-    fun onIsLoginCheck() {
-        loginManager.rxIsLogin()
-            .subscribeOn(Schedulers.computation())
-            .subscribe({
-                Timber.d("OnResume Is Login $it")
-            }, {
-
-            }).addTo(compositeDisposable)
+    fun onResume() {
+        activityStack.value = getActivityStackStr()
+        fragmentStack.value = getFragmentStackStr()
     }
 
-    @OnResumed
-    fun onLoginTokenResume() {
-        Timber.d("Resume Token ${loginManager.getToken()}")
+    fun move200Page() {
+        movePage(
+            MovePageEvent(
+                MvvmLifecycleTest2Activity::class.java,
+                bundle = Bundle().apply {
+                    putString(IntentKey.TOKEN, loginManager.getToken())
+                },
+                requestCode = 200
+            )
+        )
     }
 
-    @OnStopped
-    fun onStop() {
-        loginManager.rxIsLogin()
-            .subscribeOn(Schedulers.computation())
-            .subscribe({
-                Timber.d("onStop Is Login $it")
-            }, {
-
-            }).addTo(compositeDisposable)
+    fun move201Page() {
+        movePage(
+            MovePageEvent(
+                MvvmLifecycleTest2Activity::class.java,
+                bundle = Bundle().apply {
+                    putLong(IntentKey.NOW_TIME, System.currentTimeMillis())
+                },
+                requestCode = 201
+            )
+        )
     }
 
-    fun onTestBusEvent() {
-        TestBusEvent.publish("Test Hahah ${System.currentTimeMillis()}")
+    @OnActivityResult(200)
+    fun onActivity200(data: Bundle?) {
+        _activityResult.value =
+            "${200}_${data?.getString(IntentKey.TOKEN)}, ${data?.getLong(IntentKey.NOW_TIME)}"
     }
 
-    fun moveFragment() {
-        moveFragment.value = Unit
+    @OnActivityResult(201)
+    fun onActivity2001(data: Bundle?) {
+        _activityResult.value =
+            "${201}_${data?.getString(IntentKey.TOKEN)}, ${data?.getLong(IntentKey.NOW_TIME)}"
     }
 
-    fun moveActivity() {
-        moveActivity.value = Unit
-    }
 }

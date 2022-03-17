@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentActivity
  */
 data class MovePageEvent(
     val target: Class<out FragmentActivity>,
-    val bundle: Bundle = Bundle.EMPTY,
+    val bundle: Bundle = Bundle(),
     val flags: Int? = null,
     val requestCode: Int? = null
 )

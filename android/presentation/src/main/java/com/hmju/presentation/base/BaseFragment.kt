@@ -77,7 +77,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     private fun performLiveData() {
         with(viewModel) {
             startActivity.observe(viewLifecycleOwner) { entity ->
-                Timber.d("Fragment Activity $entity")
+                // Timber.d("Fragment Activity $entity")
                 Intent(requireContext(), entity.target).apply {
                     entity.flags?.let { flags = it }
                     putExtras(entity.bundle)
@@ -86,7 +86,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
             }
 
             startActivityResult.observe(viewLifecycleOwner) { entity ->
-                Timber.d("Fragment ActivityResult $entity")
+                // Timber.d("Fragment ActivityResult $entity")
                 entity.requestCode?.let { code ->
                     activityResult.launch(
                         Intent(
@@ -110,7 +110,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
 
     override fun onResume() {
         super.onResume()
-        Timber.d("${javaClass.simpleName} onResume $isInit")
+        // Timber.d("${javaClass.simpleName} onResume $isInit")
         if (isInit) {
             viewModel.runCatching {
                 addDisposable(performLifecycleRx<OnResumed>())
@@ -121,7 +121,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
 
     override fun onStop() {
         super.onStop()
-        Timber.d("${javaClass.simpleName} onStop")
+        // Timber.d("${javaClass.simpleName} onStop")
         viewModel.runCatching {
             addDisposable(performLifecycleRx<OnStopped>())
         }
@@ -129,7 +129,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Timber.d("${javaClass.simpleName} onDestroyView $isInit")
+        // Timber.d("${javaClass.simpleName} onDestroyView $isInit")
         isInit = false
         viewModel.clearDisposable()
     }
@@ -145,7 +145,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
 
     override fun onDestroy() {
         super.onDestroy()
-        Timber.d("${javaClass.simpleName} onDestroy")
+        // Timber.d("${javaClass.simpleName} onDestroy")
 
         // TEST
         fragmentStackList.removeLast()

@@ -42,22 +42,6 @@ class MvvmLifecycleFragment : BaseFragment<FMvvmLifecycleBinding, LifecycleViewM
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        with(viewModel) {
-            moveFragment.observe(viewLifecycleOwner) {
-                moveFragment(MvvmLifecycleTestFragment())
-            }
-
-            moveActivity.observe(viewLifecycleOwner) {
-                Intent(requireContext(), MvvmLifecycleTestActivity::class.java).apply {
-                    startActivity(this)
-                }
-            }
-        }
-    }
-
     override fun onDetach() {
         super.onDetach()
         callback.remove()

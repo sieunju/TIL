@@ -2,9 +2,12 @@ package com.hmju.presentation.base
 
 import android.Manifest
 import android.os.Bundle
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.hmju.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -13,6 +16,7 @@ import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 import java.util.concurrent.ConcurrentHashMap
+import javax.inject.Inject
 
 /**
  * Description : BaseViewModel
@@ -30,9 +34,22 @@ open class BaseViewModel : ViewModel() {
 
     protected val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
 
+    protected val _resultIntentData : MutableLiveData<Bundle> by lazy { MutableLiveData() }
+    val resultIntentData: LiveData<Bundle> get() = _resultIntentData
     val startActivity: MutableLiveData<MovePageEvent> by lazy { MutableLiveData() }
     val startActivityResult: MutableLiveData<MovePageEvent> by lazy { MutableLiveData() }
     val startPermission: MutableLiveData<List<String>> by lazy { MutableLiveData() }
+
+    val activityStack: MutableLiveData<String> by lazy { MutableLiveData() }
+    val fragmentStack: MutableLiveData<String> by lazy { MutableLiveData() }
+
+    fun getActivityStackStr(): String {
+        return BaseActivity.activityStackList.joinToString("\n>")
+    }
+
+    fun getFragmentStackStr(): String {
+        return BaseFragment.fragmentStackList.joinToString("\n>")
+    }
 
     /**
      * [OnCreated], [OnResumed], [OnStopped], [OnViewCreated]

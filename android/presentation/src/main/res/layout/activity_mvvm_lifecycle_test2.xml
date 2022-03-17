@@ -10,25 +10,47 @@
             type="com.hmju.presentation.mvvm_lifecycle.MvvmLifecycleTest2ViewModel" />
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <Button
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvActivityStack"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{()->vm.moveTest3()}"
-            android:text="테스트 3 액티비티 이동" />
+            android:text="@{vm.activityStack}"
+            android:textSize="15dp"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvFragmentStack"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{()->vm.moveTest3Req111()}"
-            android:text="테스트 3 ReqCode 이동" />
+            android:text="@{vm.fragmentStack}"
+            android:textSize="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvActivityStack" />
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvFragmentStack">
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->vm.changeToken()}"
+                android:text="토큰값 수정해서 처리" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->vm.moveTest3Page()}"
+                android:text="TEST3 액티비티 실행" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

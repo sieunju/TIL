@@ -5,6 +5,8 @@ import androidx.lifecycle.SavedStateHandle
 import com.hmju.domain.usecase.GetGoodsUseCase
 import com.hmju.lifecycle.MovePageEvent
 import com.hmju.lifecycle.OnCreated
+import com.hmju.lifecycle.OnResumed
+import com.hmju.lifecycle.OnStopped
 import com.hmju.loginmanager.LoginManager
 import com.hmju.presentation.IntentKey
 import com.hmju.presentation.base.BaseViewModel
@@ -21,16 +23,32 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class MvvmLifecycleTest3ViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
+    private val handle: SavedStateHandle,
     private val getGoodsUseCase: GetGoodsUseCase,
     private val loginManager: LoginManager
 ) : BaseViewModel() {
 
     @OnCreated
     fun savedHandle() {
-        Timber.d("Token ${savedStateHandle.get<String>(IntentKey.TOKEN)}")
-        Timber.d("NowTime ${savedStateHandle.get<Long>(IntentKey.NOW_TIME)}")
-        Timber.d("Test Long Arr ${savedStateHandle.get<LongArray>(IntentKey.TEST_LONG_ARR)}")
+        handle.keys().forEach {
+            Timber.d("Key $it ${handle.get<Any>(it)}")
+        }
+        handle["TEST_KEY"] = "TETKKEKEKQKEKQKEKEKEKEKEKE"
+        activityStack.value = getActivityStackStr()
+        fragmentStack.value = getFragmentStackStr()
+    }
+
+    @OnResumed
+    fun onResume(){
+        activityStack.value = getActivityStackStr()
+        fragmentStack.value = getFragmentStackStr()
+    }
+
+    @OnStopped
+    fun onStop() {
+        _resultIntentData.value = Bundle().apply {
+            putString("TEST_KEY","AAEFEFEFEFEFEFEFEFEFA")
+        }
     }
 
     @OnCreated
