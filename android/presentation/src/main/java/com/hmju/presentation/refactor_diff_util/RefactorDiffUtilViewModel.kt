@@ -2,7 +2,6 @@ package com.hmju.presentation.refactor_diff_util
 
 import androidx.lifecycle.ViewModel
 import com.hmju.domain.usecase.GetGoodsUseCase
-import com.hmju.presentation.JLogger
 import com.hmju.presentation.custompaging.ListLiveData
 import com.hmju.presentation.custompaging.PagingModel
 import com.til.model.params.GoodsParamMap
@@ -73,7 +72,6 @@ class RefactorDiffUtilViewModel @Inject constructor(
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                JLogger.d("List ${it.size}")
                 queryMap.pageNo++
                 pagingModel.isLast = it.isEmpty()
                 pagingModel.isLoading = false

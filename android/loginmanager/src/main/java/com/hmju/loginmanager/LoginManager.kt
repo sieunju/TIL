@@ -1,5 +1,7 @@
 package com.hmju.loginmanager
 
+import io.reactivex.rxjava3.core.Single
+
 /**
  * Description :
  *
@@ -8,4 +10,6 @@ package com.hmju.loginmanager
 interface LoginManager {
     fun setToken(token: String)
     fun getToken(): String
+    fun isLogin() : Boolean
+    fun rxIsLogin() : Single<Boolean>
 }

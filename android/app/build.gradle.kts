@@ -33,8 +33,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = "11"
@@ -50,6 +50,7 @@ dependencies {
     implementation(project(path = ":domain"))
     implementation(project(path = ":loginmanager"))
     implementation(project(path = ":presentation"))
+    implementation(project(path = ":rxbus"))
 
     /**
      * Network
@@ -87,6 +88,11 @@ dependencies {
      */
     implementation(Rx.java)
     implementation(Rx.kotlin)
+
+    /**
+     * Timber
+     */
+    implementation(Log.timber)
 
     testImplementation(UnitTest.junit)
     androidTestImplementation(UnitTest.androidXJunit)

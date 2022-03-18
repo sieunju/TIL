@@ -7,12 +7,12 @@ import androidx.fragment.app.Fragment
 import com.hmju.presentation.custompaging.CustomPagingFragment
 import com.hmju.presentation.databinding.FMainBinding
 import com.hmju.presentation.json_jsend.JsonJsendFragment
+import com.hmju.presentation.mvvm_lifecycle.MvvmLifecycleFragment
 import com.hmju.presentation.performance_diff_util.DiffUtilPerformanceFragment
 import com.hmju.presentation.refactor_diff_util.RefactorDiffUtilFragment
 import com.hmju.presentation.refreshtoken.RefreshTokenFragment
 import com.hmju.presentation.simple_like_recyclerview.SimpleLikeRecyclerViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.f_main) {
@@ -43,6 +43,10 @@ class MainFragment : Fragment(R.layout.f_main) {
 
         binding.performDiffUtil.setOnClickListener {
             moveFragment(DiffUtilPerformanceFragment())
+        }
+
+        binding.mvvmLifecycle.setOnClickListener {
+            moveFragment(MvvmLifecycleFragment())
         }
     }
 
