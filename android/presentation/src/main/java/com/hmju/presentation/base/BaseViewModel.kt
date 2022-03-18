@@ -34,7 +34,7 @@ open class BaseViewModel : ViewModel() {
 
     protected val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
 
-    protected val _resultIntentData : MutableLiveData<Bundle> by lazy { MutableLiveData() }
+    protected val _resultIntentData: MutableLiveData<Bundle> by lazy { MutableLiveData() }
     val resultIntentData: LiveData<Bundle> get() = _resultIntentData
     val startActivity: MutableLiveData<MovePageEvent> by lazy { MutableLiveData() }
     val startActivityResult: MutableLiveData<MovePageEvent> by lazy { MutableLiveData() }
@@ -238,6 +238,16 @@ open class BaseViewModel : ViewModel() {
             }
         }
         return permissionList
+    }
+
+    /**
+     * setResult 할때 데이터 전달하기위한 함수
+     * @param bundle BundleData
+     */
+    protected fun saveResultData(bundle: Bundle?) {
+        if (bundle != null) {
+            _resultIntentData.value = bundle
+        }
     }
 
     /**

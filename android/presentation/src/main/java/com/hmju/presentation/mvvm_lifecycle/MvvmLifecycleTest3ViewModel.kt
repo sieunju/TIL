@@ -39,16 +39,16 @@ class MvvmLifecycleTest3ViewModel @Inject constructor(
     }
 
     @OnResumed
-    fun onResume(){
+    fun onResume() {
         activityStack.value = getActivityStackStr()
         fragmentStack.value = getFragmentStackStr()
     }
 
     @OnStopped
     fun onStop() {
-        _resultIntentData.value = Bundle().apply {
-            putString("TEST_KEY","AAEFEFEFEFEFEFEFEFEFA")
-        }
+        saveResultData(Bundle().apply {
+            putString("TEST_KEY", "AAEFEFEFEFEFEFEFEFEFA")
+        })
     }
 
     @OnCreated

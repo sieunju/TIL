@@ -12,4 +12,4 @@ package com.hmju.lifecycle
  */
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class OnActivityResult(val requestCode: Int = -1)
+annotation class OnActivityResult(val requestCode: Int)

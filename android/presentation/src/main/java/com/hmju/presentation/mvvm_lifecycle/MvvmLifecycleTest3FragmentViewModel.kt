@@ -21,6 +21,16 @@ class MvvmLifecycleTest3FragmentViewModel @Inject constructor(
     val startToast : MutableLiveData<String> by lazy { MutableLiveData() }
 
     @OnResumed
+    fun checkLogin(){
+        // Do Something..
+    }
+
+    @OnResumed
+    fun refreshCart(){
+        // Do Something..
+    }
+
+    @OnResumed
     fun onResume(){
         startToast.value = "테스트 3 완료"
         stateHandle["TEST_KEY"] = "adfasdfasdf"
