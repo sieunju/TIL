@@ -7,31 +7,32 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Apps.compileSdkVersion)
+    compileSdk = Apps.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion(Apps.minSdkVersion)
-        targetSdkVersion(Apps.targetSdkVersion)
+        minSdk = Apps.minSdkVersion
+        targetSdk = Apps.targetSdkVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
-        getByName("debug") {
+
+        debug {
             isMinifyEnabled = false
         }
 
-        getByName("release") {
+        release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         dataBinding = true
@@ -46,6 +47,8 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":loginmanager"))
     implementation(project(":likemanager"))
+    implementation(project(":rxbus"))
+    implementation(project(":lifecycle"))
 
     /**
      * Android X
@@ -74,6 +77,9 @@ dependencies {
      * Hilt
      */
     implementation(Hilt.android)
+    implementation("androidx.appcompat:appcompat:1.4.1")
+    implementation("com.google.android.material:material:1.5.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
     kapt(Hilt.compiler)
 
     /**
@@ -89,6 +95,17 @@ dependencies {
     implementation(Glide.base)
     implementation(Glide.compiler)
     implementation(Glide.okhttp)
+
+    /**
+     * Timber
+     */
+    implementation(Log.timber)
+
+    /**
+     * Libs
+     */
+    implementation(Libs.binding)
+    implementation(Libs.bindingReflection)
 
     /**
      * Unit Test

@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Apps.compileSdkVersion)
+    compileSdk = Apps.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion(Apps.minSdkVersion)
-        targetSdkVersion(Apps.targetSdkVersion)
+        minSdk = Apps.minSdkVersion
+        targetSdk = Apps.targetSdkVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -26,19 +26,26 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 
 dependencies {
+    implementation(project(":rxbus"))
 
     /**
      * Hilt
      */
     implementation(Hilt.android)
     kapt(Hilt.compiler)
+
+    /**
+     * Rx
+     */
+    implementation(Rx.java)
+    implementation(Rx.kotlin)
 }

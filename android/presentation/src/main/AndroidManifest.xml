@@ -2,21 +2,36 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hmju.presentation">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".mvvm_lifecycle.MvvmLifecycleTest3Activity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|fontScale"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".mvvm_lifecycle.MvvmLifecycleTestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".mvvm_lifecycle.MvvmLifecycleTest2Activity"
+            android:exported="false" />
     </application>
+
 </manifest>

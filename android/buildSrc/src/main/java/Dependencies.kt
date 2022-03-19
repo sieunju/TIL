@@ -1,21 +1,21 @@
 object Apps {
     const val compileSdkVersion = 31
-    const val buildToolsVersion = "30.0.3"
+    const val buildToolsVersion = "31.0.0"
     const val minSdkVersion = 23
-    const val targetSdkVersion = 30
+    const val targetSdkVersion = 31
     const val versionCode = 1
     const val versionName = "0.0.1"
 }
 
 object Versions {
-    const val kotlin = "1.4.30"
-    const val ktx = "1.5.0"
+    const val kotlin = "1.6.10"
+    const val ktx = "1.6.0"
     const val retrofit = "2.9.0"
     const val glide = "4.11.0"
-    const val dagger = "2.28"
+    const val dagger = "2.38.1"
     const val espresso = "3.2.0"
     const val lifecycle = "2.3.1"
-    const val hilt = "2.36"
+    const val hilt = "2.38.1"
 }
 
 object AndroidX {
@@ -47,7 +47,6 @@ object Hilt {
     const val android = "com.google.dagger:hilt-android:${Versions.hilt}"
     const val compiler = "com.google.dagger:hilt-compiler:${Versions.hilt}"
     const val androidx = "androidx.hilt:hilt-compiler:1.0.0-alpha01"
-    const val lifecycle = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01"
 }
 
 object Rx {
@@ -72,6 +71,15 @@ object Glide {
 
 object KotlinX {
     const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1"
+}
+
+object Log {
+    const val timber = "com.jakewharton.timber:timber:5.0.1"
+}
+
+object Libs {
+    const val binding = "com.github.kirich1409:viewbindingpropertydelegate:1.5.3"
+    const val bindingReflection = "com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.3"
 }
 
 object UnitTest {

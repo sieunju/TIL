@@ -7,13 +7,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Apps.compileSdkVersion)
-    buildToolsVersion(Apps.buildToolsVersion)
+    compileSdk = Apps.compileSdkVersion
+    buildToolsVersion = Apps.buildToolsVersion
 
     defaultConfig {
         applicationId = "com.hmju.til"
-        minSdkVersion(Apps.minSdkVersion)
-        targetSdkVersion(Apps.targetSdkVersion)
+        minSdk = Apps.minSdkVersion
+        targetSdk = Apps.targetSdkVersion
         versionCode = Apps.versionCode
         versionName = Apps.versionName
         setProperty("archivesBaseName", "til_${versionCode}_${versionName}")
@@ -33,11 +33,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         dataBinding = true
@@ -50,6 +50,7 @@ dependencies {
     implementation(project(path = ":domain"))
     implementation(project(path = ":loginmanager"))
     implementation(project(path = ":presentation"))
+    implementation(project(path = ":rxbus"))
 
     /**
      * Network
@@ -87,6 +88,11 @@ dependencies {
      */
     implementation(Rx.java)
     implementation(Rx.kotlin)
+
+    /**
+     * Timber
+     */
+    implementation(Log.timber)
 
     testImplementation(UnitTest.junit)
     androidTestImplementation(UnitTest.androidXJunit)

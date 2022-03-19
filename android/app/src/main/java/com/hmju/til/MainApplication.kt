@@ -4,6 +4,7 @@ import androidx.multidex.MultiDexApplication
 import dagger.hilt.android.HiltAndroidApp
 import io.reactivex.rxjava3.exceptions.UndeliverableException
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
+import timber.log.Timber
 import java.io.IOException
 import java.net.SocketException
 
@@ -12,6 +13,8 @@ class MainApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
+
+        initTimber()
 
         // Rx Exception 처리
         initRxJava()
@@ -26,7 +29,7 @@ class MainApplication : MultiDexApplication() {
         RxJavaPlugins.setErrorHandler { e ->
             var error = e
             if (error is UndeliverableException) {
-                error = e.cause
+                error = e.cause ?: Throwable("UndeliverableException")
             }
             if (error is IOException || error is SocketException) {
                 // fine, irrelevant network problem or API that throws on cancellation
@@ -53,5 +56,16 @@ class MainApplication : MultiDexApplication() {
                 return@setErrorHandler
             }
         }
+    }
+
+    private fun initTimber() {
+//        if (BuildConfig.DEBUG) {
+            Timber.plant(object : Timber.DebugTree() {
+
+                override fun createStackElementTag(element: StackTraceElement): String {
+                    return "Timber_${element.methodName.substringBeforeLast(".")}"
+                }
+            })
+//        }
     }
 }

@@ -9,11 +9,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
-import com.hmju.presentation.JLogger
 import com.hmju.presentation.R
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import timber.log.Timber
 import java.util.concurrent.Executors
 import kotlin.random.Random
 import kotlin.random.nextInt
@@ -111,7 +111,7 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                 dumpList.clear()
                 dumpList.addAll(newList)
                 legacyTimeList.add(System.currentTimeMillis() - time)
-                JLogger.d("Legacy Count ${legacyTimeList.size}")
+                Timber.d("Legacy Count ${legacyTimeList.size}")
                 return@map newList
             }
             .onBackpressureBuffer()
@@ -125,11 +125,7 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                 tvLegacy.text = "Legacy ${sumTime / legacyTimeList.size}MS"
                 Toast.makeText(requireContext(), "Legacy The End", Toast.LENGTH_SHORT).show()
             }
-            .subscribe({
-
-            }, {
-
-            })
+            .subscribe({}, {})
     }
 
     @SuppressLint("SetTextI18n")
@@ -148,7 +144,7 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                 dumpList.clear()
                 dumpList.addAll(newList)
                 betterLegacyTimeList.add(System.currentTimeMillis() - time)
-                JLogger.d("Better Legacy Count ${betterLegacyTimeList.size}")
+                Timber.d("Better Legacy Count ${betterLegacyTimeList.size}")
                 return@map newList
             }
             .onBackpressureBuffer()
@@ -162,11 +158,7 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                 tvBetterLegacy.text = "Better Legacy ${sumTime / betterLegacyTimeList.size}MS"
                 Toast.makeText(requireContext(), "Better Legacy The End", Toast.LENGTH_SHORT).show()
             }
-            .subscribe({
-
-            }, {
-
-            })
+            .subscribe({}, {})
     }
 
     @SuppressLint("SetTextI18n")
@@ -185,7 +177,7 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                 dumpList.clear()
                 dumpList.addAll(newList)
                 betterTimeList.add(System.currentTimeMillis() - time)
-                JLogger.d("Better Count ${betterTimeList.size}")
+                Timber.d("Better Count ${betterTimeList.size}")
                 return@map newList
             }
             .onBackpressureBuffer()
@@ -199,11 +191,7 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                 tvBetter.text = "Better ${sumTime / betterTimeList.size}MS"
                 Toast.makeText(requireContext(), "Better The End", Toast.LENGTH_SHORT).show()
             }
-            .subscribe({
-
-            }, {
-
-            })
+            .subscribe({}, {})
     }
 
     private fun ranList(size: Int): List<Any> {

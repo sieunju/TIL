@@ -7,9 +7,11 @@ import androidx.annotation.LayoutRes
 import androidx.core.view.doOnAttach
 import androidx.core.view.doOnDetach
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.*
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.hmju.likemanager.LikeManager
-import com.hmju.presentation.JLogger
 import com.hmju.presentation.simple_like_recyclerview.SimpleLikeEntryPoint
 import com.til.model.RxBus
 import com.til.model.RxBusEvent
@@ -18,6 +20,7 @@ import com.til.model.goods.GoodsEntity
 import dagger.hilt.EntryPoints
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
+import timber.log.Timber
 
 /**
  * Description : Base Like ViewHolder Class
@@ -28,7 +31,7 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
     parent: ViewGroup,
     @LayoutRes layoutId: Int
 ) : BaseViewHolder<T>(parent, layoutId),
-    LifecycleObserver {
+    LifecycleEventObserver {
 
     private val simpleLikeEntryPoint: SimpleLikeEntryPoint by lazy {
         EntryPoints.get(itemView.context.applicationContext, SimpleLikeEntryPoint::class.java)
@@ -53,6 +56,8 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
         itemView.doOnDetach {
             lifecycleOwner?.lifecycle?.removeObserver(this)
             lifecycleOwner = null
+            closeLikeChangeDisposable()
+            closeRequestDisposable()
         }
     }
 
@@ -65,7 +70,7 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
             .subscribe({
                 onRefreshLike()
             }, {
-                JLogger.e("LikeChange Error $it")
+                Timber.e("LikeChange Error $it")
             })
     }
 
@@ -112,7 +117,7 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
                     Toast.makeText(itemView.context, "싫어요", Toast.LENGTH_SHORT).show()
                 }
             }, {
-                JLogger.e("Error $it")
+                Timber.e("Error $it")
             })
     }
 
@@ -132,21 +137,31 @@ abstract class BaseSimpleLikeViewHolder<T : ViewDataBinding>(
         likeRequestDisposable = null
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    private fun onResume() {
-        // JLogger.d("${this.javaClass.simpleName} onResume $bindingAdapterPosition ${itemView.isAttachedToWindow}")
+    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+        if (event == Lifecycle.Event.ON_RESUME) {
+            if (itemView.isAttachedToWindow) {
+                onRefreshLike()
+            }
 
-        if (itemView.isAttachedToWindow) {
-            onRefreshLike()
+            initLikeChange()
+        } else if (event == Lifecycle.Event.ON_STOP) {
+            closeLikeChangeDisposable()
+            closeRequestDisposable()
         }
-
-        initLikeChange()
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    private fun onStop() {
-        // JLogger.e("${this.javaClass.simpleName} onStop $bindingAdapterPosition")
-        closeLikeChangeDisposable()
-        closeRequestDisposable()
-    }
+//    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+//    private fun onResume() {
+//        if (itemView.isAttachedToWindow) {
+//            onRefreshLike()
+//        }
+//
+//        initLikeChange()
+//    }
+//
+//    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+//    private fun onStop() {
+//        closeLikeChangeDisposable()
+//        closeRequestDisposable()
+//    }
 }
