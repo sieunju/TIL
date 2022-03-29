@@ -1,6 +1,7 @@
 package com.hmju.til
 
 import androidx.multidex.MultiDexApplication
+import com.til.tracking.TrackingManager
 import dagger.hilt.android.HiltAndroidApp
 import io.reactivex.rxjava3.exceptions.UndeliverableException
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
@@ -18,6 +19,9 @@ class MainApplication : MultiDexApplication() {
 
         // Rx Exception 처리
         initRxJava()
+
+        // Shake Tracking
+        TrackingManager.init(this)
     }
 
     /**
