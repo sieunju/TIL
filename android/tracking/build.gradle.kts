@@ -14,16 +14,20 @@ android {
         targetSdk = Apps.targetSdkVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
-        getByName("debug") {
+        debug {
             isMinifyEnabled = false
         }
 
-        getByName("release") {
-            isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -36,21 +40,26 @@ android {
 }
 
 dependencies {
-    implementation(project(":model"))
-    implementation(project(":domain"))
-    implementation(project(":loginmanager"))
-    implementation(project(":likemanager"))
+    /**
+     * Android X
+     */
+    implementation(AndroidX.appCompat)
+    implementation(AndroidX.constraintLayout)
+    implementation(AndroidX.activity)
+    implementation(AndroidX.viewpager)
+    implementation(AndroidX.fragment)
+    implementation(AndroidX.material)
 
     /**
      * Kotlinx Serialization
      */
     implementation(KotlinX.serialization)
-
     /**
      * Network
      */
     implementation(Retrofit.base)
     implementation(Retrofit.okhttp)
+    implementation(Retrofit.okhttpLogger)
     implementation(Retrofit.rxjava)
     implementation(Retrofit.kotlinx)
 
@@ -65,4 +74,9 @@ dependencies {
      */
     implementation(Rx.java)
     implementation(Rx.kotlin)
+
+    /**
+     * Timber
+     */
+    implementation(Log.timber)
 }

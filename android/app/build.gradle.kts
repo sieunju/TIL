@@ -51,6 +51,7 @@ dependencies {
     implementation(project(path = ":loginmanager"))
     implementation(project(path = ":presentation"))
     implementation(project(path = ":rxbus"))
+    implementation(project(path = ":tracking"))
 
     /**
      * Network
