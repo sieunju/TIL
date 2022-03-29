@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application android:usesCleartextTraffic="true">
         <activity
@@ -31,6 +31,10 @@
             android:exported="false" />
         <activity
             android:name=".mvvm_lifecycle.MvvmLifecycleTest2Activity"
+            android:exported="false" />
+
+        <activity
+            android:name=".refactor_base.RefactorBaseTestActivity"
             android:exported="false" />
     </application>
 

@@ -3,8 +3,11 @@ package com.hmju.presentation.simple_like_recyclerview
 import android.view.ViewGroup
 import com.hmju.presentation.BR
 import com.hmju.presentation.R
+import com.hmju.presentation.base.BaseActivity
+import com.hmju.presentation.base.BaseActivityV2
 import com.hmju.presentation.base.BaseSimpleLikeViewHolder
 import com.hmju.presentation.databinding.VhSimpleLikeRecyclerview1Binding
+import com.hmju.presentation.getFragmentActivity
 import com.hmju.presentation.refactor_diff_util.GoodsOneUiModel
 
 /**
@@ -22,6 +25,12 @@ class SimpleLike1ViewHolder(
     init {
         binding.imgLike.setOnClickListener {
             simpleLikeClick(it, binding.item)
+        }
+
+        itemView.getFragmentActivity()?.let {
+            if(it is BaseActivityV2) {
+
+            }
         }
     }
 
