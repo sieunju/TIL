@@ -40,6 +40,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":loginmanager"))
     implementation(project(":likemanager"))
+    implementation(project(":tracking"))
 
     /**
      * Kotlinx Serialization
@@ -53,6 +54,7 @@ dependencies {
     implementation(Retrofit.okhttp)
     implementation(Retrofit.rxjava)
     implementation(Retrofit.kotlinx)
+    implementation(Retrofit.okhttpLogger)
 
     /**
      * Hilt
