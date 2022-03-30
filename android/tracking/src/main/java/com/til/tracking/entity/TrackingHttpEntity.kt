@@ -10,4 +10,9 @@ data class TrackingHttpEntity(
     val path: String, // Path
     val req: TrackingRequestEntity,
     var res: TrackingResponseEntity? = null
-) : BaseTrackingEntity()
+) : BaseTrackingEntity() {
+    override fun toString(): String {
+        return "${super.toString()}\nHeaders=$headerMap\nPath=$path\nReq=$req\nRes=${res?.body}"
+    }
+}
+

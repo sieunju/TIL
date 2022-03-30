@@ -6,5 +6,5 @@ package com.til.tracking.entity
  * Created by juhongmin on 2022/03/30
  */
 data class TrackingResponseEntity(
-    val body : String = ""
+    val body : String? = null
 )

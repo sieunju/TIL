@@ -21,7 +21,9 @@ class MainApplication : MultiDexApplication() {
         initRxJava()
 
         // Shake Tracking
-        TrackingManager.getInstance().init(this)
+        TrackingManager.getInstance()
+            .init(this)
+            .setBuild(true)
     }
 
     /**
