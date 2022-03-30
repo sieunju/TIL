@@ -5,7 +5,9 @@ import com.til.tracking.entity.TrackingRequestEntity
 import com.til.tracking.entity.TrackingResponseEntity
 import okhttp3.*
 import okio.Buffer
+import okio.GzipSource
 import okio.IOException
+import java.nio.charset.Charset
 import java.util.concurrent.TimeUnit
 
 /**
@@ -45,7 +47,7 @@ class TrackingHttpInterceptor : Interceptor {
             throw ex
         }
         tracking?.let {
-            it.res = TrackingResponseEntity(toResBodyString(response.body))
+            it.res = TrackingResponseEntity(toResBodyString(request.headers, response.body))
             it.takenTimeMs = response.receivedResponseAtMillis - response.sentRequestAtMillis
             it.code = response.code
         }
@@ -81,10 +83,27 @@ class TrackingHttpInterceptor : Interceptor {
     /**
      * Response Body to String
      */
-    private fun toResBodyString(body: ResponseBody?): String? {
+    private fun toResBodyString(headers: Headers, body: ResponseBody?): String? {
         if (body == null) return null
         return try {
-            body.string()
+            val contentLength = body.contentLength()
+            val source = body.source()
+            source.request(Long.MAX_VALUE)
+            var buffer = source.buffer
+            var gzippedLength: Long? = null
+            if ("gzip".equals(headers["Content-Encoding"], ignoreCase = true)) {
+                gzippedLength = buffer.size
+                GzipSource(buffer.clone()).use { gzippedResponseBody ->
+                    buffer = Buffer()
+                    buffer.writeAll(gzippedResponseBody)
+                }
+            }
+            if (contentLength != 0L) {
+                buffer.clone().readString(Charset.defaultCharset())
+            } else {
+                null
+            }
+            //body.string()
         } catch (ex: Exception) {
             null
         }
