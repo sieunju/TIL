@@ -21,7 +21,7 @@ class MainApplication : MultiDexApplication() {
         initRxJava()
 
         // Shake Tracking
-        TrackingManager.init(this)
+        TrackingManager.getInstance().init(this)
     }
 
     /**
@@ -64,12 +64,12 @@ class MainApplication : MultiDexApplication() {
 
     private fun initTimber() {
 //        if (BuildConfig.DEBUG) {
-            Timber.plant(object : Timber.DebugTree() {
+        Timber.plant(object : Timber.DebugTree() {
 
-                override fun createStackElementTag(element: StackTraceElement): String {
-                    return "Timber_${element.methodName.substringBeforeLast(".")}"
-                }
-            })
+            override fun createStackElementTag(element: StackTraceElement): String {
+                return "Timber_${element.methodName.substringBeforeLast(".")}"
+            }
+        })
 //        }
     }
 }
