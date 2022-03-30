@@ -11,6 +11,7 @@ import com.til.data.network.GoodsApiService
 import com.til.data.network.JSendApiService
 import com.til.data.network.RefreshTokenApiService
 import com.til.data.qualifiers.*
+import com.til.tracking.TrackingHttpInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -54,6 +55,11 @@ internal object RemoteModule {
 
     @Singleton
     @Provides
+    @TrackingInterceptor
+    fun provideTrackingInterceptor(): Interceptor = TrackingHttpInterceptor()
+
+    @Singleton
+    @Provides
     @RefreshTokenJsonInterceptor
     fun provideRefreshTokenInterceptor(): Interceptor = RefreshTokenInterceptor()
 
@@ -61,16 +67,18 @@ internal object RemoteModule {
     @Provides
     @TokenHttpClient
     fun provideTokenHttpClient(
-        @RefreshTokenJsonInterceptor headerInterceptor: Interceptor
+        @RefreshTokenJsonInterceptor headerInterceptor: Interceptor,
+        @TrackingInterceptor trackingInterceptor : Interceptor
     ): OkHttpClient = OkHttpClient.Builder()
         .retryOnConnectionFailure(true)
         .connectTimeout(NetworkConfig.CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
         .readTimeout(NetworkConfig.READ_TIME_OUT, TimeUnit.MILLISECONDS)
         .writeTimeout(NetworkConfig.WRITE_TIME_OUT, TimeUnit.MILLISECONDS)
         .addInterceptor(headerInterceptor)
-        .addInterceptor(HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        })
+        .addInterceptor(trackingInterceptor)
+//        .addInterceptor(HttpLoggingInterceptor().apply {
+//            level = HttpLoggingInterceptor.Level.BODY
+//        })
         .build()
 
     @ExperimentalSerializationApi
@@ -98,6 +106,7 @@ internal object RemoteModule {
     @ApiHttpClient
     fun provideHttpClient(
         @HeaderJsonInterceptor headerInterceptor: Interceptor,
+        @TrackingInterceptor trackingInterceptor : Interceptor,
         tokenAuthenticator: Authenticator
     ): OkHttpClient = OkHttpClient.Builder()
         .retryOnConnectionFailure(true)
@@ -105,10 +114,12 @@ internal object RemoteModule {
         .readTimeout(NetworkConfig.READ_TIME_OUT, TimeUnit.MILLISECONDS)
         .writeTimeout(NetworkConfig.WRITE_TIME_OUT, TimeUnit.MILLISECONDS)
         .addInterceptor(headerInterceptor)
+        .addInterceptor(trackingInterceptor)
         .authenticator(tokenAuthenticator)
-        .addInterceptor(HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }).build()
+//        .addInterceptor(HttpLoggingInterceptor().apply {
+//            level = HttpLoggingInterceptor.Level.BODY
+//        })
+        .build()
 
     @ExperimentalSerializationApi
     @Provides

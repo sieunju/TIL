@@ -12,7 +12,6 @@ import com.hmju.presentation.base.BaseFragment
 import com.hmju.presentation.base.BaseSimpleLikeViewHolder
 import com.hmju.presentation.databinding.FCustomPagingBinding
 import com.hmju.presentation.simple_like_recyclerview.SimpleLike1ViewHolder
-import com.hmju.presentation.simple_like_recyclerview.SimpleLikeRecyclerViewFragment
 import com.til.model.goods.GoodsEntity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -76,7 +75,7 @@ class CustomPagingFragment : BaseFragment<FCustomPagingBinding, CustomPagingView
             if (newList == null) return
 
             val diffResult = DiffUtil.calculateDiff(
-                SimpleLikeRecyclerViewFragment.Adapter.Companion.SimpleLikeDiffUtil(
+                CustomPagingDiffUtil(
                     dataList,
                     newList
                 )
