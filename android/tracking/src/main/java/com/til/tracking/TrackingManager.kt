@@ -6,7 +6,9 @@ import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.os.Bundle
+import androidx.fragment.app.FragmentActivity
 import com.til.tracking.entity.TrackingHttpEntity
+import com.til.tracking.ui.TrackingBottomSheetDialog
 import timber.log.Timber
 import java.lang.ref.WeakReference
 
@@ -40,15 +42,17 @@ class TrackingManager private constructor() {
     private val httpTrackingList: MutableList<TrackingHttpEntity> by lazy { mutableListOf() }
 
     private val activityListener = object : Application.ActivityLifecycleCallbacks {
-        var currentActivity: WeakReference<Activity>? = null
+        var currentActivity: WeakReference<FragmentActivity>? = null
 
         override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
 
         override fun onActivityStarted(activity: Activity) {}
 
         override fun onActivityResumed(activity: Activity) {
-            currentActivity?.clear()
-            currentActivity = WeakReference(activity)
+            if (activity is FragmentActivity) {
+                currentActivity?.clear()
+                currentActivity = WeakReference(activity)
+            }
         }
 
         override fun onActivityPaused(activity: Activity) {}
@@ -61,9 +65,20 @@ class TrackingManager private constructor() {
         override fun onActivityDestroyed(activity: Activity) {}
     }
 
+    private val trackingBottomSheetDialog: TrackingBottomSheetDialog by lazy { TrackingBottomSheetDialog() }
+
     private val shakeListener = object : ShakeDetector.OnShakeListener {
         override fun onShowDialog() {
-            Timber.d("onShowDialog ${activityListener.currentActivity?.get()}")
+            activityListener.currentActivity?.get()?.let { act ->
+                Timber.d("ShowDialog ${trackingBottomSheetDialog.isVisible}")
+                if (trackingBottomSheetDialog.isVisible) {
+                    trackingBottomSheetDialog.dismiss()
+                }
+                trackingBottomSheetDialog.show(
+                    act.supportFragmentManager,
+                    "TrackingBottomSheetDialog"
+                )
+            }
         }
     }
 
@@ -99,7 +114,7 @@ class TrackingManager private constructor() {
         if (entity == null) return
         httpTrackingList.add(entity)
         // 맥스 사이즈 맨 첫번째꺼 삭제
-        if(logMaxSize > httpTrackingList.size) {
+        if (logMaxSize > httpTrackingList.size) {
             httpTrackingList.removeFirst()
         }
         Timber.d("Tracking $entity")
