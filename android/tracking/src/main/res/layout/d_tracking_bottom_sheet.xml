@@ -12,7 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitle"
@@ -25,17 +25,16 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="목록" />
 
-        <View
-            android:layout_width="match_parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-            android:layout_height="600dp"/>
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tvTitle"-->
+<!--            android:layout_height="600dp"/>-->
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp"
             android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="600dp"
+            android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

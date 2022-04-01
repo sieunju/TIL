@@ -6,6 +6,7 @@ package com.til.tracking.entity
  * Created by juhongmin on 2022/03/29
  */
 data class TrackingHttpEntity(
+    var uid : Long = 0,
     val headerMap: Map<String, String>,
     val path: String, // Path
     val req: TrackingRequestEntity,
@@ -13,6 +14,14 @@ data class TrackingHttpEntity(
 ) : BaseTrackingEntity() {
     override fun toString(): String {
         return "${super.toString()}\nHeaders=$headerMap\nPath=$path\nReq=$req\nRes=${res?.body}"
+    }
+
+    var uidTxt : String? = null
+    get() {
+        if(field == null) {
+            field = "_${uid}"
+        }
+        return field
     }
 }
 
