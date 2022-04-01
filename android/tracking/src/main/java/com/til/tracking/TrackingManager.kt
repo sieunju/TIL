@@ -8,6 +8,7 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import com.til.tracking.entity.TrackingHttpEntity
+import com.til.tracking.rx.TrackingNotifyChangeEvent
 import com.til.tracking.ui.TrackingBottomSheetDialog
 import timber.log.Timber
 import java.lang.ref.WeakReference
@@ -23,6 +24,8 @@ class TrackingManager private constructor() {
         @Volatile
         private var instance: TrackingManager? = null
 
+        private var trackingCnt: Long = 0L
+
         @JvmStatic
         fun getInstance(): TrackingManager {
             return instance ?: synchronized(this) {
@@ -35,7 +38,8 @@ class TrackingManager private constructor() {
 
     // [s] Variable
     private var isDebug = false
-    private var logMaxSize = 100
+    private var logMaxSize = 1000
+    private var updateCnt = 10L // 갱신 처리하는 Take Cnt
     // [e] Variable
 
     private var applicationContext: Application? = null
@@ -65,19 +69,15 @@ class TrackingManager private constructor() {
         override fun onActivityDestroyed(activity: Activity) {}
     }
 
-    private val trackingBottomSheetDialog: TrackingBottomSheetDialog by lazy { TrackingBottomSheetDialog() }
-
     private val shakeListener = object : ShakeDetector.OnShakeListener {
         override fun onShowDialog() {
             activityListener.currentActivity?.get()?.let { act ->
-                Timber.d("ShowDialog ${trackingBottomSheetDialog.isVisible}")
-                if (trackingBottomSheetDialog.isVisible) {
-                    trackingBottomSheetDialog.dismiss()
+                if (!TrackingBottomSheetDialog.IS_SHOW) {
+                    TrackingBottomSheetDialog().show(
+                        act.supportFragmentManager,
+                        "TrackingBottomSheetDialog"
+                    )
                 }
-                trackingBottomSheetDialog.show(
-                    act.supportFragmentManager,
-                    "TrackingBottomSheetDialog"
-                )
             }
         }
     }
@@ -106,17 +106,29 @@ class TrackingManager private constructor() {
         return this
     }
 
+    fun setUpdateCnt(cnt: Long): TrackingManager {
+        this.updateCnt = cnt
+        return this
+    }
+
     fun isDebug() = isDebug
 
     fun isRelease() = !isDebug
 
+    fun getTrackingList(): List<TrackingHttpEntity> = httpTrackingList
+
     fun addTracking(entity: TrackingHttpEntity?) {
         if (entity == null) return
-        httpTrackingList.add(entity)
+        entity.uid = trackingCnt
+        httpTrackingList.add(0, entity)
+        trackingCnt++
         // 맥스 사이즈 맨 첫번째꺼 삭제
-        if (logMaxSize > httpTrackingList.size) {
+        if (logMaxSize < httpTrackingList.size) {
             httpTrackingList.removeFirst()
         }
-        Timber.d("Tracking $entity")
+        TrackingNotifyChangeEvent.publish(trackingCnt)
+        Timber.d("Tracking ${httpTrackingList.size}")
     }
+
+    fun getUpdateTake() = updateCnt
 }

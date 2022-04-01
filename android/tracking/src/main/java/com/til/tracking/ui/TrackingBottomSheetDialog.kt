@@ -17,6 +17,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.til.tracking.BR
 import com.til.tracking.R
 import com.til.tracking.databinding.DTrackingBottomSheetBinding
+import com.til.tracking.ui.list.TrackingListFragment
+import timber.log.Timber
 
 /**
  * Description : HTTP 로그 정보 보여주는 BottomSheetDialog
@@ -25,11 +27,15 @@ import com.til.tracking.databinding.DTrackingBottomSheetBinding
  */
 class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
 
-    private val _title : MutableLiveData<String> by lazy { MutableLiveData<String>() }
-    val title : LiveData<String> get() = _title
+    companion object {
+        var IS_SHOW = false
+    }
 
-    private lateinit var binding : DTrackingBottomSheetBinding
-    private lateinit var pagerAdapter : PagerAdapter
+    private val _title: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val title: LiveData<String> get() = _title
+
+    private lateinit var binding: DTrackingBottomSheetBinding
+    private lateinit var pagerAdapter: PagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +55,7 @@ class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
         ).run {
             lifecycleOwner = this@TrackingBottomSheetDialog
             binding = this
-            binding.setVariable(BR.dialog,this@TrackingBottomSheetDialog)
+            binding.setVariable(BR.dialog, this@TrackingBottomSheetDialog)
             return@run root
         }
     }
@@ -58,7 +64,7 @@ class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
         super.onStart()
         if (dialog is BottomSheetDialog) {
             (dialog as BottomSheetDialog).runCatching {
-                behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                // behavior.state = BottomSheetBehavior.STATE_EXPANDED
                 behavior.skipCollapsed = true
             }
         }
@@ -66,21 +72,31 @@ class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        IS_SHOW = true
         pagerAdapter = PagerAdapter(requireActivity())
         _title.value = "목록"
         with(binding) {
             vp.isUserInputEnabled = false
-            // vp.adapter = pagerAdapter
+            vp.adapter = pagerAdapter
+        }
+
+        dialog?.setOnDismissListener {
+            dismiss()
         }
     }
 
-    class PagerAdapter(fa : FragmentActivity) : FragmentStateAdapter(fa) {
+    override fun dismiss() {
+        IS_SHOW = false
+        super.dismiss()
+    }
+
+    class PagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
         override fun getItemCount(): Int {
-            return 0
+            return 1
         }
 
-        override fun createFragment(position: Int): Fragment {
-            TODO("Not yet implemented")
+        override fun createFragment(pos: Int): Fragment {
+            return TrackingListFragment.newInstance()
         }
     }
 }
