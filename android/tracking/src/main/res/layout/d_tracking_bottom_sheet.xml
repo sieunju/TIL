@@ -25,9 +25,15 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="목록" />
 
+        <View
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            android:layout_height="600dp"/>
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
