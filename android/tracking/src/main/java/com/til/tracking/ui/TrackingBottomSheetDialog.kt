@@ -25,7 +25,7 @@ import com.til.tracking.databinding.DTrackingBottomSheetBinding
  */
 class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
 
-    private val _title : MutableLiveData<String> by lazy { MutableLiveData() }
+    private val _title : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val title : LiveData<String> get() = _title
 
     private lateinit var binding : DTrackingBottomSheetBinding
@@ -67,6 +67,7 @@ class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         pagerAdapter = PagerAdapter(requireActivity())
+        _title.value = "목록"
         with(binding) {
             vp.isUserInputEnabled = false
             // vp.adapter = pagerAdapter
