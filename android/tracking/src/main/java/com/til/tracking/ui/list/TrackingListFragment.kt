@@ -14,6 +14,7 @@ import com.til.tracking.TrackingManager
 import com.til.tracking.databinding.FTrackingListBinding
 import com.til.tracking.databinding.VhChildTrackingBinding
 import com.til.tracking.entity.TrackingHttpEntity
+import com.til.tracking.rx.TrackingDetailEvent
 import com.til.tracking.rx.TrackingNotifyChangeEvent
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
@@ -27,7 +28,7 @@ import timber.log.Timber
 class TrackingListFragment : Fragment() {
 
     companion object {
-        fun newInstance() : TrackingListFragment = TrackingListFragment()
+        fun newInstance(): TrackingListFragment = TrackingListFragment()
     }
 
     private val disposable: CompositeDisposable by lazy { CompositeDisposable() }
@@ -55,7 +56,6 @@ class TrackingListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvContents.adapter = adapter
-        Timber.d("onViewCreated ${TrackingManager.getInstance().getTrackingList().size}")
         adapter.submitList(TrackingManager.getInstance().getTrackingList())
 
         TrackingNotifyChangeEvent.listen()
@@ -133,6 +133,14 @@ class TrackingListFragment : Fragment() {
         LayoutInflater.from(parent.context).inflate(R.layout.vh_child_tracking, parent, false)
     ) {
         val binding: VhChildTrackingBinding by lazy { VhChildTrackingBinding.bind(itemView) }
+
+        init {
+            itemView.setOnClickListener {
+                binding.item?.runCatching {
+                    TrackingDetailEvent.publish(this)
+                }
+            }
+        }
 
         fun onBindView(item: TrackingHttpEntity) {
             binding.setVariable(BR.item, item)

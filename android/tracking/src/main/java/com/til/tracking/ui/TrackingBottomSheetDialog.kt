@@ -1,9 +1,15 @@
 package com.til.tracking.ui
 
+import android.app.Dialog
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.FrameLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -17,6 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.til.tracking.BR
 import com.til.tracking.R
 import com.til.tracking.databinding.DTrackingBottomSheetBinding
+import com.til.tracking.ui.detail.TrackingDetailFragment
 import com.til.tracking.ui.list.TrackingListFragment
 import timber.log.Timber
 
@@ -42,6 +49,15 @@ class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
         setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetStyle)
     }
 
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState)
+        dialog.setOnShowListener { dialogInterface ->
+            val bottomSheetDialog = dialogInterface as BottomSheetDialog
+            setupRatio(bottomSheetDialog)
+        }
+        return dialog
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,16 +73,6 @@ class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
             binding = this
             binding.setVariable(BR.dialog, this@TrackingBottomSheetDialog)
             return@run root
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if (dialog is BottomSheetDialog) {
-            (dialog as BottomSheetDialog).runCatching {
-                // behavior.state = BottomSheetBehavior.STATE_EXPANDED
-                behavior.skipCollapsed = true
-            }
         }
     }
 
@@ -90,13 +96,46 @@ class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
         super.dismiss()
     }
 
+    private fun setupRatio(bottomSheetDialog: BottomSheetDialog) {
+        val bottomSheet =
+            bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as View
+        val behavior = BottomSheetBehavior.from(bottomSheet)
+        val layoutParams = bottomSheet.layoutParams
+        layoutParams.height = getBottomSheetHeight()
+        bottomSheet.layoutParams = layoutParams
+        behavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    /**
+     * Height 85%
+     */
+    private fun getBottomSheetHeight(): Int {
+        return getDeviceHeight() * 85 / 100
+    }
+
+    private fun getDeviceHeight(): Int {
+        val windowManager: WindowManager =
+            requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            windowManager.currentWindowMetrics.bounds.height()
+        } else {
+            val displayMetrics = DisplayMetrics()
+            windowManager.defaultDisplay.getMetrics(displayMetrics)
+            displayMetrics.heightPixels
+        }
+    }
+
     class PagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
         override fun getItemCount(): Int {
-            return 1
+            return 2
         }
 
         override fun createFragment(pos: Int): Fragment {
-            return TrackingListFragment.newInstance()
+            return if (pos == 0) {
+                TrackingListFragment.newInstance()
+            } else {
+                TrackingDetailFragment.newInstance()
+            }
         }
     }
 }
