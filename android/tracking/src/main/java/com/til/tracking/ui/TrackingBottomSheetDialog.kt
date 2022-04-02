@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.FrameLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -17,14 +16,20 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.til.tracking.BR
 import com.til.tracking.R
 import com.til.tracking.databinding.DTrackingBottomSheetBinding
-import com.til.tracking.ui.detail.TrackingDetailFragment
+import com.til.tracking.rx.TrackingDetailEvent
+import com.til.tracking.ui.detail.TrackingDetailRequestFragment
+import com.til.tracking.ui.detail.TrackingDetailResponseFragment
 import com.til.tracking.ui.list.TrackingListFragment
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.addTo
 import timber.log.Timber
 
 /**
@@ -38,8 +43,15 @@ class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
         var IS_SHOW = false
     }
 
-    private val _title: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    private val disposable: CompositeDisposable by lazy { CompositeDisposable() }
+
+    private val _title: MutableLiveData<String> by lazy {
+        MutableLiveData<String>().apply {
+            value = "목록"
+        }
+    }
     val title: LiveData<String> get() = _title
+    val position: MutableLiveData<Int> by lazy { MutableLiveData<Int>().apply { value = 0 } }
 
     private lateinit var binding: DTrackingBottomSheetBinding
     private lateinit var pagerAdapter: PagerAdapter
@@ -78,24 +90,66 @@ class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Timber.d("onViewCreated!!! ")
         IS_SHOW = true
         pagerAdapter = PagerAdapter(requireActivity())
-        _title.value = "목록"
         with(binding) {
             vp.isUserInputEnabled = false
             vp.adapter = pagerAdapter
+            vp.offscreenPageLimit = 3
+            vp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(pos: Int) {
+                    position.value = pos
+                    if (pos == 0) {
+                        _title.value = "목록"
+                        vp.isUserInputEnabled = false
+                    } else if (pos == 1) {
+                        _title.value = "상세 > Request"
+                        vp.isUserInputEnabled = true
+                    } else {
+                        _title.value = "상세 > Response"
+                        vp.isUserInputEnabled = true
+                    }
+                }
+            })
         }
-
         dialog?.setOnDismissListener {
             dismiss()
         }
+
+        TrackingDetailEvent.listen()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Timber.d("BottomSheetDialog")
+                moveDetail()
+            }, {
+
+            }).addTo(disposable)
     }
 
     override fun dismiss() {
         IS_SHOW = false
+        disposable.clear()
+        if (!disposable.isDisposed) {
+            disposable.dispose()
+        }
         super.dismiss()
     }
 
+    /**
+     * 목록 화면으로 돌아가는 처리
+     */
+    fun onBack() {
+        binding.vp.setCurrentItem(0, true)
+    }
+
+    fun moveDetail() {
+        binding.vp.setCurrentItem(1, true)
+    }
+
+    /**
+     * BottomSheet Device 비율에 맞게 높이값 조정 하는 함수
+     */
     private fun setupRatio(bottomSheetDialog: BottomSheetDialog) {
         val bottomSheet =
             bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as View
@@ -127,14 +181,20 @@ class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
 
     class PagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
         override fun getItemCount(): Int {
-            return 2
+            return 3
         }
 
         override fun createFragment(pos: Int): Fragment {
-            return if (pos == 0) {
-                TrackingListFragment.newInstance()
-            } else {
-                TrackingDetailFragment.newInstance()
+            return when (pos) {
+                0 -> {
+                    TrackingListFragment.newInstance()
+                }
+                1 -> {
+                    TrackingDetailRequestFragment.newInstance()
+                }
+                else -> {
+                    TrackingDetailResponseFragment.newInstance()
+                }
             }
         }
     }
