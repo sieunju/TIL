@@ -77,6 +77,7 @@ class TrackingManager private constructor() {
     private val shakeListener = object : ShakeDetector.OnShakeListener {
         override fun onShowDialog() {
             activityListener.currentActivity?.get()?.let { act ->
+                Timber.d("onShowDialog ${TrackingBottomSheetDialog.IS_SHOW}")
                 if (!TrackingBottomSheetDialog.IS_SHOW) {
                     TrackingBottomSheetDialog().show(
                         act.supportFragmentManager,

@@ -77,6 +77,7 @@ dependencies {
      */
     implementation(Rx.java)
     implementation(Rx.kotlin)
+    implementation(Rx.android)
 
     /**
      * Timber

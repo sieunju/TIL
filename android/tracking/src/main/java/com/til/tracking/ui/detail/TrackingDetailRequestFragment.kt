@@ -7,31 +7,36 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.til.tracking.R
-import com.til.tracking.databinding.FTrackingDetailBinding
+import com.til.tracking.databinding.FTrackingDetailRequestBinding
+import com.til.tracking.rx.TrackingDetailEvent
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.addTo
+import timber.log.Timber
 
 /**
- * Description : HTTP 트래킹 상세 보기 화면
+ * Description :
  *
- * Created by juhongmin on 2022/04/01
+ * Created by juhongmin on 2022/04/02
  */
-class TrackingDetailFragment : Fragment() {
+class TrackingDetailRequestFragment : Fragment() {
+
     companion object {
-        fun newInstance(): TrackingDetailFragment = TrackingDetailFragment()
+        fun newInstance(): TrackingDetailRequestFragment = TrackingDetailRequestFragment()
     }
 
     private val disposable: CompositeDisposable by lazy { CompositeDisposable() }
 
-    private lateinit var binding: FTrackingDetailBinding
+    private lateinit var binding: FTrackingDetailRequestBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return DataBindingUtil.inflate<FTrackingDetailBinding>(
+        return DataBindingUtil.inflate<FTrackingDetailRequestBinding>(
             inflater,
-            R.layout.f_tracking_detail,
+            R.layout.f_tracking_detail_request,
             container,
             false
         ).run {
@@ -42,7 +47,13 @@ class TrackingDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        TrackingDetailEvent.listen()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Timber.d("Request Data $it")
+            }, {
 
+            }).addTo(disposable)
     }
 
     override fun onDestroy() {
