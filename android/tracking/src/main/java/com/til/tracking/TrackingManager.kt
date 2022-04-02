@@ -5,7 +5,10 @@ import android.app.Application
 import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
+import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.view.WindowManager
 import androidx.fragment.app.FragmentActivity
 import com.til.tracking.entity.TrackingHttpEntity
 import com.til.tracking.rx.TrackingNotifyChangeEvent
@@ -35,6 +38,8 @@ class TrackingManager private constructor() {
             }
         }
     }
+
+    private var deviceHeight : Int = 0
 
     // [s] Variable
     private var isDebug = false
