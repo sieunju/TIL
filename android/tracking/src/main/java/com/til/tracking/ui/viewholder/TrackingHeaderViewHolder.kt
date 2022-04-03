@@ -5,7 +5,7 @@ import com.til.tracking.BR
 import com.til.tracking.R
 import com.til.tracking.databinding.VhTrackingHeaderBinding
 
-class TrackingHeaderViewHolder(
+internal class TrackingHeaderViewHolder(
     parent: ViewGroup
 ) : BaseTrackingViewHolder<VhTrackingHeaderBinding>(parent, R.layout.vh_tracking_header) {
 

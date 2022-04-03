@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseTrackingViewHolder<T : ViewDataBinding>(
+internal abstract class BaseTrackingViewHolder<T : ViewDataBinding>(
     parent: ViewGroup,
     @LayoutRes layoutId: Int
 ) : RecyclerView.ViewHolder(

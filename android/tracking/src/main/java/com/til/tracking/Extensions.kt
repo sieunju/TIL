@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.til.tracking.models.*
 import com.til.tracking.ui.viewholder.*
 import kotlinx.serialization.json.Json
+import timber.log.Timber
 import java.net.URLDecoder
 import java.text.SimpleDateFormat
 
@@ -16,9 +17,9 @@ import java.text.SimpleDateFormat
  *
  * Created by juhongmin on 2022/03/31
  */
-@SuppressLint("SimpleDateFormat")
 internal object Extensions {
 
+    @SuppressLint("SimpleDateFormat")
     private val minDate = SimpleDateFormat("HH:mm:ss")
 
     private val jsonFormat: Json by lazy {
@@ -86,6 +87,11 @@ internal object Extensions {
                         oldItem,
                         newList[newPosition]
                     ) { old, new -> old.body == new.body }
+                is TrackingTitleUiModel ->
+                    compareInstance<TrackingTitleUiModel>(
+                        oldItem,
+                        newList[newPosition]
+                    ) { old, new -> old.title == new.title }
                 else -> false
             }
         }
@@ -112,6 +118,11 @@ internal object Extensions {
                         oldItem,
                         newList[newPosition]
                     ) { old, new -> old.body == new.body }
+                is TrackingTitleUiModel ->
+                    compareInstance<TrackingTitleUiModel>(
+                        oldItem,
+                        newList[newPosition]
+                    ) { old, new -> old.title == new.title }
                 else -> false
             }
         }
@@ -139,7 +150,8 @@ internal object Extensions {
     fun parseQueryUiModel(fullQuery: String?): List<BaseTrackingUiModel> {
         if (fullQuery == null) return emptyList()
         val uiList = mutableListOf<BaseTrackingUiModel>()
-        val uri = Uri.parse("https://host".plus(fullQuery))
+        val uri = Uri.parse("https://android.com?".plus(fullQuery))
+        Timber.d("Query $fullQuery")
         uri.queryParameterNames.forEach { key ->
             val parameterValue = uri.getQueryParameter(key) ?: ""
             uiList.add(
@@ -155,8 +167,7 @@ internal object Extensions {
     /**
      * BodyUiModel 변환 처리 함수
      */
-    fun parseBodyUiModel(body: String?): BaseTrackingUiModel? {
-        if (body.isNullOrEmpty()) return null
+    fun parseBodyUiModel(body: String): BaseTrackingUiModel {
         val json = jsonFormat.parseToJsonElement(body)
         return TrackingBodyUiModel(json.toString())
     }
@@ -167,9 +178,7 @@ internal object Extensions {
 
         fun submitList(newList: List<BaseTrackingUiModel>?) {
             if (newList == null) return
-
-            val diffResult =
-                DiffUtil.calculateDiff(TrackingDetailDiffUtil(dataList, newList))
+            val diffResult = DiffUtil.calculateDiff(TrackingDetailDiffUtil(dataList, newList))
             dataList.clear()
             dataList.addAll(newList)
             diffResult.dispatchUpdatesTo(this)
@@ -184,6 +193,7 @@ internal object Extensions {
                 R.layout.vh_tracking_path -> TrackingPathViewHolder(parent)
                 R.layout.vh_tracking_query -> TrackingQueryViewHolder(parent)
                 R.layout.vh_tracking_body -> TrackingBodyViewHolder(parent)
+                R.layout.vh_tracking_title -> TrackingTitleViewHolder(parent)
                 else -> throw IllegalArgumentException("Invalid ViewType")
             }
         }
