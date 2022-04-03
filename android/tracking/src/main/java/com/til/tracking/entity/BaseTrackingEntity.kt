@@ -36,7 +36,7 @@ open class BaseTrackingEntity {
     var takenTimeTxt: String? = null
         get() {
             if (field == null) {
-                field == "${takenTimeMs}MS"
+                field = "${takenTimeMs}MS"
             }
             return field
         }

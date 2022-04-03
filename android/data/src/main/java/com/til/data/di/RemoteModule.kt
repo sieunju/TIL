@@ -53,7 +53,6 @@ internal object RemoteModule {
         loginManager: LoginManager
     ): Interceptor = HeaderInterceptor(loginManager)
 
-    @Singleton
     @Provides
     @TrackingInterceptor
     fun provideTrackingInterceptor(): Interceptor = TrackingHttpInterceptor()

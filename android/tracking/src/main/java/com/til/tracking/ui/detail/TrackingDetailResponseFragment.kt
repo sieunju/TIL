@@ -6,12 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.til.tracking.Extensions
 import com.til.tracking.R
 import com.til.tracking.databinding.FTrackingDetailResponseBinding
+import com.til.tracking.entity.TrackingHttpEntity
+import com.til.tracking.models.BaseTrackingUiModel
 import com.til.tracking.rx.TrackingDetailEvent
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
+import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 
 /**
@@ -28,6 +32,7 @@ class TrackingDetailResponseFragment : Fragment() {
     private val disposable: CompositeDisposable by lazy { CompositeDisposable() }
 
     private lateinit var binding: FTrackingDetailResponseBinding
+    private val adapter: Extensions.TrackingDetailAdapter by lazy { Extensions.TrackingDetailAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,14 +52,28 @@ class TrackingDetailResponseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        with(binding) {
+            rvContents.adapter = adapter
+        }
         TrackingDetailEvent.listen()
+            .map { parseUiModel(it) }
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 Timber.d("Response Data $it")
+                adapter.submitList(it)
             }, {
 
             }).addTo(disposable)
+    }
+
+    private fun parseUiModel(entity: TrackingHttpEntity): List<BaseTrackingUiModel> {
+        val uiList = mutableListOf<BaseTrackingUiModel>()
+        val bodyUiModel = Extensions.parseBodyUiModel(entity.res?.body)
+        if (bodyUiModel != null) {
+            uiList.add(bodyUiModel)
+        }
+        return uiList
     }
 
     override fun onDestroy() {
