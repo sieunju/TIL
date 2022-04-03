@@ -2,6 +2,7 @@ package com.til.tracking
 
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
 
 /**
@@ -18,10 +19,8 @@ internal object BindingAdapter {
         newTxt: String?
     ) {
         if (!newTxt.isNullOrEmpty()) {
-            val oldTxt = tv.text
-            if (newTxt == oldTxt) return
-
-            tv.text = newTxt
+            val htmlText = HtmlCompat.fromHtml(newTxt, HtmlCompat.FROM_HTML_MODE_LEGACY)
+            tv.text = htmlText
         } else {
             tv.visibility = View.GONE
         }

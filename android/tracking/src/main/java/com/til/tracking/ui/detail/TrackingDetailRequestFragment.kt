@@ -12,6 +12,7 @@ import com.til.tracking.databinding.FTrackingDetailRequestBinding
 import com.til.tracking.entity.TrackingHttpEntity
 import com.til.tracking.models.BaseTrackingUiModel
 import com.til.tracking.models.TrackingPathUiModel
+import com.til.tracking.models.TrackingTitleUiModel
 import com.til.tracking.rx.TrackingDetailEvent
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -78,12 +79,19 @@ internal class TrackingDetailRequestFragment : Fragment() {
 
     private fun parseUiModel(entity: TrackingHttpEntity): List<BaseTrackingUiModel> {
         val uiList = mutableListOf<BaseTrackingUiModel>()
+        uiList.add(TrackingTitleUiModel("[Path]"))
         uiList.add(TrackingPathUiModel(entity.path))
-        uiList.addAll(Extensions.parseHeaderUiModel(entity.headerMap))
-        uiList.addAll(Extensions.parseQueryUiModel(entity.req.query))
-        val bodyUiModel = Extensions.parseBodyUiModel(entity.req.body)
-        if (bodyUiModel != null) {
-            uiList.add(bodyUiModel)
+        if (entity.headerMap.isNotEmpty()) {
+            uiList.add(TrackingTitleUiModel("[Header]"))
+            uiList.addAll(Extensions.parseHeaderUiModel(entity.headerMap))
+        }
+        if (!entity.req.query.isNullOrEmpty()) {
+            uiList.add(TrackingTitleUiModel("[Query]"))
+            uiList.addAll(Extensions.parseQueryUiModel(entity.req.query))
+        }
+        entity.req.body?.let { body->
+            uiList.add(TrackingTitleUiModel("[Body]"))
+            uiList.add(Extensions.parseBodyUiModel(body))
         }
         return uiList
     }

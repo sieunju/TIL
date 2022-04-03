@@ -10,7 +10,7 @@ import com.til.tracking.databinding.VhTrackingPathBinding
  *
  * Created by juhongmin on 2022/04/03
  */
-class TrackingPathViewHolder(
+internal class TrackingPathViewHolder(
     parent: ViewGroup
 ) : BaseTrackingViewHolder<VhTrackingPathBinding>(
     parent,

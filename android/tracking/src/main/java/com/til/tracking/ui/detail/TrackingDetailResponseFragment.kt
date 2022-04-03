@@ -11,6 +11,7 @@ import com.til.tracking.R
 import com.til.tracking.databinding.FTrackingDetailResponseBinding
 import com.til.tracking.entity.TrackingHttpEntity
 import com.til.tracking.models.BaseTrackingUiModel
+import com.til.tracking.models.TrackingTitleUiModel
 import com.til.tracking.rx.TrackingDetailEvent
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -69,9 +70,9 @@ class TrackingDetailResponseFragment : Fragment() {
 
     private fun parseUiModel(entity: TrackingHttpEntity): List<BaseTrackingUiModel> {
         val uiList = mutableListOf<BaseTrackingUiModel>()
-        val bodyUiModel = Extensions.parseBodyUiModel(entity.res?.body)
-        if (bodyUiModel != null) {
-            uiList.add(bodyUiModel)
+        entity.res?.body?.let { body->
+            uiList.add(TrackingTitleUiModel("[Body]"))
+            uiList.add(Extensions.parseBodyUiModel(body))
         }
         return uiList
     }

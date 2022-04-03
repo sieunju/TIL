@@ -5,7 +5,7 @@ import com.til.tracking.BR
 import com.til.tracking.R
 import com.til.tracking.databinding.VhTrackingBodyBinding
 
-class TrackingBodyViewHolder(parent: ViewGroup) : BaseTrackingViewHolder<VhTrackingBodyBinding>(
+internal class TrackingBodyViewHolder(parent: ViewGroup) : BaseTrackingViewHolder<VhTrackingBodyBinding>(
     parent,
     R.layout.vh_tracking_body
 ) {
