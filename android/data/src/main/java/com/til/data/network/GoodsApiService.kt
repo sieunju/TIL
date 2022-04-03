@@ -20,7 +20,7 @@ import retrofit2.http.*
 interface GoodsApiService {
     @GET("/api/goods")
     fun fetchGoods(
-        @QueryMap params: GoodsParamMap
+        @QueryMap(encoded = true) params: GoodsParamMap
     ): Single<JSendBaseResponse<JSendListWithMeta<GoodsEntity, CustomMetaEntity>>>
 
     @GET("/api/test")
