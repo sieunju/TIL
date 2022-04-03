@@ -90,13 +90,6 @@
                 android:textSize="14dp"
                 tools:text="GET" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{item.uidTxt}"
-                android:textSize="14dp"
-                tools:text="GET" />
-
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.til.tracking.models.*
 import com.til.tracking.ui.viewholder.*
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import timber.log.Timber
 import java.net.URLDecoder
@@ -22,12 +23,14 @@ internal object Extensions {
     @SuppressLint("SimpleDateFormat")
     private val minDate = SimpleDateFormat("HH:mm:ss")
 
+    @OptIn(ExperimentalSerializationApi::class)
     private val jsonFormat: Json by lazy {
         Json {
             prettyPrint = true
             isLenient = true // Json 큰따옴표 느슨하게 체크.
             ignoreUnknownKeys = true // Field 값이 없는 경우 무시
             coerceInputValues = true // "null" 이 들어간경우 default Argument 값으로 대체
+            prettyPrintIndent = "    "
         }
     }
 
@@ -167,9 +170,9 @@ internal object Extensions {
     /**
      * BodyUiModel 변환 처리 함수
      */
+    @OptIn(ExperimentalSerializationApi::class)
     fun parseBodyUiModel(body: String): BaseTrackingUiModel {
-        val json = jsonFormat.parseToJsonElement(body)
-        return TrackingBodyUiModel(json.toString())
+        return TrackingBodyUiModel(body)
     }
 
     internal class TrackingDetailAdapter : RecyclerView.Adapter<BaseTrackingViewHolder<*>>() {

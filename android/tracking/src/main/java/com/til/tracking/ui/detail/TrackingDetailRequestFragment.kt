@@ -79,6 +79,8 @@ internal class TrackingDetailRequestFragment : Fragment() {
 
     private fun parseUiModel(entity: TrackingHttpEntity): List<BaseTrackingUiModel> {
         val uiList = mutableListOf<BaseTrackingUiModel>()
+        uiList.add(TrackingTitleUiModel("[Host]"))
+        uiList.add(TrackingPathUiModel(entity.baseUrl))
         uiList.add(TrackingTitleUiModel("[Path]"))
         uiList.add(TrackingPathUiModel(entity.path))
         if (entity.headerMap.isNotEmpty()) {
@@ -89,7 +91,7 @@ internal class TrackingDetailRequestFragment : Fragment() {
             uiList.add(TrackingTitleUiModel("[Query]"))
             uiList.addAll(Extensions.parseQueryUiModel(entity.req.query))
         }
-        entity.req.body?.let { body->
+        entity.req.body?.let { body ->
             uiList.add(TrackingTitleUiModel("[Body]"))
             uiList.add(Extensions.parseBodyUiModel(body))
         }
