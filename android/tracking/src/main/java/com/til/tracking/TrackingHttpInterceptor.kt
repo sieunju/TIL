@@ -7,8 +7,8 @@ import okhttp3.*
 import okio.Buffer
 import okio.GzipSource
 import okio.IOException
+import timber.log.Timber
 import java.nio.charset.Charset
-import java.util.concurrent.TimeUnit
 
 /**
  * Description : Http 정보 추적하는 Interceptor
@@ -39,14 +39,15 @@ class TrackingHttpInterceptor : Interceptor {
         } catch (ex: Exception) {
             null
         }
-        val startNs = System.nanoTime()
         val response = try {
             chain.proceed(request)
         } catch (ex: Exception) {
             tracking?.error = ex
             throw ex
         }
+        Timber.d("여기 Response ${response.code}")
         tracking?.let {
+            it.responseTimeMs = response.receivedResponseAtMillis
             it.res = TrackingResponseEntity(toResBodyString(request.headers, response.body))
             it.takenTimeMs = response.receivedResponseAtMillis - response.sentRequestAtMillis
             it.code = response.code
@@ -89,10 +90,8 @@ class TrackingHttpInterceptor : Interceptor {
             val contentLength = body.contentLength()
             val source = body.source()
             source.request(Long.MAX_VALUE)
-            var buffer = source.buffer
-            var gzippedLength: Long? = null
+            var buffer = source.buffer()
             if ("gzip".equals(headers["Content-Encoding"], ignoreCase = true)) {
-                gzippedLength = buffer.size
                 GzipSource(buffer.clone()).use { gzippedResponseBody ->
                     buffer = Buffer()
                     buffer.writeAll(gzippedResponseBody)
@@ -103,7 +102,6 @@ class TrackingHttpInterceptor : Interceptor {
             } else {
                 null
             }
-            //body.string()
         } catch (ex: Exception) {
             null
         }
