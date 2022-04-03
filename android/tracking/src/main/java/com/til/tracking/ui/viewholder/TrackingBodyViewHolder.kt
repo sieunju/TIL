@@ -9,6 +9,14 @@ internal class TrackingBodyViewHolder(parent: ViewGroup) : BaseTrackingViewHolde
     parent,
     R.layout.vh_tracking_body
 ) {
+    init {
+        itemView.setOnLongClickListener {
+            binding.model?.runCatching {
+                simpleLongClickCopy(body)
+            }
+            return@setOnLongClickListener false
+        }
+    }
     override fun onBindView(model: Any) {
         binding.setVariable(BR.model, model)
     }
