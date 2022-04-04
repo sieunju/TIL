@@ -42,17 +42,22 @@ router.get('/api/jsend/list', (req, res) => {
 })
 
 router.get('/api/jsend/list/meta', (req, res) => {
-    res.status(200).send({
-        status: true,
-        data: {
-            payload: [
-                "aaa", "bbb"
-            ],
-            meta: {
-                metaSize: utils.randomInt()
+    const ran = Math.random() < 0.5
+    if(ran == true) {
+        res.status(200).send({
+            status: true,
+            data: {
+                payload: [
+                    "aaa", "bbb"
+                ],
+                meta: {
+                    metaSize: utils.randomInt()
+                }
             }
-        }
-    }).end()
+        }).end()
+    } else {
+        res.status(404).end();
+    }
 })
 
 module.exports = router

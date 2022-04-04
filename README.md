@@ -33,5 +33,5 @@
     - [Github Action으로 라이브러리 배포 돌려보기](https://github.com/sieunju/TIL/wiki/Github-Action%EC%9C%BC%EB%A1%9C-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%B0%B0%ED%8F%AC-%EB%8F%8C%EB%A0%A4%EB%B3%B4%EA%B8%B0)
 
 - Lifecycle
-    - [MVVM Lifecycle 의존하여 관리해보기, Activity 코드 제로에 도전해보기](https://github.com/sieunju/TIL/wiki/ViewModel-%EC%97%90%EC%84%9C-Lifecycle-%EC%9D%98%EC%A1%B4%ED%95%98%EC%97%AC-%EA%B4%80%EB%A6%AC%ED%95%B4%EB%B3%B4%EA%B8%B0)
+    - [MVVM Lifecycle 의존하여 관리해보기, Activity 코드 제로에 도전해보기](https://github.com/sieunju/TIL/wiki/ViewModel-%EC%97%90%EC%84%9C-Lifecycle-%EC%9D%98%EC%A1%B4%ED%95%98%EC%97%AC-%EA%B4%80%EB%A6%AC%ED%95%B4%EB%B3%B4%EA%B8%B0,-Activity-%EC%BD%94%EB%93%9C-%EC%A0%9C%EB%A1%9C%EC%97%90-%EB%8F%84%EC%A0%84%ED%95%B4%EB%B3%B4%EA%B8%B0)
 
