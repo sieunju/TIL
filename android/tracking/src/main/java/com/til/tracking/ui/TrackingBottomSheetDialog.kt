@@ -13,7 +13,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -22,8 +21,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.til.tracking.BR
 import com.til.tracking.R
+import com.til.tracking.TrackingManager
 import com.til.tracking.databinding.DTrackingBottomSheetBinding
 import com.til.tracking.rx.TrackingDetailEvent
+import com.til.tracking.rx.TrackingNotifyChangeEvent
 import com.til.tracking.ui.detail.TrackingDetailRequestFragment
 import com.til.tracking.ui.detail.TrackingDetailResponseFragment
 import com.til.tracking.ui.list.TrackingListFragment
@@ -44,13 +45,6 @@ class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
     }
 
     private val disposable: CompositeDisposable by lazy { CompositeDisposable() }
-
-    private val _title: MutableLiveData<String> by lazy {
-        MutableLiveData<String>().apply {
-            value = "목록"
-        }
-    }
-    val title: LiveData<String> get() = _title
     val position: MutableLiveData<Int> by lazy { MutableLiveData<Int>().apply { value = 0 } }
 
     private lateinit var binding: DTrackingBottomSheetBinding
@@ -68,6 +62,15 @@ class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
             setupRatio(bottomSheetDialog)
         }
         return dialog
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (dialog is BottomSheetDialog) {
+            (dialog as BottomSheetDialog).runCatching {
+                behavior.skipCollapsed = true
+            }
+        }
     }
 
     override fun onCreateView(
@@ -90,7 +93,6 @@ class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.d("onViewCreated!!! ")
         IS_SHOW = true
         pagerAdapter = PagerAdapter(requireActivity())
         with(binding) {
@@ -100,15 +102,9 @@ class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
             vp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(pos: Int) {
                     position.value = pos
-                    if (pos == 0) {
-                        _title.value = "목록"
-                        vp.isUserInputEnabled = false
-                    } else if (pos == 1) {
-                        _title.value = "상세 > Request"
-                        vp.isUserInputEnabled = true
-                    } else {
-                        _title.value = "상세 > Response"
-                        vp.isUserInputEnabled = true
+                    when (pos) {
+                        0 -> vp.isUserInputEnabled = false
+                        else -> vp.isUserInputEnabled = true
                     }
                 }
             })
@@ -143,7 +139,12 @@ class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
         binding.vp.setCurrentItem(0, true)
     }
 
-    fun moveDetail() {
+    fun onClear() {
+        TrackingManager.getInstance().dataClear()
+        TrackingNotifyChangeEvent.publish(1)
+    }
+
+    private fun moveDetail() {
         binding.vp.setCurrentItem(1, true)
     }
 
@@ -164,7 +165,7 @@ class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
      * Height 85%
      */
     private fun getBottomSheetHeight(): Int {
-        return getDeviceHeight() * 85 / 100
+        return getDeviceHeight() * 70 / 100
     }
 
     private fun getDeviceHeight(): Int {
@@ -186,15 +187,9 @@ class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
 
         override fun createFragment(pos: Int): Fragment {
             return when (pos) {
-                0 -> {
-                    TrackingListFragment.newInstance()
-                }
-                1 -> {
-                    TrackingDetailRequestFragment.newInstance()
-                }
-                else -> {
-                    TrackingDetailResponseFragment.newInstance()
-                }
+                0 -> TrackingListFragment.newInstance()
+                1 -> TrackingDetailRequestFragment.newInstance()
+                else -> TrackingDetailResponseFragment.newInstance()
             }
         }
     }

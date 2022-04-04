@@ -8,5 +8,6 @@
     <color name="black">#222222</color>
     <color name="gray">#fafafa</color>
     <color name="darkGray">#404040</color>
+    <color name="gray3">#cccccc</color>
 
 </resources>

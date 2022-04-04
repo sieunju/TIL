@@ -3,17 +3,18 @@ package com.til.tracking.ui.viewholder
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.LayoutRes
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import com.til.tracking.R
-import timber.log.Timber
 
 internal abstract class BaseTrackingViewHolder<T : ViewDataBinding>(
     parent: ViewGroup,
@@ -34,11 +35,27 @@ internal abstract class BaseTrackingViewHolder<T : ViewDataBinding>(
     protected fun simpleLongClickCopy(txt: String) {
         val clip: ClipData = ClipData.newPlainText("HttpLogging", txt)
         clipboard.setPrimaryClip(clip)
-        Snackbar.make(itemView, R.string.txt_copy_success, Snackbar.LENGTH_SHORT)
-            .apply {
-                setTextColor(ContextCompat.getColor(itemView.context,R.color.black))
-                setBackgroundTint(ContextCompat.getColor(itemView.context,R.color.white))
-            }
-            .show()
+        itemView.context.vibrate()
+        Toast.makeText(itemView.context, R.string.txt_copy_success, Toast.LENGTH_SHORT).show()
+    }
+
+    /**
+     * 진동 피드백 처리 함수
+     */
+    private fun Context.vibrate() {
+        val duration = 100L
+        val vibrator: Vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            (getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager).defaultVibrator
+        } else {
+            @Suppress("DEPRECATION")
+            getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(duration, 50))
+        } else {
+            @Suppress("DEPRECATION")
+            vibrator.vibrate(duration)
+        }
     }
 }
