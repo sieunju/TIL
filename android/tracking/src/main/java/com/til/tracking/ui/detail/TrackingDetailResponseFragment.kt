@@ -24,7 +24,7 @@ import timber.log.Timber
  *
  * Created by juhongmin on 2022/04/02
  */
-class TrackingDetailResponseFragment : Fragment() {
+internal class TrackingDetailResponseFragment : Fragment() {
 
     companion object {
         fun newInstance(): TrackingDetailResponseFragment = TrackingDetailResponseFragment()

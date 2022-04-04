@@ -5,7 +5,7 @@ package com.til.tracking.entity
  *
  * Created by juhongmin on 2022/03/30
  */
-data class TrackingRequestEntity(
+internal data class TrackingRequestEntity(
     val query : String? = null,
     val body : String? = null
 )

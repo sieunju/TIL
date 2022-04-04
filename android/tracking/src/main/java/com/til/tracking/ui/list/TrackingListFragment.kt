@@ -25,7 +25,7 @@ import timber.log.Timber
  *
  * Created by juhongmin on 2022/04/01
  */
-class TrackingListFragment : Fragment() {
+internal class TrackingListFragment : Fragment() {
 
     companion object {
         fun newInstance(): TrackingListFragment = TrackingListFragment()

@@ -38,7 +38,7 @@ import timber.log.Timber
  *
  * Created by juhongmin on 2022/03/29
  */
-class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
+internal class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
 
     companion object {
         var IS_SHOW = false

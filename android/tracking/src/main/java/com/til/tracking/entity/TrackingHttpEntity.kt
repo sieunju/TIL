@@ -5,7 +5,7 @@ package com.til.tracking.entity
  *
  * Created by juhongmin on 2022/03/29
  */
-data class TrackingHttpEntity(
+internal data class TrackingHttpEntity(
     var uid : Long = 0,
     val headerMap: Map<String, String>,
     val path: String, // Path

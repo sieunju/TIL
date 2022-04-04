@@ -7,7 +7,7 @@ import com.til.tracking.Extensions.toDate
  *
  * Created by juhongmin on 2022/03/30
  */
-open class BaseTrackingEntity {
+internal open class BaseTrackingEntity {
     var responseTimeMs: Long = 0L
     var takenTimeMs: Long = 0L // 걸린 시간
     var code: Int = 0

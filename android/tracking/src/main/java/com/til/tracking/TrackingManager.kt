@@ -118,9 +118,9 @@ class TrackingManager private constructor() {
 
     fun isRelease() = !isDebug
 
-    fun getTrackingList(): List<TrackingHttpEntity> = httpTrackingList
+    internal fun getTrackingList(): List<TrackingHttpEntity> = httpTrackingList
 
-    fun addTracking(entity: TrackingHttpEntity?) {
+    internal fun addTracking(entity: TrackingHttpEntity?) {
         if (entity == null) return
         entity.uid = trackingCnt
         httpTrackingList.add(0, entity)
@@ -133,7 +133,7 @@ class TrackingManager private constructor() {
         Timber.d("Tracking ${httpTrackingList.size}")
     }
 
-    fun dataClear() {
+    internal fun dataClear() {
         httpTrackingList.clear()
     }
 
