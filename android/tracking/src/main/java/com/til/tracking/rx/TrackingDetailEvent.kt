@@ -8,7 +8,7 @@ import io.reactivex.rxjava3.subjects.PublishSubject
  *
  * Created by juhongmin on 2022/04/02
  */
-object TrackingDetailEvent {
+internal object TrackingDetailEvent {
     private val publisher = PublishSubject.create<TrackingHttpEntity>()
 
     fun publish(entity: TrackingHttpEntity) {

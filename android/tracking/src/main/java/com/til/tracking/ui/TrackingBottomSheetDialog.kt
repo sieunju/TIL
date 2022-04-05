@@ -144,7 +144,7 @@ internal class TrackingBottomSheetDialog : BottomSheetDialogFragment() {
         TrackingNotifyChangeEvent.publish(1)
     }
 
-    private fun moveDetail() {
+    fun moveDetail() {
         binding.vp.setCurrentItem(1, true)
     }
 

@@ -95,6 +95,11 @@ internal object Extensions {
                         oldItem,
                         newList[newPosition]
                     ) { old, new -> old.title == new.title }
+                is TrackingListUiModel ->
+                    compareInstance<TrackingListUiModel>(
+                        oldItem,
+                        newList[newPosition]
+                    ) { old, new -> old.item.uid == new.item.uid }
                 else -> false
             }
         }
@@ -126,6 +131,11 @@ internal object Extensions {
                         oldItem,
                         newList[newPosition]
                     ) { old, new -> old.title == new.title }
+                is TrackingListUiModel ->
+                    compareInstance<TrackingListUiModel>(
+                        oldItem,
+                        newList[newPosition]
+                    ) { old, new -> old.item == new.item }
                 else -> false
             }
         }
@@ -175,7 +185,7 @@ internal object Extensions {
         return TrackingBodyUiModel(body)
     }
 
-    internal class TrackingDetailAdapter : RecyclerView.Adapter<BaseTrackingViewHolder<*>>() {
+    internal class TrackingAdapter : RecyclerView.Adapter<BaseTrackingViewHolder<*>>() {
 
         private val dataList = mutableListOf<BaseTrackingUiModel>()
 
@@ -197,6 +207,7 @@ internal object Extensions {
                 R.layout.vh_tracking_query -> TrackingQueryViewHolder(parent)
                 R.layout.vh_tracking_body -> TrackingBodyViewHolder(parent)
                 R.layout.vh_tracking_title -> TrackingTitleViewHolder(parent)
+                R.layout.vh_child_tracking -> TrackingListViewHolder(parent)
                 else -> throw IllegalArgumentException("Invalid ViewType")
             }
         }

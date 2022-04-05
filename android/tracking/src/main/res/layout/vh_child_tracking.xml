@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="item"
-            type="com.til.tracking.entity.TrackingHttpEntity" />
+            name="model"
+            type="com.til.tracking.models.TrackingListUiModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -19,7 +18,7 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:background="@{item.isSuccess == true ? @color/blue : @color/red}"
+            android:background="@{model.item.isSuccess == true ? @color/blue : @color/red}"
             android:gravity="center"
             android:orientation="vertical"
             tools:background="@color/blue">
@@ -28,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{item.resTimeDate}"
+                android:text="@{model.item.resTimeDate}"
                 android:textColor="@color/white"
                 android:textSize="12dp"
                 tools:background="@color/blue"
@@ -38,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{item.takenTimeTxt}"
+                android:text="@{model.item.takenTimeTxt}"
                 android:textColor="@color/white"
                 android:textSize="11dp"
                 tools:background="@color/blue"
@@ -48,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{item.codeTxt}"
+                android:text="@{model.item.codeTxt}"
                 android:textColor="@color/white"
                 android:textSize="11dp"
                 tools:background="@color/blue"
@@ -69,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:text="@{item.baseUrl}"
+                android:text="@{model.item.baseUrl}"
                 android:textColor="@color/black"
                 android:textSize="12dp"
                 tools:text="til.qtzz.synology.me" />
@@ -78,7 +77,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{item.path}"
+                android:text="@{model.item.path}"
                 android:textSize="14dp"
                 tools:text="/hello" />
 
@@ -86,7 +85,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{item.method}"
+                android:text="@{model.item.method}"
                 android:textSize="14dp"
                 tools:text="GET" />
 

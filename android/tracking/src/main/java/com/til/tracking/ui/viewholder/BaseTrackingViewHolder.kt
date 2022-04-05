@@ -3,6 +3,7 @@ package com.til.tracking.ui.viewholder
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
@@ -37,6 +38,7 @@ internal abstract class BaseTrackingViewHolder<T : ViewDataBinding>(
         clipboard.setPrimaryClip(clip)
         itemView.context.vibrate()
         Toast.makeText(itemView.context, R.string.txt_copy_success, Toast.LENGTH_SHORT).show()
+        // shareActivity(txt)
     }
 
     /**
@@ -56,6 +58,20 @@ internal abstract class BaseTrackingViewHolder<T : ViewDataBinding>(
         } else {
             @Suppress("DEPRECATION")
             vibrator.vibrate(duration)
+        }
+    }
+
+    /**
+     * 복사한 텍스트 공유하기
+     */
+    private fun shareActivity(txt: String) {
+        Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, txt)
+            type = "text/plain"
+        }.let {
+            val shareIntent = Intent.createChooser(it, null)
+            itemView.context.startActivity(shareIntent)
         }
     }
 }

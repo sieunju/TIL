@@ -7,7 +7,7 @@ import io.reactivex.rxjava3.subjects.PublishSubject
  *
  * Created by juhongmin on 2022/04/01
  */
-object TrackingNotifyChangeEvent {
+internal object TrackingNotifyChangeEvent {
     private val publisher = PublishSubject.create<Long>()
 
     fun publish(cnt : Long) {

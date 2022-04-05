@@ -14,6 +14,7 @@ import com.til.tracking.models.BaseTrackingUiModel
 import com.til.tracking.models.TrackingTitleUiModel
 import com.til.tracking.rx.TrackingDetailEvent
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -33,7 +34,7 @@ internal class TrackingDetailResponseFragment : Fragment() {
     private val disposable: CompositeDisposable by lazy { CompositeDisposable() }
 
     private lateinit var binding: FTrackingDetailResponseBinding
-    private val adapter: Extensions.TrackingDetailAdapter by lazy { Extensions.TrackingDetailAdapter() }
+    private val adapter: Extensions.TrackingAdapter by lazy { Extensions.TrackingAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,6 +69,31 @@ internal class TrackingDetailResponseFragment : Fragment() {
             }).addTo(disposable)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.clear()
+        if (!disposable.isDisposed) {
+            disposable.dispose()
+        }
+    }
+
+    /**
+     * Request Detail 처리
+     * @param entity 트레킹 데이터 모델
+     */
+    fun onDetailEntity(entity: TrackingHttpEntity) {
+        Single.just(entity)
+            .map { parseUiModel(it) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Timber.d("Request Data ${it.size}")
+                adapter.submitList(it)
+            }, {
+
+            }).addTo(disposable)
+    }
+
     private fun parseUiModel(entity: TrackingHttpEntity): List<BaseTrackingUiModel> {
         val uiList = mutableListOf<BaseTrackingUiModel>()
         entity.res?.body?.let { body->
@@ -75,13 +101,5 @@ internal class TrackingDetailResponseFragment : Fragment() {
             uiList.add(Extensions.parseBodyUiModel(body))
         }
         return uiList
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        disposable.clear()
-        if (!disposable.isDisposed) {
-            disposable.dispose()
-        }
     }
 }
