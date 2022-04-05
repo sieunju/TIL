@@ -23,7 +23,6 @@ import okhttp3.Authenticator
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import java.util.concurrent.TimeUnit
@@ -67,7 +66,7 @@ internal object RemoteModule {
     @TokenHttpClient
     fun provideTokenHttpClient(
         @RefreshTokenJsonInterceptor headerInterceptor: Interceptor,
-        @TrackingInterceptor trackingInterceptor : Interceptor
+        @TrackingInterceptor trackingInterceptor: Interceptor
     ): OkHttpClient = OkHttpClient.Builder()
         .retryOnConnectionFailure(true)
         .connectTimeout(NetworkConfig.CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
@@ -105,7 +104,7 @@ internal object RemoteModule {
     @ApiHttpClient
     fun provideHttpClient(
         @HeaderJsonInterceptor headerInterceptor: Interceptor,
-        @TrackingInterceptor trackingInterceptor : Interceptor,
+        @TrackingInterceptor trackingInterceptor: Interceptor,
         tokenAuthenticator: Authenticator
     ): OkHttpClient = OkHttpClient.Builder()
         .retryOnConnectionFailure(true)

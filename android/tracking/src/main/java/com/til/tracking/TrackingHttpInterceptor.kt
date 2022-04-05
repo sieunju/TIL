@@ -7,7 +7,6 @@ import okhttp3.*
 import okio.Buffer
 import okio.GzipSource
 import okio.IOException
-import timber.log.Timber
 import java.nio.charset.Charset
 
 /**
@@ -45,7 +44,6 @@ class TrackingHttpInterceptor : Interceptor {
             tracking?.error = ex
             throw ex
         }
-        Timber.d("여기 Response ${response.code}")
         tracking?.let {
             it.responseTimeMs = response.receivedResponseAtMillis
             it.res = TrackingResponseEntity(toResBodyString(request.headers, response.body))

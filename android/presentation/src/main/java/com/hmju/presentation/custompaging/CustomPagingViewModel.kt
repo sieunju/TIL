@@ -29,8 +29,8 @@ class CustomPagingViewModel @Inject constructor(
     private val queryMap: GoodsParamMap by lazy { GoodsParamMap() }
 
     fun start() {
-        queryMap.tempQueryList = listOf("HIHIHI","안녕하세요","반갑습니다.")
-        queryMap.tempQueryString = listOf("NO","전체","모던&포멀")
+        queryMap.tempQueryList = listOf("HIHIHI", "안녕하세요", "반갑습니다.")
+        queryMap.tempQueryString = listOf("NO", "전체", "모던&포멀")
         getGoodsUseCase(queryMap)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

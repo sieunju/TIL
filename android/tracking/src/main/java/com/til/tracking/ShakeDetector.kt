@@ -4,7 +4,6 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import timber.log.Timber
 
 
 /**
@@ -22,16 +21,16 @@ internal class ShakeDetector : SensorEventListener {
         const val SHAKE_COUNT_RESET_TIME_MS = 1000
     }
 
-    private var shakeTimeStamp : Long = 0L
-    private var shakeCnt : Int = 0
+    private var shakeTimeStamp: Long = 0L
+    private var shakeCnt: Int = 0
 
     interface OnShakeListener {
         fun onShowDialog()
     }
 
-    private var listener : OnShakeListener? = null
+    private var listener: OnShakeListener? = null
 
-    fun setListener (listener : OnShakeListener) : ShakeDetector {
+    fun setListener(listener: OnShakeListener): ShakeDetector {
         this.listener = listener
         return this
     }
@@ -41,7 +40,7 @@ internal class ShakeDetector : SensorEventListener {
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
-        if(event == null) return
+        if (event == null) return
 
         // x,y,z 축의 값을 받아온다
         // x,y,z 축의 값을 받아온다
@@ -86,7 +85,7 @@ internal class ShakeDetector : SensorEventListener {
             shakeTimeStamp = now
             shakeCnt++
             // 흔들렸을 때 행동을 설정한다
-            if(shakeCnt > 0) {
+            if (shakeCnt > 0) {
                 listener?.onShowDialog()
             }
         }
