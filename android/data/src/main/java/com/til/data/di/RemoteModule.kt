@@ -11,6 +11,7 @@ import com.til.data.network.GoodsApiService
 import com.til.data.network.JSendApiService
 import com.til.data.network.RefreshTokenApiService
 import com.til.data.qualifiers.*
+import com.til.tracking.TrackingHttpInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,7 +23,6 @@ import okhttp3.Authenticator
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import java.util.concurrent.TimeUnit
@@ -52,6 +52,10 @@ internal object RemoteModule {
         loginManager: LoginManager
     ): Interceptor = HeaderInterceptor(loginManager)
 
+    @Provides
+    @TrackingInterceptor
+    fun provideTrackingInterceptor(): Interceptor = TrackingHttpInterceptor()
+
     @Singleton
     @Provides
     @RefreshTokenJsonInterceptor
@@ -61,16 +65,18 @@ internal object RemoteModule {
     @Provides
     @TokenHttpClient
     fun provideTokenHttpClient(
-        @RefreshTokenJsonInterceptor headerInterceptor: Interceptor
+        @RefreshTokenJsonInterceptor headerInterceptor: Interceptor,
+        @TrackingInterceptor trackingInterceptor: Interceptor
     ): OkHttpClient = OkHttpClient.Builder()
         .retryOnConnectionFailure(true)
         .connectTimeout(NetworkConfig.CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
         .readTimeout(NetworkConfig.READ_TIME_OUT, TimeUnit.MILLISECONDS)
         .writeTimeout(NetworkConfig.WRITE_TIME_OUT, TimeUnit.MILLISECONDS)
         .addInterceptor(headerInterceptor)
-        .addInterceptor(HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        })
+        .addInterceptor(trackingInterceptor)
+//        .addInterceptor(HttpLoggingInterceptor().apply {
+//            level = HttpLoggingInterceptor.Level.BODY
+//        })
         .build()
 
     @ExperimentalSerializationApi
@@ -98,6 +104,7 @@ internal object RemoteModule {
     @ApiHttpClient
     fun provideHttpClient(
         @HeaderJsonInterceptor headerInterceptor: Interceptor,
+        @TrackingInterceptor trackingInterceptor: Interceptor,
         tokenAuthenticator: Authenticator
     ): OkHttpClient = OkHttpClient.Builder()
         .retryOnConnectionFailure(true)
@@ -105,10 +112,12 @@ internal object RemoteModule {
         .readTimeout(NetworkConfig.READ_TIME_OUT, TimeUnit.MILLISECONDS)
         .writeTimeout(NetworkConfig.WRITE_TIME_OUT, TimeUnit.MILLISECONDS)
         .addInterceptor(headerInterceptor)
+        .addInterceptor(trackingInterceptor)
         .authenticator(tokenAuthenticator)
-        .addInterceptor(HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }).build()
+//        .addInterceptor(HttpLoggingInterceptor().apply {
+//            level = HttpLoggingInterceptor.Level.BODY
+//        })
+        .build()
 
     @ExperimentalSerializationApi
     @Provides

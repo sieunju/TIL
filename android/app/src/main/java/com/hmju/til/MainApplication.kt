@@ -1,6 +1,7 @@
 package com.hmju.til
 
 import androidx.multidex.MultiDexApplication
+import com.til.tracking.TrackingManager
 import dagger.hilt.android.HiltAndroidApp
 import io.reactivex.rxjava3.exceptions.UndeliverableException
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
@@ -18,6 +19,11 @@ class MainApplication : MultiDexApplication() {
 
         // Rx Exception 처리
         initRxJava()
+
+        // Shake Tracking
+        TrackingManager.getInstance()
+            .init(this)
+            .setBuild(true)
     }
 
     /**
@@ -60,12 +66,12 @@ class MainApplication : MultiDexApplication() {
 
     private fun initTimber() {
 //        if (BuildConfig.DEBUG) {
-            Timber.plant(object : Timber.DebugTree() {
+        Timber.plant(object : Timber.DebugTree() {
 
-                override fun createStackElementTag(element: StackTraceElement): String {
-                    return "Timber_${element.methodName.substringBeforeLast(".")}"
-                }
-            })
+            override fun createStackElementTag(element: StackTraceElement): String {
+                return "Timber_${element.methodName.substringBeforeLast(".")}"
+            }
+        })
 //        }
     }
 }
