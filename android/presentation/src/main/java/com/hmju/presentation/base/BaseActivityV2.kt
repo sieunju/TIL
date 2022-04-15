@@ -1,37 +1,62 @@
 package com.hmju.presentation.base
 
 import android.os.Bundle
-import androidx.activity.viewModels
+import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.TextViewCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelLazy
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
+import com.hmju.lifecycle.OnCreated
+import com.hmju.lifecycle.OnResumed
+import com.hmju.lifecycle.OnStopped
 import com.hmju.presentation.BR
-import com.hmju.presentation.R
-import com.hmju.presentation.databinding.ActivityMvvmLifecycleTest3Binding
-import com.hmju.presentation.mvvm_lifecycle.MvvmLifecycleTestViewModel
-import kotlin.reflect.KClass
 
 /**
- * Description : BaseActivity 를 상속 받을떄 Annotation 을 사용하여 좀더 깔끔하게 처리하는 BaseActivity Class
+ * Description : MVVM BaseActivity
  *
  * Created by juhongmin on 2022/03/19
  */
-abstract class BaseActivityV2<T : ViewDataBinding, VM : BaseViewModel>(
+abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
     @LayoutRes private val layoutId: Int
 ) : AppCompatActivity() {
 
-    lateinit var binding: T
     abstract val viewModel: VM
+    lateinit var binding: T
 
+    private var isInit = false
+
+    @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         performBinding()
+
+        viewModel.runCatching {
+            addDisposable(performLifecycle<OnCreated>())
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(isInit) {
+            viewModel.runCatching {
+                addDisposable(performLifecycle<OnResumed>())
+            }
+        }
+        isInit = true
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.runCatching {
+            addDisposable(performLifecycle<OnStopped>())
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.clearDisposable()
+        isInit = false
     }
 
     /**
