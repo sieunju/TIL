@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelLazy
 import com.hmju.lifecycle.*
 import com.hmju.presentation.BR
+import timber.log.Timber
 
 /**
  * Description : MVVM BaseFragment
@@ -74,6 +75,8 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
         super.onDestroyView()
         isInit = false
         viewModel.clearDisposable()
+
+        Timber.d("onDestroyView ${javaClass.simpleName}")
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -87,6 +90,7 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
 
     override fun onDestroy() {
         super.onDestroy()
+        Timber.d("onDestroy ${javaClass.simpleName}")
     }
 
     /**

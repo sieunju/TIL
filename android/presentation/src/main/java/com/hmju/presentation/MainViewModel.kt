@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.hmju.presentation.base.BaseViewModel
 import com.hmju.lifecycle.OnCreated
 import com.hmju.lifecycle.OnResumed
+import com.hmju.presentation.base.ActivityViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import timber.log.Timber
 import javax.inject.Inject
@@ -16,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val stateHandle: SavedStateHandle
-) : BaseViewModel() {
+) : ActivityViewModel() {
 
     @com.hmju.lifecycle.OnCreated
     fun onCreate() {
