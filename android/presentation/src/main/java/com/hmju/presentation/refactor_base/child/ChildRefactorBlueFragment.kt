@@ -8,6 +8,7 @@ import com.hmju.presentation.R
 import com.hmju.presentation.base.BaseFragmentV2
 import com.hmju.presentation.databinding.FChildRefactorBlueBinding
 import com.hmju.presentation.refactor_base.RefactorBaseRootTestViewModel
+import com.hmju.presentation.refactor_base.bottomsheet.RefactorBottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -25,8 +26,16 @@ class ChildRefactorBlueFragment
         ownerProducer = { requireParentFragment() }
     )
 
+    private val bottomSheetDialog: RefactorBottomSheetDialog by lazy { RefactorBottomSheetDialog() }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.setVariable(BR.parentViewModel, parentViewModel)
+
+        with(viewModel) {
+            startBottomSheetDialog.observe(viewLifecycleOwner) {
+                bottomSheetDialog.show(childFragmentManager, "RefactorBottomSheetDialog")
+            }
+        }
     }
 }

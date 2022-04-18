@@ -1,5 +1,6 @@
 package com.hmju.presentation.refactor_base.child
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.hmju.presentation.base.FragmentViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,4 +15,9 @@ import javax.inject.Inject
 class ChildRefactorBlueViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ): FragmentViewModel() {
+    val startBottomSheetDialog : MutableLiveData<Unit> by lazy { MutableLiveData() }
+
+    fun onBottomSheetDialog(){
+        startBottomSheetDialog.value = null
+    }
 }
