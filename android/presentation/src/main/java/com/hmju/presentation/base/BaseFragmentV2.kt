@@ -8,6 +8,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelLazy
 import com.hmju.lifecycle.*
 import com.hmju.presentation.BR
 
@@ -86,5 +87,12 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
 
     override fun onDestroy() {
         super.onDestroy()
+    }
+
+    /**
+     * 기본 viewModels 와 같은 로직의 함수
+     */
+    protected inline fun <reified VM : FragmentViewModel> initViewModel(): Lazy<VM> {
+        return ViewModelLazy(VM::class, { viewModelStore }, { defaultViewModelProviderFactory })
     }
 }

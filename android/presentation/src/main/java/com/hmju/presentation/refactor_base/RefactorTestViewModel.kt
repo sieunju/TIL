@@ -3,6 +3,7 @@ package com.hmju.presentation.refactor_base
 import com.hmju.presentation.base.ActivityViewModel
 import com.hmju.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * Description :
@@ -10,7 +11,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
  * Created by juhongmin on 2022/03/19
  */
 @HiltViewModel
-class RefactorTestViewModel : ActivityViewModel() {
+class RefactorTestViewModel @Inject constructor(
+
+) : ActivityViewModel() {
 
 
 }

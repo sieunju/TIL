@@ -59,6 +59,13 @@
                 android:layout_height="wrap_content"
                 android:text="MVVM Lifecycle" />
 
+            <Button
+                android:id="@+id/baseRefactor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Base Refactor" />
+
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

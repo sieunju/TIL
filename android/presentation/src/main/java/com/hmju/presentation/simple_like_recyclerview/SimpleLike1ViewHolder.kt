@@ -28,9 +28,9 @@ class SimpleLike1ViewHolder(
         }
 
         itemView.getFragmentActivity()?.let {
-            if(it is BaseActivityV2) {
-
-            }
+//            if(it is BaseActivityV2) {
+//
+//            }
         }
     }
 

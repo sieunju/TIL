@@ -62,7 +62,7 @@ abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
     /**
      * 기본 viewModels 와 같은 로직의 함수
      */
-    protected inline fun <reified VM : BaseViewModel> initViewModel(): Lazy<VM> {
+    protected inline fun <reified VM : ActivityViewModel> initViewModel(): Lazy<VM> {
         return ViewModelLazy(VM::class, { viewModelStore }, { defaultViewModelProviderFactory })
     }
 
