@@ -54,6 +54,13 @@ abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
         viewModel.runCatching {
             addDisposable(performLifecycle<OnCreated>())
             addDisposable(performLifecycle<OnIntent>())
+            addDisposable(RxBusActivityResultEvent.listen()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                Timber.d("${javaClass.simpleName}Result $it")
+            },{
+
+            }))
         }
     }
 

@@ -2,6 +2,7 @@ package com.hmju.presentation.refactor_base.bottomsheet
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import com.hmju.presentation.BR
 import com.hmju.presentation.R
 import com.hmju.presentation.base.BaseFragmentV2
@@ -20,12 +21,10 @@ class ChildBottomSheetBlueFragment
 ) {
     override val viewModel: ChildBottomSheetBlueViewModel by initViewModel()
 
-    private lateinit var parentViewModel: RefactorBottomSheetViewModel
-
+    private val parentViewModel: RefactorBottomSheetViewModel by viewModels({ requireParentFragment() })
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        parentViewModel = parentViewModel(requireParentFragment())
         binding.setVariable(BR.parentVm, parentViewModel)
     }
 

@@ -24,14 +24,10 @@ class ChildBottomSheetRedFragment
 ) {
     override val viewModel: ChildBottomSheetRedViewModel by initViewModel()
 
-    private lateinit var parentViewModel: RefactorBottomSheetViewModel
-
-    private val testViewModel: RefactorBottomSheetViewModel by viewModels({ requireParentFragment() })
+    private val parentViewModel: RefactorBottomSheetViewModel by viewModels({ requireParentFragment() })
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        parentViewModel = ViewModelProvider(requireParentFragment()).get(RefactorBottomSheetViewModel::class.java)
-        Timber.d("LOGGER RedFragment ${requireParentFragment().javaClass.simpleName} $parentViewModel  $testViewModel")
         binding.setVariable(BR.parentVm, parentViewModel)
     }
 

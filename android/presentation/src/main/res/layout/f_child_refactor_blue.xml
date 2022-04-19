@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{()->vm.onBottomSheetDialog()}"
-            android:text="BottomSheet Show.."
+            android:text="Show 할때마다 New 하는 방식"
             android:textColor="@color/white"
             android:textSize="16dp"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{()->vm.onParentBottomSheetDialog()}"
-            android:text="Parent BottomSheetShow"
+            android:text="Show 할때마다 ViewModel 를 New 하는 방식"
             android:textColor="@color/white"
             android:textSize="16dp"
             app:layout_constraintTop_toBottomOf="@+id/bottomSheetButton" />

@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.createViewModelLazy
-import androidx.lifecycle.ViewModelLazy
 import androidx.lifecycle.ViewModelProvider
 import com.hmju.lifecycle.*
 import com.hmju.presentation.BR
@@ -102,10 +101,10 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
         return createViewModelLazy(VM::class, { viewModelStore })
     }
 
-    protected inline fun <reified VM : BaseViewModelV2> parentViewModelLazy(parentFragment: Fragment): Lazy<VM> {
-        return createViewModelLazy(VM::class, { parentFragment.viewModelStore }, null)
-    }
-
+    /**
+     * Parent Fragment ViewModel 공유하기위한 함수
+     * Lazy 로 선언한하고 직접적으로 가져올때 사용하는 함수
+     */
     protected inline fun <reified VM : BaseViewModelV2> parentViewModel(parentFragment: Fragment): VM {
         return ViewModelProvider(
             parentFragment.viewModelStore,

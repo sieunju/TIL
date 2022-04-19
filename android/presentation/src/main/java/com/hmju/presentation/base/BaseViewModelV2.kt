@@ -25,8 +25,8 @@ open class BaseViewModelV2 @Inject constructor() : ViewModel() {
 
     protected val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
 
-    @Inject
-    protected lateinit var getGoodsUseCaseT: GetGoodsUseCase
+//    @Inject
+//    protected lateinit var getGoodsUseCaseT: GetGoodsUseCase
 
     /**
      * [OnCreated], [OnResumed], [OnStopped], [OnViewCreated]
@@ -100,7 +100,7 @@ open class BaseViewModelV2 @Inject constructor() : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        Timber.d("onCleared ${javaClass.simpleName}")
+        Timber.d("onCleared ${javaClass.simpleName} ${compositeDisposable.isDisposed}")
         if (compositeDisposable.isDisposed) {
             compositeDisposable.dispose()
         }

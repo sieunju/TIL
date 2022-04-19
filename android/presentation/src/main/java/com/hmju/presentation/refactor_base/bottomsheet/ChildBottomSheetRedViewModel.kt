@@ -20,6 +20,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class ChildBottomSheetRedViewModel @Inject constructor(
+    private val getGoodsUseCase: GetGoodsUseCase
 ) : FragmentViewModel() {
 
     private val _longText : MutableLiveData<String> by lazy { MutableLiveData() }
@@ -28,7 +29,7 @@ class ChildBottomSheetRedViewModel @Inject constructor(
     @OnViewCreated
     fun startAddLike() {
         val queryMap = GoodsParamMap()
-        getGoodsUseCaseT(queryMap)
+        getGoodsUseCase(queryMap)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 _longText.value = it.joinToString(",")
