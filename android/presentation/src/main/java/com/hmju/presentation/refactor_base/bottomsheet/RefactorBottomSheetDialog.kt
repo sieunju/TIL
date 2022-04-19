@@ -31,7 +31,7 @@ class RefactorBottomSheetDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.d("LOGGER Dialog $viewModel")
+        Timber.d("Dialog $viewModel")
         with(binding) {
             vp.offscreenPageLimit = 2
             vp.isSaveEnabled = false
@@ -44,6 +44,11 @@ class RefactorBottomSheetDialog
                 dismiss()
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Timber.d("onDestroy")
     }
 
 

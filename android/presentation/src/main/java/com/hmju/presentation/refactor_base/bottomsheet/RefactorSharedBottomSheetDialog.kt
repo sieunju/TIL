@@ -29,6 +29,7 @@ class RefactorSharedBottomSheetDialog
         viewModel = initBottomSheetViewModel()
         super.onCreate(savedInstanceState)
         setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialog)
+        Timber.d("onCreate")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,6 +47,11 @@ class RefactorSharedBottomSheetDialog
                 dismiss()
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Timber.d("onDestroy")
     }
 
     class PagerAdapter(fm: Fragment) : FragmentStateAdapter(fm) {

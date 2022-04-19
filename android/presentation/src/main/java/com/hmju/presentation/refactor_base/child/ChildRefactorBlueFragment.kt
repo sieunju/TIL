@@ -29,6 +29,8 @@ class ChildRefactorBlueFragment
 
     private val bottomSheetDialog: RefactorSharedBottomSheetDialog by lazy { RefactorSharedBottomSheetDialog() }
 
+    private val testBottomSheetDialog : RefactorBottomSheetDialog by lazy { RefactorBottomSheetDialog() }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.setVariable(BR.parentVm, parentViewModel)
