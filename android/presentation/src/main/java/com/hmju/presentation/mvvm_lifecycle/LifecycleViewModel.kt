@@ -4,16 +4,15 @@ import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hmju.domain.usecase.GetGoodsUseCase
-import com.hmju.lifecycle.*
+import com.hmju.lifecycle.OnActivityResult
+import com.hmju.lifecycle.OnCreated
+import com.hmju.lifecycle.OnResumed
 import com.hmju.loginmanager.LoginManager
 import com.hmju.presentation.IntentKey
-import com.hmju.presentation.base.BaseViewModel
+import com.hmju.presentation.base.FragmentViewModel
 import com.til.model.params.GoodsParamMap
-import com.til.rxbus.TestBusEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.addTo
-import io.reactivex.rxjava3.schedulers.Schedulers
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -25,7 +24,7 @@ import javax.inject.Inject
 class LifecycleViewModel @Inject constructor(
     private val loginManager: LoginManager,
     private val goodsUseCase: GetGoodsUseCase
-) : BaseViewModel() {
+) : FragmentViewModel() {
 
     private val _activityResult: MutableLiveData<String> by lazy { MutableLiveData() }
     val activityResult: LiveData<String> get() = _activityResult
@@ -33,8 +32,8 @@ class LifecycleViewModel @Inject constructor(
 
     @OnCreated
     fun onCreate() {
-        activityStack.value = getActivityStackStr()
-        fragmentStack.value = getFragmentStackStr()
+//        activityStack.value = getActivityStackStr()
+//        fragmentStack.value = getFragmentStackStr()
         goodsUseCase(queryMap)
             .subscribe({
                 loginManager.setToken(it[0].imagePath)
@@ -44,32 +43,32 @@ class LifecycleViewModel @Inject constructor(
 
     @OnResumed
     fun onResume() {
-        activityStack.value = getActivityStackStr()
-        fragmentStack.value = getFragmentStackStr()
+//        activityStack.value = getActivityStackStr()
+//        fragmentStack.value = getFragmentStackStr()
     }
 
     fun move200Page() {
-        movePage(
-            MovePageEvent(
-                MvvmLifecycleTest2Activity::class.java,
-                bundle = Bundle().apply {
-                    putString(IntentKey.TOKEN, loginManager.getToken())
-                },
-                requestCode = 200
-            )
-        )
+//        movePage(
+//            MovePageEvent(
+//                MvvmLifecycleTest2Activity::class.java,
+//                bundle = Bundle().apply {
+//                    putString(IntentKey.TOKEN, loginManager.getToken())
+//                },
+//                requestCode = 200
+//            )
+//        )
     }
 
     fun move201Page() {
-        movePage(
-            MovePageEvent(
-                MvvmLifecycleTest2Activity::class.java,
-                bundle = Bundle().apply {
-                    putLong(IntentKey.NOW_TIME, System.currentTimeMillis())
-                },
-                requestCode = 201
-            )
-        )
+//        movePage(
+//            MovePageEvent(
+//                MvvmLifecycleTest2Activity::class.java,
+//                bundle = Bundle().apply {
+//                    putLong(IntentKey.NOW_TIME, System.currentTimeMillis())
+//                },
+//                requestCode = 201
+//            )
+//        )
     }
 
     @OnActivityResult(200)

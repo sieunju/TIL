@@ -3,12 +3,10 @@ package com.hmju.presentation.custompaging
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.hmju.presentation.R
-import com.hmju.presentation.base.BaseFragment
+import com.hmju.presentation.base.BaseFragmentV2
 import com.hmju.presentation.base.BaseSimpleLikeViewHolder
 import com.hmju.presentation.databinding.FCustomPagingBinding
 import com.hmju.presentation.simple_like_recyclerview.SimpleLike1ViewHolder
@@ -21,12 +19,11 @@ import dagger.hilt.android.AndroidEntryPoint
  * Created by juhongmin on 2022/01/21
  */
 @AndroidEntryPoint
-class CustomPagingFragment : BaseFragment<FCustomPagingBinding, CustomPagingViewModel>(
+class CustomPagingFragment : BaseFragmentV2<FCustomPagingBinding, CustomPagingViewModel>(
     R.layout.f_custom_paging
 ) {
 
-    override val viewModel: CustomPagingViewModel by viewModels()
-    override val binding: FCustomPagingBinding by viewBinding()
+    override val viewModel: CustomPagingViewModel by initViewModel()
 
     private val adapter = Adapter()
 

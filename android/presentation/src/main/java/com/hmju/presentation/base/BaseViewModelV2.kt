@@ -1,11 +1,9 @@
 package com.hmju.presentation.base
 
+import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import com.hmju.domain.usecase.GetGoodsUseCase
-import com.hmju.lifecycle.OnCreated
-import com.hmju.lifecycle.OnResumed
-import com.hmju.lifecycle.OnStopped
-import com.hmju.lifecycle.OnViewCreated
+import com.hmju.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable
@@ -28,7 +26,7 @@ open class BaseViewModelV2 @Inject constructor() : ViewModel() {
     protected val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
 
     @Inject
-    protected lateinit var getGoodsUseCase: GetGoodsUseCase
+    protected lateinit var getGoodsUseCaseT: GetGoodsUseCase
 
     /**
      * [OnCreated], [OnResumed], [OnStopped], [OnViewCreated]
@@ -44,6 +42,29 @@ open class BaseViewModelV2 @Inject constructor() : ViewModel() {
                 it.invoke(this)
             }, {
                 Timber.e("PerformLifecycleRx Error $it")
+            })
+    }
+
+    /**
+     * onActivityResult 에 대한 처리
+     * ReactiveX 타입
+     * @param code RequestCode
+     * @param data 전달 받을 데이터
+     */
+    fun performActivityResult(code: Int, data: Bundle?): Disposable {
+        return Flowable.fromIterable(javaClass.methods.toList())
+            .filter { it.isAnnotationPresent(OnActivityResult::class.java) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ method ->
+                method.getAnnotation(OnActivityResult::class.java)?.let { annotation ->
+                    // RequestCode 와 같은 함수만 호출
+                    if (annotation.requestCode == code) {
+                        method.invoke(this, data)
+                    }
+                }
+            }, {
+                Timber.e("performActivityResultRx Error $it")
             })
     }
 

@@ -28,7 +28,7 @@ class ChildBottomSheetRedViewModel @Inject constructor(
     @OnViewCreated
     fun startAddLike() {
         val queryMap = GoodsParamMap()
-        getGoodsUseCase(queryMap)
+        getGoodsUseCaseT(queryMap)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 _longText.value = it.joinToString(",")

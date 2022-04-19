@@ -3,13 +3,12 @@ package com.hmju.presentation.mvvm_lifecycle
 import android.os.Bundle
 import androidx.lifecycle.SavedStateHandle
 import com.hmju.domain.usecase.GetGoodsUseCase
-import com.hmju.lifecycle.MovePageEvent
 import com.hmju.lifecycle.OnActivityResult
 import com.hmju.lifecycle.OnCreated
 import com.hmju.lifecycle.OnResumed
 import com.hmju.loginmanager.LoginManager
 import com.hmju.presentation.IntentKey
-import com.hmju.presentation.base.BaseViewModel
+import com.hmju.presentation.base.ActivityViewModel
 import com.til.model.params.GoodsParamMap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -27,21 +26,19 @@ class MvvmLifecycleTest2ViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val getGoodsUseCase: GetGoodsUseCase,
     private val loginManager: LoginManager
-) : BaseViewModel() {
+) : ActivityViewModel() {
 
     @OnCreated
     fun onCreate() {
         Timber.d("Token ${savedStateHandle.get<String>(IntentKey.TOKEN)}")
         Timber.d("NowTime ${savedStateHandle.get<Long>(IntentKey.NOW_TIME)}")
         Timber.d("Test Long Arr ${savedStateHandle.get<LongArray>(IntentKey.TEST_LONG_ARR)}")
-        activityStack.value = getActivityStackStr()
-        fragmentStack.value = getFragmentStackStr()
     }
 
     @OnResumed
     fun onResume() {
-        activityStack.value = getActivityStackStr()
-        fragmentStack.value = getFragmentStackStr()
+//        activityStack.value = getActivityStackStr()
+//        fragmentStack.value = getFragmentStackStr()
     }
 
     fun changeToken() {
@@ -55,23 +52,23 @@ class MvvmLifecycleTest2ViewModel @Inject constructor(
     }
 
     fun moveTest3Page() {
-        movePage(
-            MovePageEvent(
-                MvvmLifecycleTest3Activity::class.java,
-                requestCode = 2000,
-                bundle = Bundle().apply {
-                    putLong(IntentKey.NOW_TIME,Random.nextLong())
-                    putString("TEST_KEY","aa")
-                }
-            )
-        )
+//        movePage(
+//            MovePageEvent(
+//                MvvmLifecycleTest3Activity::class.java,
+//                requestCode = 2000,
+//                bundle = Bundle().apply {
+//                    putLong(IntentKey.NOW_TIME,Random.nextLong())
+//                    putString("TEST_KEY","aa")
+//                }
+//            )
+//        )
     }
 
     @OnActivityResult(2000)
-    fun on2000Result(data : Bundle?){
+    fun on2000Result(data: Bundle?) {
         Timber.d("[s] Result Data 2000 ==================================================")
         data?.let {
-            it.keySet().forEach { str->
+            it.keySet().forEach { str ->
                 Timber.d("Key $str Value ${it.get(str)}")
             }
         }

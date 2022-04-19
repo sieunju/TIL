@@ -3,7 +3,7 @@ package com.hmju.presentation.custompaging
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hmju.domain.usecase.GetGoodsUseCase
-import com.hmju.presentation.base.BaseViewModel
+import com.hmju.presentation.base.FragmentViewModel
 import com.til.model.goods.GoodsEntity
 import com.til.model.params.GoodsParamMap
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CustomPagingViewModel @Inject constructor(
     private val getGoodsUseCase: GetGoodsUseCase
-) : BaseViewModel() {
+) : FragmentViewModel() {
 
     private val _pageNo: MutableLiveData<String> by lazy { MutableLiveData() }
     val pageNo: LiveData<String> get() = _pageNo
@@ -56,13 +56,5 @@ class CustomPagingViewModel @Inject constructor(
             }, {
                 pagingModel.isLast = true
             }).addTo(compositeDisposable)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.clear()
-        if (!compositeDisposable.isDisposed) {
-            compositeDisposable.dispose()
-        }
     }
 }

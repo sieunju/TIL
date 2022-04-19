@@ -1,8 +1,6 @@
 package com.hmju.presentation
 
 import android.os.Bundle
-import androidx.activity.viewModels
-import com.hmju.presentation.base.BaseActivity
 import com.hmju.presentation.base.BaseActivityV2
 import com.hmju.presentation.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
