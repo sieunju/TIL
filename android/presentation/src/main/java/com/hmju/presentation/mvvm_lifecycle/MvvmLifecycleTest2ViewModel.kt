@@ -23,7 +23,6 @@ import kotlin.random.Random
  */
 @HiltViewModel
 class MvvmLifecycleTest2ViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
     private val getGoodsUseCase: GetGoodsUseCase,
     private val loginManager: LoginManager
 ) : ActivityViewModel() {

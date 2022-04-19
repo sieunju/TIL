@@ -30,7 +30,7 @@ open class BaseViewModelV2 @Inject constructor() : ViewModel() {
 
     /**
      * [OnCreated], [OnResumed], [OnStopped], [OnViewCreated]
-     * ReactiveX 타입
+     *
      * 선언된 함수를 실행 하는 함수
      */
     inline fun <reified T : Annotation> performLifecycle(): Disposable {
@@ -41,7 +41,24 @@ open class BaseViewModelV2 @Inject constructor() : ViewModel() {
             .subscribe({
                 it.invoke(this)
             }, {
-                Timber.e("PerformLifecycleRx Error $it")
+                Timber.e("performLifecycle Error $it")
+            })
+    }
+
+    /**
+     * [onCreate], [onNewIntent]
+     *
+     * Intent 데이터를 ViewModel 에서 처리하는 함수
+     */
+    fun performIntent(data: Bundle?): Disposable {
+        return Flowable.fromIterable(javaClass.methods.toList())
+            .filter { it.isAnnotationPresent(OnIntent::class.java) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.invoke(this, data)
+            }, {
+                Timber.e("performIntent Error $it")
             })
     }
 

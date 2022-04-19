@@ -6,7 +6,7 @@ import com.hmju.presentation.databinding.ARefactorBaseTestBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
- * Description :
+ * Description : StartResult Test 용 액티비티
  *
  * Created by juhongmin on 2022/03/19
  */

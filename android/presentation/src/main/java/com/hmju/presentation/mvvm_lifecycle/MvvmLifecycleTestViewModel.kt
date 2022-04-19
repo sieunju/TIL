@@ -1,14 +1,18 @@
 package com.hmju.presentation.mvvm_lifecycle
 
 import android.Manifest
+import android.content.Intent
+import android.os.Bundle
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import com.hmju.lifecycle.OnCreated
-import com.hmju.lifecycle.OnPermissionResult
-import com.hmju.lifecycle.OnResumed
-import com.hmju.lifecycle.OnStopped
+import com.hmju.lifecycle.*
 import com.hmju.loginmanager.LoginManager
 import com.hmju.presentation.IntentKey
+import com.hmju.presentation.base.ActivityResult
 import com.hmju.presentation.base.ActivityViewModel
+import com.hmju.presentation.base.RxBusActivityResultEvent
+import com.hmju.presentation.refactor_base.RefactorBaseTestActivity
 import com.til.rxbus.TestBusEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -23,32 +27,33 @@ import kotlin.random.Random
  */
 @HiltViewModel
 class MvvmLifecycleTestViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
     private val loginManager: LoginManager
 ) : ActivityViewModel() {
 
-    @OnCreated
-    fun savedHandle() {
-        Timber.d("Token ${savedStateHandle.get<String>(IntentKey.TOKEN)}")
-        Timber.d("NowTime ${savedStateHandle.get<Long>(IntentKey.NOW_TIME)}")
-        Timber.d("Test Long Arr ${savedStateHandle.get<LongArray>(IntentKey.TEST_LONG_ARR)}")
+    private val _contents : MutableLiveData<String> by lazy { MutableLiveData() }
+    val contents : LiveData<String> get() = _contents
+
+    @OnIntent
+    fun intentData() {
+        Timber.d("[s] onCreate Intent Data ===============================================")
+        val builder = StringBuilder()
+        savedStateHandle.keys().forEach {
+            Timber.d("Key $it Value ${savedStateHandle.get<Any>(it)}")
+            builder.append("Key $it Value ${savedStateHandle.get<Any>(it)}\n")
+        }
+        _contents.value = builder.toString()
+        Timber.d("[s] onCreate Intent Data ===============================================")
     }
 
     fun onRandomToken() {
         loginManager.setToken("Token ${System.currentTimeMillis()}")
+        savedStateHandle.set("HiKey","dddfefefeffe")
+        savedStateHandle.set("Hello....",System.currentTimeMillis())
+        savedStateHandle.set(IntentKey.TOKEN,"ChangeResult")
     }
 
     fun onClick1() {
         TestBusEvent.publish("테스트 버튼 클릭 ${System.currentTimeMillis()}")
-    }
-
-    fun onClick2() {
-//        movePage(
-//            MovePageEvent(
-//                target = MvvmLifecycleTest2Activity::class.java,
-//                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-//            )
-//        )
     }
 
     fun onClick3() {
@@ -67,6 +72,16 @@ class MvvmLifecycleTestViewModel @Inject constructor(
     }
 
     fun movePage2Req222() {
+        loginManager.setToken("Token ${System.currentTimeMillis()}_${Random.nextBytes(10000)}")
+        RxBusActivityResultEvent.publish(
+            ActivityResult(
+                3001,
+                RefactorBaseTestActivity::class,
+                flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT,
+                data = Bundle().apply {
+                    putString(IntentKey.TOKEN, loginManager.getToken())
+                }
+            ))
 //        movePage(
 //            MovePageEvent(
 //                MvvmLifecycleTest2Activity::class.java,
@@ -78,6 +93,17 @@ class MvvmLifecycleTestViewModel @Inject constructor(
 //                requestCode = RequestCode.MVVM_LIFECYCLE_2
 //            )
 //        )
+    }
+
+    @OnActivityResult(3001)
+    fun onActivityResult(data: Bundle?) {
+        Timber.d("[s] Result Data ==================================================")
+        data?.let {
+            it.keySet().forEach { str ->
+                Timber.d("Key $str Value ${it.get(str)}")
+            }
+        }
+        Timber.d("[e] Result Data ==================================================")
     }
 
     fun movePermission() {

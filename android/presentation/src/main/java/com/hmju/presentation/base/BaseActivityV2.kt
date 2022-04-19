@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelLazy
 import com.hmju.lifecycle.OnCreated
+import com.hmju.lifecycle.OnIntent
 import com.hmju.lifecycle.OnResumed
 import com.hmju.lifecycle.OnStopped
 import com.hmju.presentation.BR
@@ -52,6 +53,20 @@ abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
 
         viewModel.runCatching {
             addDisposable(performLifecycle<OnCreated>())
+            addDisposable(performLifecycle<OnIntent>())
+        }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        viewModel.runCatching {
+            val data = intent?.extras
+            if (data != null) {
+                data.keySet()?.forEach { key ->
+                    savedStateHandle.set(key, data.get(key))
+                }
+                addDisposable(performLifecycle<OnIntent>())
+            }
         }
     }
 
@@ -86,28 +101,37 @@ abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
     override fun finish() {
         intent.extras?.let { bundle ->
             val reqCode = bundle.getInt(REQ_CODE, -1)
-            Timber.d("Finish ReqCode $reqCode $bundle")
             if (reqCode != -1) {
+                bundle.clear()
+                Timber.d("Finish ReqCode $reqCode $bundle")
+                viewModel.savedStateHandle.remove<Int>(REQ_CODE)
+                bundle.putAll(viewModel.getBundleData())
+                intent.putExtras(bundle)
                 setResult(reqCode, intent)
             }
         }
         super.finish()
     }
 
+    /**
+     * Activity Result 처리 함수
+     */
     private fun performActivityResult() {
         activityResultDisposable = RxBusActivityResultEvent.listen()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                val intent = Intent(this, it.targetActivity::class.java).apply {
+                val intent = Intent(this, it.targetActivity.java).apply {
                     if (it.flags != -1) {
                         flags = it.flags
                     }
                     it.data.putInt(REQ_CODE, it.requestCode)
                     putExtras(it.data)
                 }
-                Timber.d("StartActivityResult ${javaClass.simpleName}")
+                Timber.d("StartActivityResult ${javaClass.simpleName} ${it.targetActivity.java}")
                 activityResult.launch(intent)
-            }, {})
+            }, {
+                Timber.d("ERROR $it")
+            })
     }
 
     private fun disposableActivityResult() {
