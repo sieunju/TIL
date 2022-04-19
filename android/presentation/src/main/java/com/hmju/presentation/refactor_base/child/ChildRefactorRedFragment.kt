@@ -27,6 +27,6 @@ class ChildRefactorRedFragment : BaseFragmentV2<FChildRefactorRedBinding,ChildRe
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.setVariable(BR.parentViewModel, parentViewModel)
+        binding.setVariable(BR.parentVm, parentViewModel)
     }
 }

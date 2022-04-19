@@ -16,8 +16,13 @@ class ChildRefactorBlueViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ): FragmentViewModel() {
     val startBottomSheetDialog : MutableLiveData<Unit> by lazy { MutableLiveData() }
+    val startParentBottomSheetDialog : MutableLiveData<Unit> by lazy { MutableLiveData() }
 
     fun onBottomSheetDialog(){
         startBottomSheetDialog.value = null
+    }
+
+    fun onParentBottomSheetDialog(){
+        startParentBottomSheetDialog.value = null
     }
 }

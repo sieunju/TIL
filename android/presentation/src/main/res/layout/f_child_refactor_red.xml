@@ -9,7 +9,7 @@
             type="com.hmju.presentation.refactor_base.child.ChildRefactorRedViewModel" />
 
         <variable
-            name="parentViewModel"
+            name="parentVm"
             type="com.hmju.presentation.refactor_base.RefactorBaseRootTestViewModel" />
     </data>
 
@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{parentViewModel.intervalText}"
+            android:text="@{parentVm.intervalText}"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

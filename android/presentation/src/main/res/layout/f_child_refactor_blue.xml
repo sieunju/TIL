@@ -9,7 +9,7 @@
             type="com.hmju.presentation.refactor_base.child.ChildRefactorBlueViewModel" />
 
         <variable
-            name="parentViewModel"
+            name="parentVm"
             type="com.hmju.presentation.refactor_base.RefactorBaseRootTestViewModel" />
     </data>
 
@@ -23,12 +23,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:text="@{parentViewModel.intervalText}"
+            android:text="@{parentVm.intervalText}"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/bottomSheetButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{()->vm.onBottomSheetDialog()}"
@@ -36,6 +37,15 @@
             android:textColor="@color/white"
             android:textSize="16dp"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->vm.onParentBottomSheetDialog()}"
+            android:text="Parent BottomSheetShow"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/bottomSheetButton" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

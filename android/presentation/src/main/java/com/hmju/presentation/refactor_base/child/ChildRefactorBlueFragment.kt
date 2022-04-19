@@ -9,6 +9,7 @@ import com.hmju.presentation.base.BaseFragmentV2
 import com.hmju.presentation.databinding.FChildRefactorBlueBinding
 import com.hmju.presentation.refactor_base.RefactorBaseRootTestViewModel
 import com.hmju.presentation.refactor_base.bottomsheet.RefactorBottomSheetDialog
+import com.hmju.presentation.refactor_base.bottomsheet.RefactorSharedBottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -26,15 +27,20 @@ class ChildRefactorBlueFragment
         ownerProducer = { requireParentFragment() }
     )
 
-    private val bottomSheetDialog: RefactorBottomSheetDialog by lazy { RefactorBottomSheetDialog() }
+    private val bottomSheetDialog: RefactorSharedBottomSheetDialog by lazy { RefactorSharedBottomSheetDialog() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.setVariable(BR.parentViewModel, parentViewModel)
+        binding.setVariable(BR.parentVm, parentViewModel)
 
         with(viewModel) {
             startBottomSheetDialog.observe(viewLifecycleOwner) {
-                bottomSheetDialog.show(childFragmentManager, "RefactorBottomSheetDialog")
+                RefactorBottomSheetDialog()
+                    .simpleShow(childFragmentManager)
+            }
+
+            startParentBottomSheetDialog.observe(viewLifecycleOwner) {
+                bottomSheetDialog.simpleShow(childFragmentManager)
             }
         }
     }

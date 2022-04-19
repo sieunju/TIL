@@ -8,7 +8,9 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.ViewModelLazy
+import androidx.lifecycle.ViewModelProvider
 import com.hmju.lifecycle.*
 import com.hmju.presentation.BR
 import timber.log.Timber
@@ -97,6 +99,17 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
      * 기본 viewModels 와 같은 로직의 함수
      */
     protected inline fun <reified VM : FragmentViewModel> initViewModel(): Lazy<VM> {
-        return ViewModelLazy(VM::class, { viewModelStore }, { defaultViewModelProviderFactory })
+        return createViewModelLazy(VM::class, { viewModelStore })
+    }
+
+    protected inline fun <reified VM : BaseViewModelV2> parentViewModelLazy(parentFragment: Fragment): Lazy<VM> {
+        return createViewModelLazy(VM::class, { parentFragment.viewModelStore }, null)
+    }
+
+    protected inline fun <reified VM : BaseViewModelV2> parentViewModel(parentFragment: Fragment): VM {
+        return ViewModelProvider(
+            parentFragment.viewModelStore,
+            parentFragment.defaultViewModelProviderFactory
+        ).get(VM::class.java)
     }
 }

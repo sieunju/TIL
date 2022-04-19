@@ -9,7 +9,8 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.createViewModelLazy
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hmju.lifecycle.OnCreated
 import com.hmju.lifecycle.OnResumed
@@ -19,15 +20,15 @@ import com.hmju.presentation.BR
 import timber.log.Timber
 
 /**
- * Description : BaseBottomSheetDialog
+ * Description : BottomSheet 에서 ParentFragment Shared 할수 있는 Dialog
  *
- * Created by juhongmin on 2022/04/15
+ * Created by juhongmin on 2022/04/19
  */
-abstract class BaseBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewModel>(
+abstract class BaseSharedBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewModel>(
     @LayoutRes private val layoutId: Int
 ) : BottomSheetDialogFragment() {
 
-    abstract val viewModel: VM
+    lateinit var viewModel: VM
     var binding: T by autoCleared()
 
     private var isInit = false
@@ -46,7 +47,7 @@ abstract class BaseBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewMo
     ): View? {
         return DataBindingUtil.inflate<T>(inflater, layoutId, container, false).run {
             binding = this
-            lifecycleOwner = this@BaseBottomSheetDialog
+            lifecycleOwner = this@BaseSharedBottomSheetDialog
             setVariable(BR.vm, viewModel)
             this.root
         }
@@ -96,9 +97,9 @@ abstract class BaseBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewMo
     }
 
     /**
-     * 기본 viewModels 와 같은 로직의 함수
+     * SharedBottomSheet 전용 ViewModel onCreate 에서 실행 해야 한다
      */
-    protected inline fun <reified VM : BottomSheetViewModel> initViewModel(): Lazy<VM> {
-        return createViewModelLazy(VM::class, { viewModelStore })
+    protected inline fun <reified VM : BottomSheetViewModel> initBottomSheetViewModel(): VM {
+        return ViewModelProvider(viewModelStore, defaultViewModelProviderFactory).get()
     }
 }
