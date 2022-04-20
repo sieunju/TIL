@@ -1,6 +1,5 @@
 package com.til.rxbus
 
-import io.reactivex.rxjava3.kotlin.ofType
 import io.reactivex.rxjava3.subjects.PublishSubject
 
 /**
@@ -15,7 +14,7 @@ object LoginBusEvent {
         publisher.onNext(event)
     }
 
-    fun listen() = publisher.ofType<LoginEvent>()
+    fun listen() = publisher
 }
 
 data class LoginEvent(val isChanged: Boolean, val token: String)

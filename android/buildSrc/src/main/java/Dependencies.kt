@@ -3,8 +3,8 @@ object Apps {
     const val buildToolsVersion = "31.0.0"
     const val minSdkVersion = 23
     const val targetSdkVersion = 31
-    const val versionCode = 1
-    const val versionName = "0.0.1"
+    const val versionCode = 2
+    const val versionName = "0.0.2"
 }
 
 object Versions {
@@ -13,7 +13,6 @@ object Versions {
     const val retrofit = "2.9.0"
     const val glide = "4.11.0"
     const val dagger = "2.38.1"
-    const val espresso = "3.2.0"
     const val lifecycle = "2.3.1"
     const val hilt = "2.38.1"
 }
@@ -37,6 +36,7 @@ object AndroidX {
 
 object Kotlin {
     const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
+    const val core = "androidx.core:core-ktx:1.7.0"
 }
 
 object Javax {
@@ -56,17 +56,17 @@ object Rx {
 }
 
 object Retrofit {
-    const val base = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-    const val rxjava = "com.squareup.retrofit2:adapter-rxjava3:${Versions.retrofit}"
+    const val base = "com.squareup.retrofit2:retrofit:2.9.0"
+    const val rxjava = "com.squareup.retrofit2:adapter-rxjava3:2.9.0"
     const val kotlinx = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
-    const val okhttp = "com.squareup.okhttp3:okhttp:4.9.0"
-    const val okhttpLogger = "com.squareup.okhttp3:logging-interceptor:4.9.0"
+    const val okhttp = "com.squareup.okhttp3:okhttp:4.9.1"
+    const val okhttpLogger = "com.squareup.okhttp3:logging-interceptor:4.9.1"
 }
 
 object Glide {
-    const val base = "com.github.bumptech.glide:glide:${Versions.glide}"
-    const val okhttp = "com.github.bumptech.glide:okhttp3-integration:${Versions.glide}"
-    const val compiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
+    const val base = "com.github.bumptech.glide:glide:4.11.0"
+    const val okhttp = "com.github.bumptech.glide:okhttp3-integration:4.11.0"
+    const val compiler = "com.github.bumptech.glide:compiler:4.11.0"
 }
 
 object KotlinX {
@@ -83,11 +83,21 @@ object Libs {
 }
 
 object UnitTest {
-    const val junit = "junit:junit:4.12"
-    const val androidXJunit = "androidx.test.ext:junit:1.1.3"
+    const val junit = "junit:junit:4.13.2"
+    const val rules = "androidx.test:rules:1.4.0"
+    const val room = "androidx.room:room-testing:2.3.0"
+    const val core = "androidx.test:core-ktx:1.4.0"
+    const val archCore = "androidx.arch.core:core-testing:2.1.0"
+    const val ext = "androidx.test.ext:junit-ktx:1.1.3"
+    const val runner = "androidx.test:runner:1.4.0"
 
     object Espresso {
-        const val core = "androidx.test.espresso:espresso-core:${Versions.espresso}"
-        const val intents = "androidx.test.espresso:espresso-intents:${Versions.espresso}"
+        const val core = "androidx.test.espresso:espresso-core:3.4.0"
+        const val intents = "androidx.test.espresso:espresso-intents:3.4.0"
+    }
+
+    object Hilt {
+        const val base = "com.google.dagger:hilt-android-testing:${Versions.hilt}"
+        const val compiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
     }
 }

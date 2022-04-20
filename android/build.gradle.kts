@@ -9,18 +9,19 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.0.4")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
-        classpath("org.jetbrains.kotlin:kotlin-serialization:1.6.10")
+        classpath("com.android.tools.build:gradle:7.1.3")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.20")
+        classpath("org.jetbrains.kotlin:kotlin-serialization:1.6.20")
         classpath("com.google.dagger:hilt-android-gradle-plugin:2.38.1")
     }
 }
 
 allprojects {
     repositories {
-        mavenCentral()
         google()
+        mavenCentral()
         maven { url = uri("https://jitpack.io") }
+        maven { url = uri("https://maven.google.com") }
     }
 }
 

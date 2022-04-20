@@ -1,9 +1,9 @@
-Build Date 2022년 02월 17일 목요일 08:41:38
+Build Date 2022년 04월 20일 수요일 23:52:09
 Version Name: 0.0.1
-Branch: feature/test-pr-build
+Branch: feature/refactor_base
 
-Message: commit 0f087046cad8cd5375284b4ca288923b58415dd7
-chore: ktlint 작업 디렉토리 변경
+Message: commit 912cb733f5946959c573555cf8e3cbe9f8e01a55
+test: TDD 추가
 
 
 Author: sieunju

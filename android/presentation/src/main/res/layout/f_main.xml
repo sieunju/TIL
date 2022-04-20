@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="vm"
+            type="com.hmju.presentation.MainFragmentViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -58,6 +64,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MVVM Lifecycle" />
+
+            <Button
+                android:id="@+id/baseRefactor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BaseClass 리펙토링 1" />
+
+            <Button
+                android:id="@+id/baseRefactorAct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BaseClass Activity Result Test" />
+
+
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

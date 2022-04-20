@@ -8,12 +8,13 @@ plugins {
 
 android {
     compileSdk = Apps.compileSdkVersion
+    buildToolsVersion = Apps.buildToolsVersion
 
     defaultConfig {
         minSdk = Apps.minSdkVersion
         targetSdk = Apps.targetSdkVersion
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.hmju.presentation.HiltTestRunner"
     }
 
     buildTypes {
@@ -39,6 +40,11 @@ android {
     }
     kapt {
         correctErrorTypes = true
+    }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
     }
 }
 
@@ -92,6 +98,7 @@ dependencies {
     implementation(Glide.base)
     implementation(Glide.compiler)
     implementation(Glide.okhttp)
+    kapt(Glide.compiler)
 
     /**
      * Timber
@@ -104,13 +111,36 @@ dependencies {
     implementation(Libs.binding)
     implementation(Libs.bindingReflection)
 
+    implementation(Kotlin.stdLib)
+    implementation(Kotlin.core)
+
     /**
      * Unit Test
      */
-    androidTestImplementation(Retrofit.okhttp)
-    androidTestImplementation(Retrofit.base)
-    androidTestImplementation(Retrofit.rxjava)
-    androidTestImplementation(Retrofit.kotlinx)
-    androidTestImplementation(KotlinX.serialization)
+    androidTestImplementation(project(":data"))
+    androidTestImplementation(project(":domain"))
+    androidTestImplementation(project(":loginmanager"))
+    androidTestImplementation(project(":lifecycle"))
 
+    testImplementation(UnitTest.archCore)
+
+    androidTestImplementation(UnitTest.Hilt.base)
+    kaptAndroidTest(UnitTest.Hilt.compiler)
+
+    testImplementation(UnitTest.junit)
+    androidTestImplementation(UnitTest.runner)
+    androidTestImplementation(UnitTest.junit)
+    androidTestImplementation(UnitTest.core)
+    androidTestImplementation(UnitTest.ext)
+    androidTestImplementation(UnitTest.rules)
+    androidTestImplementation(UnitTest.Espresso.core)
+
+    /**
+     * Network
+     */
+    implementation(Retrofit.base)
+    implementation(Retrofit.okhttp)
+    implementation(Retrofit.rxjava)
+    implementation(Retrofit.kotlinx)
+    implementation(Retrofit.okhttpLogger)
 }

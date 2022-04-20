@@ -1,15 +1,12 @@
 package com.hmju.presentation.mvvm_lifecycle
 
-import android.os.Bundle
 import androidx.lifecycle.SavedStateHandle
 import com.hmju.domain.usecase.GetGoodsUseCase
-import com.hmju.lifecycle.MovePageEvent
 import com.hmju.lifecycle.OnCreated
 import com.hmju.lifecycle.OnResumed
 import com.hmju.lifecycle.OnStopped
 import com.hmju.loginmanager.LoginManager
-import com.hmju.presentation.IntentKey
-import com.hmju.presentation.base.BaseViewModel
+import com.hmju.presentation.base.ActivityViewModel
 import com.til.model.params.GoodsParamMap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -26,7 +23,7 @@ class MvvmLifecycleTest3ViewModel @Inject constructor(
     private val handle: SavedStateHandle,
     private val getGoodsUseCase: GetGoodsUseCase,
     private val loginManager: LoginManager
-) : BaseViewModel() {
+) : ActivityViewModel() {
 
     @OnCreated
     fun savedHandle() {
@@ -34,21 +31,21 @@ class MvvmLifecycleTest3ViewModel @Inject constructor(
             Timber.d("Key $it ${handle.get<Any>(it)}")
         }
         handle["TEST_KEY"] = "TETKKEKEKQKEKQKEKEKEKEKEKE"
-        activityStack.value = getActivityStackStr()
-        fragmentStack.value = getFragmentStackStr()
+//        activityStack.value = getActivityStackStr()
+//        fragmentStack.value = getFragmentStackStr()
     }
 
     @OnResumed
     fun onResume() {
-        activityStack.value = getActivityStackStr()
-        fragmentStack.value = getFragmentStackStr()
+//        activityStack.value = getActivityStackStr()
+//        fragmentStack.value = getFragmentStackStr()
     }
 
     @OnStopped
     fun onStop() {
-        saveResultData(Bundle().apply {
-            putString("TEST_KEY", "AAEFEFEFEFEFEFEFEFEFA")
-        })
+//        saveResultData(Bundle().apply {
+//            putString("TEST_KEY", "AAEFEFEFEFEFEFEFEFEFA")
+//        })
     }
 
     @OnCreated
@@ -65,11 +62,11 @@ class MvvmLifecycleTest3ViewModel @Inject constructor(
     }
 
     fun moveTest2Page() {
-        movePage(MovePageEvent(
-            MvvmLifecycleTest2Activity::class.java,
-            bundle = Bundle().apply {
-                putLong(IntentKey.NOW_TIME, System.currentTimeMillis())
-            }
-        ))
+//        movePage(MovePageEvent(
+//            MvvmLifecycleTest2Activity::class.java,
+//            bundle = Bundle().apply {
+//                putLong(IntentKey.NOW_TIME, System.currentTimeMillis())
+//            }
+//        ))
     }
 }

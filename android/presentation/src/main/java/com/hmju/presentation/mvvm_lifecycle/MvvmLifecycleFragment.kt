@@ -1,15 +1,10 @@
 package com.hmju.presentation.mvvm_lifecycle
 
 import android.content.Context
-import android.content.Intent
-import android.os.Bundle
-import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.hmju.presentation.R
-import com.hmju.presentation.base.BaseFragment
+import com.hmju.presentation.base.BaseFragmentV2
 import com.hmju.presentation.databinding.FMvvmLifecycleBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,12 +14,11 @@ import dagger.hilt.android.AndroidEntryPoint
  * Created by juhongmin on 2022/02/26
  */
 @AndroidEntryPoint
-class MvvmLifecycleFragment : BaseFragment<FMvvmLifecycleBinding, LifecycleViewModel>(
+class MvvmLifecycleFragment : BaseFragmentV2<FMvvmLifecycleBinding, LifecycleViewModel>(
     R.layout.f_mvvm_lifecycle
 ) {
 
-    override val viewModel: LifecycleViewModel by viewModels()
-    override val binding: FMvvmLifecycleBinding by viewBinding()
+    override val viewModel: LifecycleViewModel by initViewModel()
 
     private lateinit var callback: OnBackPressedCallback
 
