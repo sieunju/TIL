@@ -2,7 +2,7 @@ package com.hmju.presentation.mvvm_lifecycle
 
 import androidx.lifecycle.MutableLiveData
 import com.hmju.lifecycle.OnResumed
-import com.hmju.presentation.base.BaseViewModel
+import com.hmju.presentation.base.FragmentViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -12,7 +12,7 @@ import javax.inject.Inject
  * Created by juhongmin on 2022/03/17
  */
 @HiltViewModel
-class MvvmLifecycleTest4FragmentViewModel @Inject constructor() : BaseViewModel() {
+class MvvmLifecycleTest4FragmentViewModel @Inject constructor() : FragmentViewModel() {
 
     val startFragment: MutableLiveData<Unit> by lazy { MutableLiveData() }
     val startToast: MutableLiveData<String> by lazy { MutableLiveData() }

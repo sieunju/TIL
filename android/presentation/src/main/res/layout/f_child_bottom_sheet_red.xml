@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.hmju.presentation.refactor_base.bottomsheet.ChildBottomSheetRedViewModel" />
+
+        <variable
+            name="parentVm"
+            type="com.hmju.presentation.refactor_base.bottomsheet.RefactorBottomSheetViewModel" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#AD1457"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@{parentVm.redTitle}"
+            android:textColor="@color/white"
+            android:textSize="20dp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@{parentVm.blueTitle}"
+            android:textColor="@color/white"
+            android:textSize="20dp"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>

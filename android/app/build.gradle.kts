@@ -95,8 +95,8 @@ dependencies {
      */
     implementation(Log.timber)
 
+    androidTestImplementation(UnitTest.runner)
+    androidTestImplementation(UnitTest.junit)
     testImplementation(UnitTest.junit)
-    androidTestImplementation(UnitTest.androidXJunit)
-    androidTestImplementation(UnitTest.Espresso.core)
-    androidTestImplementation(UnitTest.Espresso.intents)
+    testImplementation(UnitTest.ext)
 }

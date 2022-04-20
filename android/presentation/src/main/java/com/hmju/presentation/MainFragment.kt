@@ -1,52 +1,61 @@
 package com.hmju.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.hmju.presentation.base.BaseFragmentV2
 import com.hmju.presentation.custompaging.CustomPagingFragment
 import com.hmju.presentation.databinding.FMainBinding
 import com.hmju.presentation.json_jsend.JsonJsendFragment
 import com.hmju.presentation.mvvm_lifecycle.MvvmLifecycleFragment
 import com.hmju.presentation.performance_diff_util.DiffUtilPerformanceFragment
+import com.hmju.presentation.refactor_base.RefactorBaseRootTestFragment
+import com.hmju.presentation.refactor_base.RefactorBaseTestActivity
 import com.hmju.presentation.refactor_diff_util.RefactorDiffUtilFragment
 import com.hmju.presentation.refreshtoken.RefreshTokenFragment
 import com.hmju.presentation.simple_like_recyclerview.SimpleLikeRecyclerViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainFragment : Fragment(R.layout.f_main) {
+class MainFragment : BaseFragmentV2<FMainBinding, MainFragmentViewModel>(R.layout.f_main) {
+
+    override val viewModel: MainFragmentViewModel by initViewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = DataBindingUtil.bind<FMainBinding>(view)!!
 
-        binding.expiredToken.setOnClickListener {
-            moveFragment(RefreshTokenFragment())
-        }
-
-        binding.simpleLike.setOnClickListener {
-            moveFragment(SimpleLikeRecyclerViewFragment())
-        }
-
-        binding.customPaging.setOnClickListener {
-            moveFragment(CustomPagingFragment())
-        }
-
-        binding.jsonJSend.setOnClickListener {
-            moveFragment(JsonJsendFragment())
-        }
-
-        binding.refactorDiffUtil.setOnClickListener {
-            moveFragment(RefactorDiffUtilFragment())
-        }
-
-        binding.performDiffUtil.setOnClickListener {
-            moveFragment(DiffUtilPerformanceFragment())
-        }
-
-        binding.mvvmLifecycle.setOnClickListener {
-            moveFragment(MvvmLifecycleFragment())
+        with(binding) {
+            expiredToken.setOnClickListener {
+                moveFragment(RefreshTokenFragment())
+            }
+            simpleLike.setOnClickListener {
+                moveFragment(SimpleLikeRecyclerViewFragment())
+            }
+            customPaging.setOnClickListener {
+                moveFragment(CustomPagingFragment())
+            }
+            jsonJSend.setOnClickListener {
+                moveFragment(JsonJsendFragment())
+            }
+            refactorDiffUtil.setOnClickListener {
+                moveFragment(RefactorDiffUtilFragment())
+            }
+            performDiffUtil.setOnClickListener {
+                moveFragment(DiffUtilPerformanceFragment())
+            }
+            mvvmLifecycle.setOnClickListener {
+                moveFragment(MvvmLifecycleFragment())
+            }
+            baseRefactor.setOnClickListener {
+                moveFragment(RefactorBaseRootTestFragment())
+            }
+            baseRefactorAct.setOnClickListener {
+                Intent(requireContext(),RefactorBaseTestActivity::class.java).apply {
+                    putExtra(IntentKey.TOKEN, "randomToken")
+                    startActivity(this)
+                }
+            }
         }
     }
 

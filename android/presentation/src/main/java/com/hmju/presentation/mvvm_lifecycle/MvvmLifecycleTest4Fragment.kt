@@ -2,11 +2,9 @@ package com.hmju.presentation.mvvm_lifecycle
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.viewModels
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.hmju.presentation.R
-import com.hmju.presentation.base.BaseFragment
+import com.hmju.presentation.base.BaseFragmentV2
 import com.hmju.presentation.databinding.FMvvmLifecycle4Binding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,11 +15,11 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 class MvvmLifecycleTest4Fragment :
-    BaseFragment<FMvvmLifecycle4Binding, MvvmLifecycleTest4FragmentViewModel>(
+    BaseFragmentV2<FMvvmLifecycle4Binding, MvvmLifecycleTest4FragmentViewModel>(
         R.layout.f_mvvm_lifecycle_4
     ) {
-    override val viewModel: MvvmLifecycleTest4FragmentViewModel by viewModels()
-    override val binding: FMvvmLifecycle4Binding by viewBinding()
+    override val viewModel: MvvmLifecycleTest4FragmentViewModel by initViewModel()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(viewModel) {

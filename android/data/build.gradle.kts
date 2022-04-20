@@ -8,6 +8,7 @@ plugins {
 
 android {
     compileSdk = Apps.compileSdkVersion
+    buildToolsVersion = Apps.buildToolsVersion
 
     defaultConfig {
         minSdk = Apps.minSdkVersion
@@ -42,6 +43,9 @@ dependencies {
     implementation(project(":likemanager"))
     implementation(project(":tracking"))
 
+    implementation(Kotlin.stdLib)
+    implementation(Kotlin.core)
+
     /**
      * Kotlinx Serialization
      */
@@ -67,4 +71,13 @@ dependencies {
      */
     implementation(Rx.java)
     implementation(Rx.kotlin)
+
+    /**
+     * Unit Test
+     */
+    testImplementation(UnitTest.junit)
+    androidTestImplementation(UnitTest.junit)
+    testImplementation(UnitTest.ext)
+    androidTestImplementation(UnitTest.rules)
+    androidTestImplementation(UnitTest.runner)
 }
