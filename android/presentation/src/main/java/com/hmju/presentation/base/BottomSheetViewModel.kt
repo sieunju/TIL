@@ -5,6 +5,6 @@ package com.hmju.presentation.base
  *
  * Created by juhongmin on 2022/04/15
  */
-open class BottomSheetViewModel : BaseViewModelV2() {
+open class BottomSheetViewModel : BaseViewModel() {
 
 }

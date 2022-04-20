@@ -1,7 +1,6 @@
 package com.hmju.presentation.base
 
 import android.os.Bundle
-import android.os.Parcel
 import android.os.Parcelable
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +14,7 @@ import javax.inject.Inject
  * Created by juhongmin on 2022/04/13
  */
 @HiltViewModel
-open class ActivityViewModel @Inject constructor() : BaseViewModelV2() {
+open class ActivityViewModel @Inject constructor() : BaseViewModel() {
 
     @Inject
     lateinit var savedStateHandle: SavedStateHandle
@@ -57,5 +56,4 @@ open class ActivityViewModel @Inject constructor() : BaseViewModelV2() {
             Timber.e("ERROR $ex")
         }
     }
-
 }

@@ -115,7 +115,7 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
      * Parent Fragment ViewModel 공유하기위한 함수
      * Lazy 로 선언한하고 직접적으로 가져올때 사용하는 함수
      */
-    protected inline fun <reified VM : BaseViewModelV2> parentViewModel(parentFragment: Fragment): VM {
+    protected inline fun <reified VM : BaseViewModel> parentViewModel(parentFragment: Fragment): VM {
         return ViewModelProvider(
             parentFragment.viewModelStore,
             parentFragment.defaultViewModelProviderFactory
