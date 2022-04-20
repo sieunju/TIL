@@ -71,4 +71,8 @@ dependencies {
      * Timber
      */
     implementation(Log.timber)
+
+    androidTestImplementation(UnitTest.junit)
+    testImplementation(UnitTest.junit)
+    testImplementation(UnitTest.ext)
 }
