@@ -2,7 +2,6 @@ package com.hmju.presentation.mvvm_lifecycle
 
 import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import com.hmju.domain.usecase.GetGoodsUseCase
 import com.hmju.lifecycle.OnActivityResult
 import com.hmju.lifecycle.OnCreated
@@ -28,7 +27,7 @@ class MvvmLifecycleTest2ViewModel @Inject constructor(
     private val loginManager: LoginManager
 ) : ActivityViewModel() {
 
-    val startMovePageEvent : MutableLiveData<Unit> by lazy { MutableLiveData() }
+    val startMovePageEvent: MutableLiveData<Unit> by lazy { MutableLiveData() }
 
     @OnCreated
     fun onCreate() {

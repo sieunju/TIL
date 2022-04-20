@@ -8,10 +8,10 @@ import com.hmju.presentation.databinding.ActivityMvvmLifecycleTestBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MvvmLifecycleTestActivity
-    : BaseActivityV2<ActivityMvvmLifecycleTestBinding, MvvmLifecycleTestViewModel>(
-    R.layout.activity_mvvm_lifecycle_test
-) {
+class MvvmLifecycleTestActivity :
+    BaseActivityV2<ActivityMvvmLifecycleTestBinding, MvvmLifecycleTestViewModel>(
+        R.layout.activity_mvvm_lifecycle_test
+    ) {
 
     override val viewModel: MvvmLifecycleTestViewModel by initViewModel()
 

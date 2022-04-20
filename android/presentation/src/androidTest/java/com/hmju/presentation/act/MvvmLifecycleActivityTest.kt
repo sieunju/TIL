@@ -1,13 +1,13 @@
 package com.hmju.presentation.act
 
 import androidx.lifecycle.Lifecycle
+import androidx.test.core.app.launchActivity
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.hmju.presentation.mvvm_lifecycle.MvvmLifecycleTestActivity
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
 import org.junit.Rule
-import androidx.test.core.app.launchActivity
-import com.hmju.presentation.mvvm_lifecycle.MvvmLifecycleTestActivity
 import org.junit.Test
 import org.junit.runner.RunWith
 
