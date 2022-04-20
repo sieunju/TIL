@@ -1,7 +1,6 @@
 package com.hmju.presentation.refactor_base
 
 import android.os.Bundle
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hmju.lifecycle.OnActivityResult
@@ -13,7 +12,6 @@ import com.hmju.presentation.base.ActivityViewModel
 import com.hmju.presentation.base.RxActivityResultEvent
 import com.hmju.presentation.mvvm_lifecycle.MvvmLifecycleTestActivity
 import com.til.model.test.SerializableEntity
-import com.til.rxbus.LoginBusEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import timber.log.Timber
 import javax.inject.Inject
