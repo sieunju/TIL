@@ -5,16 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.createViewModelLazy
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.hmju.lifecycle.OnCreated
-import com.hmju.lifecycle.OnResumed
-import com.hmju.lifecycle.OnStopped
-import com.hmju.lifecycle.OnViewCreated
+import com.hmju.lifecycle.*
 import com.hmju.presentation.BR
 import timber.log.Timber
 
@@ -32,6 +30,7 @@ abstract class BaseBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewMo
 
     private var isInit = false
 
+    @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.runCatching {
@@ -52,6 +51,7 @@ abstract class BaseBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewMo
         }
     }
 
+    @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.runCatching {
@@ -63,16 +63,20 @@ abstract class BaseBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewMo
         }
     }
 
+    @CallSuper
     override fun onResume() {
         super.onResume()
-        if (isInit) {
-            viewModel.runCatching {
+        viewModel.runCatching {
+            addDisposable(performLifecycle<OnCreatedToResumed>())
+
+            if (isInit) {
                 addDisposable(performLifecycle<OnResumed>())
             }
         }
         isInit = true
     }
 
+    @CallSuper
     override fun onStop() {
         super.onStop()
         viewModel.runCatching {
@@ -80,6 +84,7 @@ abstract class BaseBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewMo
         }
     }
 
+    @CallSuper
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel.clearDisposable()
@@ -92,7 +97,6 @@ abstract class BaseBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewMo
 
     fun simpleShow(fm: FragmentManager) {
         super.show(fm, javaClass.simpleName)
-        Timber.d("FragmentCnt ${fm.fragments.size}")
     }
 
     /**

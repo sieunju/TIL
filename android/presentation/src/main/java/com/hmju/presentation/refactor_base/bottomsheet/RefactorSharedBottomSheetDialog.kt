@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.hmju.presentation.BR
 import com.hmju.presentation.R
 import com.hmju.presentation.base.BaseSharedBottomSheetDialog
 import com.hmju.presentation.databinding.DRefactorBottomSheetBinding
@@ -21,20 +18,18 @@ import timber.log.Timber
  */
 @AndroidEntryPoint
 class RefactorSharedBottomSheetDialog
-    : BaseSharedBottomSheetDialog<DRefactorBottomSheetBinding,RefactorBottomSheetViewModel>(
+    : BaseSharedBottomSheetDialog<DRefactorBottomSheetBinding, RefactorBottomSheetViewModel>(
     R.layout.d_refactor_bottom_sheet
-){
+) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         viewModel = initBottomSheetViewModel()
         super.onCreate(savedInstanceState)
         setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialog)
-        Timber.d("onCreate")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.d("LOGGER Dialog $viewModel")
         with(binding) {
             vp.offscreenPageLimit = 2
             vp.isSaveEnabled = false

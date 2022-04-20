@@ -2,10 +2,14 @@ package com.hmju.presentation.refactor_base.child
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.hmju.presentation.BR
 import com.hmju.presentation.R
+import com.hmju.presentation.base.ActivityViewModel
 import com.hmju.presentation.base.BaseFragmentV2
+import com.hmju.presentation.base.BaseViewModel
+import com.hmju.presentation.base.FragmentViewModel
 import com.hmju.presentation.databinding.FChildRefactorBlueBinding
 import com.hmju.presentation.refactor_base.RefactorBaseRootTestViewModel
 import com.hmju.presentation.refactor_base.bottomsheet.RefactorBottomSheetDialog
@@ -43,6 +47,16 @@ class ChildRefactorBlueFragment
 
             startParentBottomSheetDialog.observe(viewLifecycleOwner) {
                 bottomSheetDialog.simpleShow(childFragmentManager)
+            }
+        }
+    }
+
+    companion object {
+        fun newInstance() : ChildRefactorBlueFragment{
+            return ChildRefactorBlueFragment().apply {
+                arguments = bundleOf(
+                    "KEY" to "${System.currentTimeMillis()}_TTTT"
+                )
             }
         }
     }

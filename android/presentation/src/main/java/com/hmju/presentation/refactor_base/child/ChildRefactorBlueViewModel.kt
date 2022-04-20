@@ -1,9 +1,10 @@
 package com.hmju.presentation.refactor_base.child
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
+import com.hmju.lifecycle.OnCreated
 import com.hmju.presentation.base.FragmentViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -13,16 +14,22 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class ChildRefactorBlueViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle
-): FragmentViewModel() {
-    val startBottomSheetDialog : MutableLiveData<Unit> by lazy { MutableLiveData() }
-    val startParentBottomSheetDialog : MutableLiveData<Unit> by lazy { MutableLiveData() }
+) : FragmentViewModel() {
+    val startBottomSheetDialog: MutableLiveData<Unit> by lazy { MutableLiveData() }
+    val startParentBottomSheetDialog: MutableLiveData<Unit> by lazy { MutableLiveData() }
 
-    fun onBottomSheetDialog(){
+    fun onBottomSheetDialog() {
         startBottomSheetDialog.value = null
     }
 
-    fun onParentBottomSheetDialog(){
+    fun onParentBottomSheetDialog() {
         startParentBottomSheetDialog.value = null
+    }
+
+    @OnCreated
+    fun onCreated(){
+        savedStateHandle.keys().forEach {
+            Timber.d("Key $it Value ${savedStateHandle.get<Any>(it)}")
+        }
     }
 }

@@ -37,7 +37,6 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
         }
     }
 
-    @CallSuper
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

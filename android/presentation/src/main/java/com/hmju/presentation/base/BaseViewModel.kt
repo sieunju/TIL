@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.hmju.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.*
+import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.addTo
@@ -41,26 +41,7 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 it.invoke(this)
-            }, {
-                Timber.e("performLifecycle Error $it")
-            })
-    }
-
-    /**
-     * [onCreate], [onNewIntent]
-     *
-     * Intent 데이터를 ViewModel 에서 처리하는 함수
-     */
-    fun performIntent(data: Bundle?): Disposable {
-        return Flowable.fromIterable(javaClass.methods.toList())
-            .filter { it.isAnnotationPresent(OnIntent::class.java) }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                it.invoke(this, data)
-            }, {
-                Timber.e("performIntent Error $it")
-            })
+            }, {})
     }
 
     /**
@@ -82,7 +63,7 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
                     }
                 }
             }, {
-                Timber.e("performActivityResultRx Error $it")
+                Timber.e("performActivityResult Error $it")
             })
     }
 
@@ -100,17 +81,17 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
     }
 
     @OnCreated
-    private fun onCreated() {
+    fun onLifecycleCreated() {
         lifecycleEvent = Lifecycle.Event.ON_CREATE
     }
 
     @OnCreatedToResumed
-    private fun onCreatedToResumed() {
+    fun onLifecycleCreatedToResumed() {
         lifecycleEvent = Lifecycle.Event.ON_RESUME
     }
 
     @OnStopped
-    private fun onStopped() {
+    fun onLifecycleStopped() {
         lifecycleEvent = Lifecycle.Event.ON_STOP
     }
 

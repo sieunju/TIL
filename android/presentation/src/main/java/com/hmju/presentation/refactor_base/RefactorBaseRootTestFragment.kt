@@ -36,7 +36,7 @@ class RefactorBaseRootTestFragment
 
         override fun createFragment(pos: Int): Fragment {
             return when (pos) {
-                0 -> ChildRefactorBlueFragment()
+                0 -> ChildRefactorBlueFragment.newInstance()
                 else -> ChildRefactorRedFragment()
             }
         }
