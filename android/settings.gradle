@@ -11,3 +11,4 @@ include(
 )
 include ':lifecycle'
 include ':tracking'
+include ':base'
