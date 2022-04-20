@@ -1,7 +1,6 @@
 package com.hmju.presentation.mvvm_lifecycle
 
 import android.Manifest
-import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,10 +8,7 @@ import com.hmju.domain.usecase.GetGoodsUseCase
 import com.hmju.lifecycle.*
 import com.hmju.loginmanager.LoginManager
 import com.hmju.presentation.IntentKey
-import com.hmju.presentation.base.ActivityResult
 import com.hmju.presentation.base.ActivityViewModel
-import com.hmju.presentation.base.RxActivityResultEvent
-import com.hmju.presentation.refactor_base.RefactorBaseTestActivity
 import com.til.model.params.GoodsParamMap
 import com.til.rxbus.TestBusEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,18 +28,18 @@ class MvvmLifecycleTestViewModel @Inject constructor(
     private val getGoodsUseCase: GetGoodsUseCase
 ) : ActivityViewModel() {
 
-    val startMovePageEvent : MutableLiveData<Unit> by lazy { MutableLiveData() }
+    val startMovePageEvent: MutableLiveData<Unit> by lazy { MutableLiveData() }
 
     private val _contents: MutableLiveData<String> by lazy { MutableLiveData() }
     val contents: LiveData<String> get() = _contents
 
     @OnCreated
-    fun getGoods(){
+    fun getGoods() {
         val queryMap = GoodsParamMap()
         getGoodsUseCase(queryMap)
             .subscribe({
-                       println("List $it")
-            },{
+                println("List $it")
+            }, {
 
             })
     }
