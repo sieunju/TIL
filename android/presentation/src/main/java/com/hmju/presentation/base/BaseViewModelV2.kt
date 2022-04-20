@@ -1,12 +1,14 @@
 package com.hmju.presentation.base
 
 import android.os.Bundle
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
-import com.hmju.domain.usecase.GetGoodsUseCase
 import com.hmju.lifecycle.*
+import com.hmju.loginmanager.LoginManager
+import com.til.rxbus.LoginBusEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.*
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.addTo
@@ -25,8 +27,15 @@ open class BaseViewModelV2 @Inject constructor() : ViewModel() {
 
     protected val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
 
+    private var lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_ANY
+
+    fun getCurrentLifecycle() = lifecycleEvent
+
+    @Inject
+    lateinit var baseLoginManager: LoginManager
+
 //    @Inject
-//    protected lateinit var getGoodsUseCaseT: GetGoodsUseCase
+//    protected lateinit var getGoodsUseCase: GetGoodsUseCase
 
     /**
      * [OnCreated], [OnResumed], [OnStopped], [OnViewCreated]
@@ -98,9 +107,34 @@ open class BaseViewModelV2 @Inject constructor() : ViewModel() {
         compositeDisposable.clear()
     }
 
+    @OnCreated
+    private fun onCreated() {
+        lifecycleEvent = Lifecycle.Event.ON_CREATE
+    }
+
+    @OnCreatedToResumed
+    private fun onCreatedToResumed() {
+        lifecycleEvent = Lifecycle.Event.ON_RESUME
+    }
+
+    @OnStopped
+    private fun onStopped() {
+        lifecycleEvent = Lifecycle.Event.ON_STOP
+    }
+
+    @OnCreatedToResumed
+    fun startLoginCheck() {
+        baseLoginManager.rxIsLogin()
+            .subscribe({
+                Timber.d("LoginCheck ${javaClass.simpleName} $it")
+            }, {
+
+            }).addTo(compositeDisposable)
+    }
+
     override fun onCleared() {
         super.onCleared()
-        Timber.d("onCleared ${javaClass.simpleName} ${compositeDisposable.isDisposed}")
+        Timber.d("onCleared ${javaClass.simpleName}")
         if (compositeDisposable.isDisposed) {
             compositeDisposable.dispose()
         }

@@ -9,10 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelLazy
-import com.hmju.lifecycle.OnCreated
-import com.hmju.lifecycle.OnIntent
-import com.hmju.lifecycle.OnResumed
-import com.hmju.lifecycle.OnStopped
+import com.hmju.lifecycle.*
 import com.hmju.presentation.BR
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
@@ -54,16 +51,10 @@ abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
         viewModel.runCatching {
             addDisposable(performLifecycle<OnCreated>())
             addDisposable(performLifecycle<OnIntent>())
-            addDisposable(RxBusActivityResultEvent.listen()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                Timber.d("${javaClass.simpleName}Result $it")
-            },{
-
-            }))
         }
     }
 
+    @CallSuper
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         viewModel.runCatching {
@@ -77,10 +68,13 @@ abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
         }
     }
 
+    @CallSuper
     override fun onResume() {
         super.onResume()
-        if (isInit) {
-            viewModel.runCatching {
+        viewModel.runCatching {
+            addDisposable(performLifecycle<OnCreatedToResumed>())
+
+            if (isInit) {
                 addDisposable(performLifecycle<OnResumed>())
             }
         }
@@ -90,6 +84,7 @@ abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
         performActivityResult()
     }
 
+    @CallSuper
     override fun onStop() {
         super.onStop()
         viewModel.runCatching {
@@ -99,18 +94,19 @@ abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
         disposableActivityResult()
     }
 
+    @CallSuper
     override fun onDestroy() {
         super.onDestroy()
         viewModel.clearDisposable()
         isInit = false
     }
 
+    @CallSuper
     override fun finish() {
         intent.extras?.let { bundle ->
             val reqCode = bundle.getInt(REQ_CODE, -1)
             if (reqCode != -1) {
                 bundle.clear()
-                Timber.d("Finish ReqCode $reqCode $bundle")
                 viewModel.savedStateHandle.remove<Int>(REQ_CODE)
                 bundle.putAll(viewModel.getBundleData())
                 intent.putExtras(bundle)
@@ -124,7 +120,7 @@ abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
      * Activity Result 처리 함수
      */
     private fun performActivityResult() {
-        activityResultDisposable = RxBusActivityResultEvent.listen()
+        activityResultDisposable = RxActivityResultEvent.listen()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 val intent = Intent(this, it.targetActivity.java).apply {

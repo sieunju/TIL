@@ -5,13 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import com.hmju.lifecycle.*
 import com.hmju.loginmanager.LoginManager
 import com.hmju.presentation.IntentKey
 import com.hmju.presentation.base.ActivityResult
 import com.hmju.presentation.base.ActivityViewModel
-import com.hmju.presentation.base.RxBusActivityResultEvent
+import com.hmju.presentation.base.RxActivityResultEvent
 import com.hmju.presentation.refactor_base.RefactorBaseTestActivity
 import com.til.rxbus.TestBusEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,8 +29,10 @@ class MvvmLifecycleTestViewModel @Inject constructor(
     private val loginManager: LoginManager
 ) : ActivityViewModel() {
 
-    private val _contents : MutableLiveData<String> by lazy { MutableLiveData() }
-    val contents : LiveData<String> get() = _contents
+    val startMovePageEvent : MutableLiveData<Unit> by lazy { MutableLiveData() }
+
+    private val _contents: MutableLiveData<String> by lazy { MutableLiveData() }
+    val contents: LiveData<String> get() = _contents
 
     @OnIntent
     fun intentData() {
@@ -47,9 +48,9 @@ class MvvmLifecycleTestViewModel @Inject constructor(
 
     fun onRandomToken() {
         loginManager.setToken("Token ${System.currentTimeMillis()}")
-        savedStateHandle.set("HiKey","dddfefefeffe")
-        savedStateHandle.set("Hello....",System.currentTimeMillis())
-        savedStateHandle.set(IntentKey.TOKEN,"ChangeResult")
+        savedStateHandle.set("HiKey", "dddfefefeffe")
+        savedStateHandle.set("Hello....", System.currentTimeMillis())
+        savedStateHandle.set(IntentKey.TOKEN, "ChangeResult")
     }
 
     fun onClick1() {
@@ -72,27 +73,18 @@ class MvvmLifecycleTestViewModel @Inject constructor(
     }
 
     fun movePage2Req222() {
-        loginManager.setToken("Token ${System.currentTimeMillis()}_${Random.nextBytes(10000)}")
-        RxBusActivityResultEvent.publish(
-            ActivityResult(
-                3001,
-                RefactorBaseTestActivity::class,
-                flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT,
-                data = Bundle().apply {
-                    putString(IntentKey.TOKEN, loginManager.getToken())
-                }
-            ))
-//        movePage(
-//            MovePageEvent(
-//                MvvmLifecycleTest2Activity::class.java,
-//                bundle = Bundle().apply {
+        startMovePageEvent.value = null
+
+//        loginManager.setToken("Token ${System.currentTimeMillis()}_${Random.nextBytes(10000)}")
+//        RxActivityResultEvent.publish(
+//            ActivityResult(
+//                3001,
+//                RefactorBaseTestActivity::class,
+//                flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT,
+//                data = Bundle().apply {
 //                    putString(IntentKey.TOKEN, loginManager.getToken())
-//                    putLong(IntentKey.NOW_TIME, System.currentTimeMillis())
-//                    putLongArray(IntentKey.TEST_LONG_ARR, longArrayOf(33333, 222, 111, 444, 55))
-//                },
-//                requestCode = RequestCode.MVVM_LIFECYCLE_2
-//            )
-//        )
+//                }
+//            ))
     }
 
     @OnActivityResult(3001)

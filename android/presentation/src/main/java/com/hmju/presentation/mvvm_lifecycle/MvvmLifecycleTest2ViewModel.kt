@@ -1,6 +1,7 @@
 package com.hmju.presentation.mvvm_lifecycle
 
 import android.os.Bundle
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.hmju.domain.usecase.GetGoodsUseCase
 import com.hmju.lifecycle.OnActivityResult
@@ -27,6 +28,8 @@ class MvvmLifecycleTest2ViewModel @Inject constructor(
     private val loginManager: LoginManager
 ) : ActivityViewModel() {
 
+    val startMovePageEvent : MutableLiveData<Unit> by lazy { MutableLiveData() }
+
     @OnCreated
     fun onCreate() {
         Timber.d("Token ${savedStateHandle.get<String>(IntentKey.TOKEN)}")
@@ -51,16 +54,7 @@ class MvvmLifecycleTest2ViewModel @Inject constructor(
     }
 
     fun moveTest3Page() {
-//        movePage(
-//            MovePageEvent(
-//                MvvmLifecycleTest3Activity::class.java,
-//                requestCode = 2000,
-//                bundle = Bundle().apply {
-//                    putLong(IntentKey.NOW_TIME,Random.nextLong())
-//                    putString("TEST_KEY","aa")
-//                }
-//            )
-//        )
+        startMovePageEvent.value = null
     }
 
     @OnActivityResult(2000)

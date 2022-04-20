@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -28,6 +29,7 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
 
     private var isInit = false
 
+    @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.runCatching {
@@ -35,6 +37,7 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
         }
     }
 
+    @CallSuper
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,6 +51,7 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
         }
     }
 
+    @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.runCatching {
@@ -55,16 +59,20 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
         }
     }
 
+    @CallSuper
     override fun onResume() {
         super.onResume()
-        if (isInit) {
-            viewModel.runCatching {
+        viewModel.runCatching {
+            addDisposable(performLifecycle<OnCreatedToResumed>())
+
+            if (isInit) {
                 addDisposable(performLifecycle<OnResumed>())
             }
         }
         isInit = true
     }
 
+    @CallSuper
     override fun onStop() {
         super.onStop()
         viewModel.runCatching {
@@ -72,6 +80,7 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
         }
     }
 
+    @CallSuper
     override fun onDestroyView() {
         super.onDestroyView()
         isInit = false
@@ -80,6 +89,7 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
         Timber.d("onDestroyView ${javaClass.simpleName}")
     }
 
+    @CallSuper
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {

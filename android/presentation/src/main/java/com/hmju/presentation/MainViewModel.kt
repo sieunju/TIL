@@ -1,12 +1,17 @@
 package com.hmju.presentation
 
-import androidx.lifecycle.SavedStateHandle
 import com.hmju.lifecycle.OnCreated
-import com.hmju.lifecycle.OnResumed
+import com.hmju.lifecycle.OnCreatedToResumed
+import com.hmju.lifecycle.OnIntent
+import com.hmju.loginmanager.LoginManager
 import com.hmju.presentation.base.ActivityViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.kotlin.addTo
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import kotlin.random.Random
 
 /**
  * Description :
@@ -15,16 +20,26 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val stateHandle: SavedStateHandle
+    private val loginManager: LoginManager,
 ) : ActivityViewModel() {
 
-    @OnCreated
-    fun onCreate() {
-        Timber.d("Handle ${stateHandle.get<String>("KEY")}")
+    @OnIntent
+    fun intentData() {
+        Timber.d("[s] onCreate Intent Data ===============================================")
+        savedStateHandle.keys().forEach {
+            Timber.d("Key $it Value ${savedStateHandle.get<Any>(it)}")
+        }
+        Timber.d("[s] onCreate Intent Data ===============================================")
     }
 
-    @OnResumed
-    fun checkResume() {
-        Timber.d("함수 실행합니다. Resume")
+    @OnCreated
+    fun randomLogin() {
+        Flowable.interval(3000, TimeUnit.MILLISECONDS)
+            .subscribe({
+                loginManager.setToken(if (Random.nextInt(100) > 30) "Token" else "")
+                // Timber.d("isLoginCheck ${loginManager.isLogin()}")
+            }, {
+
+            }).addTo(compositeDisposable)
     }
 }

@@ -11,14 +11,14 @@ import kotlin.reflect.KClass
  *
  * Created by juhongmin on 2022/04/19
  */
-object RxBusActivityResultEvent {
+object RxActivityResultEvent {
     private val publisher = PublishSubject.create<ActivityResult>()
 
     fun publish(data: ActivityResult) {
         publisher.onNext(data)
     }
 
-    fun listen(): Observable<ActivityResult> = publisher.hide()
+    fun listen(): Observable<ActivityResult> = publisher
 }
 
 data class ActivityResult(
