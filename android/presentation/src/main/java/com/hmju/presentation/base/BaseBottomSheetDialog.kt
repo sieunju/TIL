@@ -1,6 +1,7 @@
 package com.hmju.presentation.base
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -56,6 +57,19 @@ abstract class BaseBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewMo
         super.onViewCreated(view, savedInstanceState)
         viewModel.runCatching {
             addDisposable(performLifecycle<OnViewCreated>())
+        }
+
+        with(viewModel) {
+            startActivityPage.observe(viewLifecycleOwner) {
+                Intent(requireContext(), it.targetActivity.java).apply {
+                    if (it.flags != -1) {
+                        flags = it.flags
+                    }
+                    putExtras(it.data)
+
+                    startActivity(this)
+                }
+            }
         }
 
         dialog?.setOnDismissListener {

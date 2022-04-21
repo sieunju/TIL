@@ -1,5 +1,6 @@
 package com.hmju.presentation.base
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -55,6 +56,19 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
         super.onViewCreated(view, savedInstanceState)
         viewModel.runCatching {
             addDisposable(performLifecycle<OnViewCreated>())
+        }
+
+        with(viewModel) {
+            startActivityPage.observe(viewLifecycleOwner) {
+                Intent(requireContext(), it.targetActivity.java).apply {
+                    if (it.flags != -1) {
+                        flags = it.flags
+                    }
+                    putExtras(it.data)
+
+                    startActivity(this)
+                }
+            }
         }
     }
 

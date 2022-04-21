@@ -2,6 +2,8 @@ package com.hmju.presentation.base
 
 import android.os.Bundle
 import android.os.Parcelable
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import timber.log.Timber
@@ -18,6 +20,9 @@ open class ActivityViewModel @Inject constructor() : BaseViewModel() {
 
     @Inject
     lateinit var savedStateHandle: SavedStateHandle
+
+    protected val _startActivityPage: MutableLiveData<ActivityResult> by lazy { MutableLiveData() }
+    val startActivityPage: LiveData<ActivityResult> get() = _startActivityPage
 
     fun getBundleData(): Bundle {
         val bundle = Bundle()

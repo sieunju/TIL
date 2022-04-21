@@ -12,6 +12,7 @@ import com.hmju.presentation.base.ActivityViewModel
 import com.til.model.params.GoodsParamMap
 import com.til.rxbus.TestBusEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
@@ -127,7 +128,7 @@ class MvvmLifecycleTestViewModel @Inject constructor(
                 Timber.d("Is Login $it")
             }, {
 
-            })
+            }).addTo(compositeDisposable)
     }
 
     @OnResumed

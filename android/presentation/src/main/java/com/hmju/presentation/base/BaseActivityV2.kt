@@ -52,6 +52,19 @@ abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
             addDisposable(performLifecycle<OnCreated>())
             addDisposable(performLifecycle<OnIntent>())
         }
+
+        with(viewModel) {
+            startActivityPage.observe(this@BaseActivityV2) {
+                Intent(this@BaseActivityV2, it.targetActivity.java).apply {
+                    if (it.flags != -1) {
+                        flags = it.flags
+                    }
+                    putExtras(it.data)
+
+                    startActivity(this)
+                }
+            }
+        }
     }
 
     @CallSuper
