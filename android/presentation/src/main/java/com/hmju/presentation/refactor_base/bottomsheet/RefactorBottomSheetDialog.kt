@@ -22,9 +22,8 @@ class RefactorBottomSheetDialog
     R.layout.d_refactor_bottom_sheet
 ) {
 
-    override val viewModel: RefactorBottomSheetViewModel by initViewModel()
-
     override fun onCreate(savedInstanceState: Bundle?) {
+        viewModel = initBottomSheetViewModel()
         super.onCreate(savedInstanceState)
         setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialog)
     }

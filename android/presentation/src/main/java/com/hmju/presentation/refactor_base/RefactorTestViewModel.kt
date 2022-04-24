@@ -1,5 +1,6 @@
 package com.hmju.presentation.refactor_base
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -59,7 +60,7 @@ class RefactorTestViewModel @Inject constructor(
             ))
     }
 
-    @OnActivityResult(3000)
+    @OnActivityResult(3000, Activity.RESULT_OK)
     fun onActivityResult(data: Bundle?) {
         if (data == null) return
 
@@ -71,5 +72,19 @@ class RefactorTestViewModel @Inject constructor(
         }
         _contents.value = builder.toString()
         Timber.d("[e] Result Data ==================================================")
+    }
+
+    @OnActivityResult(3000, Activity.RESULT_CANCELED)
+    fun onActivityResultFail(data: Bundle?) {
+        if (data == null) return
+
+        Timber.d("[s] Cancel Result Data ==================================================")
+        val builder = StringBuilder()
+        data.keySet().forEach { key ->
+            Timber.d("Key $key Value ${data.get(key)}")
+            builder.append("Key $key Value ${data.get(key)}\n")
+        }
+        _contents.value = builder.toString()
+        Timber.d("[e] Cancel Result Data ==================================================")
     }
 }

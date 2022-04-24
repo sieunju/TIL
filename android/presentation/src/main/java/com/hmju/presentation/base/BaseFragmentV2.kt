@@ -34,6 +34,7 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.runCatching {
+            onDirectCreate()
             addDisposable(performLifecycle<OnCreated>())
         }
     }
@@ -55,6 +56,7 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.runCatching {
+            onDirectViewCreated()
             addDisposable(performLifecycle<OnViewCreated>())
         }
 
@@ -76,6 +78,7 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
     override fun onResume() {
         super.onResume()
         viewModel.runCatching {
+            onDirectResumed()
             addDisposable(performLifecycle<OnCreatedToResumed>())
 
             if (isInit) {
@@ -89,6 +92,7 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
     override fun onStop() {
         super.onStop()
         viewModel.runCatching {
+            onDirectStop()
             addDisposable(performLifecycle<OnStopped>())
         }
     }

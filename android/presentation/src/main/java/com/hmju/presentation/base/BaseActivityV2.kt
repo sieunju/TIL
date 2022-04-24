@@ -26,6 +26,7 @@ abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
 
     companion object {
         const val REQ_CODE = "req_code"
+        const val RES_CODE = "res_code"
     }
 
     abstract val viewModel: VM
@@ -35,9 +36,12 @@ abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
 
     private val activityResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            Timber.d("Activity Result ${it.resultCode}  ${it.data?.extras}")
+            Timber.d("Activity ResultCode ${it.resultCode}  ${it.data?.extras}")
             viewModel.runCatching {
-                addDisposable(performActivityResult(it.resultCode, it.data?.extras))
+                val reqCode = it.data?.extras?.getInt(REQ_CODE) ?: -1
+                addDisposable(
+                    performActivityResult(reqCode, it.resultCode, it.data?.extras)
+                )
             }
         }
 
@@ -49,6 +53,7 @@ abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
         performBinding()
 
         viewModel.runCatching {
+            onDirectCreate()
             addDisposable(performLifecycle<OnCreated>())
             addDisposable(performLifecycle<OnIntent>())
         }
@@ -85,6 +90,7 @@ abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
     override fun onResume() {
         super.onResume()
         viewModel.runCatching {
+            onDirectResumed()
             addDisposable(performLifecycle<OnCreatedToResumed>())
 
             if (isInit) {
@@ -101,6 +107,7 @@ abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
     override fun onStop() {
         super.onStop()
         viewModel.runCatching {
+            onDirectStop()
             addDisposable(performLifecycle<OnStopped>())
         }
         // ActivityResult Disposable Observer
@@ -116,14 +123,14 @@ abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
 
     @CallSuper
     override fun finish() {
-        intent.extras?.let { bundle ->
-            val reqCode = bundle.getInt(REQ_CODE, -1)
+        with(viewModel) {
+            val reqCode = savedStateHandle.get<Int>(REQ_CODE) ?: -1
+            val resCode = savedStateHandle.get<Int>(RES_CODE) ?: RESULT_CANCELED
             if (reqCode != -1) {
-                bundle.clear()
-                viewModel.savedStateHandle.remove<Int>(REQ_CODE)
-                bundle.putAll(viewModel.getBundleData())
+                val bundle = Bundle()
+                bundle.putAll(getBundleData())
                 intent.putExtras(bundle)
-                setResult(reqCode, intent)
+                setResult(resCode, intent)
             }
         }
         super.finish()
@@ -143,7 +150,6 @@ abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
                     it.data.putInt(REQ_CODE, it.requestCode)
                     putExtras(it.data)
                 }
-                Timber.d("StartActivityResult ${javaClass.simpleName} ${it.targetActivity.java}")
                 activityResult.launch(intent)
             }, {
                 Timber.d("ERROR $it")
