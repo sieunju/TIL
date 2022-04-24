@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.hmju.presentation.base.BaseFragmentV2
+import com.hmju.presentation.base.BaseFragment
 import com.hmju.presentation.custompaging.CustomPagingFragment
 import com.hmju.presentation.databinding.FMainBinding
 import com.hmju.presentation.json_jsend.JsonJsendFragment
@@ -18,7 +18,7 @@ import com.hmju.presentation.simple_like_recyclerview.SimpleLikeRecyclerViewFrag
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainFragment : BaseFragmentV2<FMainBinding, MainFragmentViewModel>(R.layout.f_main) {
+class MainFragment : BaseFragment<FMainBinding, MainFragmentViewModel>(R.layout.f_main) {
 
     override val viewModel: MainFragmentViewModel by initViewModel()
 

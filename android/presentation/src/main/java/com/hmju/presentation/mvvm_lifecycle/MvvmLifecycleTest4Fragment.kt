@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import com.hmju.presentation.R
-import com.hmju.presentation.base.BaseFragmentV2
+import com.hmju.presentation.base.BaseFragment
 import com.hmju.presentation.databinding.FMvvmLifecycle4Binding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 class MvvmLifecycleTest4Fragment :
-    BaseFragmentV2<FMvvmLifecycle4Binding, MvvmLifecycleTest4FragmentViewModel>(
+    BaseFragment<FMvvmLifecycle4Binding, MvvmLifecycleTest4FragmentViewModel>(
         R.layout.f_mvvm_lifecycle_4
     ) {
     override val viewModel: MvvmLifecycleTest4FragmentViewModel by initViewModel()

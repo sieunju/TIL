@@ -1,5 +1,6 @@
 package com.hmju.presentation.base
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +21,7 @@ import timber.log.Timber
  *
  * Created by juhongmin on 2022/03/19
  */
-abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
+abstract class BaseFragment<T : ViewDataBinding, VM : FragmentViewModel>(
     @LayoutRes private val layoutId: Int
 ) : Fragment() {
 
@@ -33,6 +34,7 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.runCatching {
+            onDirectCreate()
             addDisposable(performLifecycle<OnCreated>())
         }
     }
@@ -44,7 +46,7 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
     ): View? {
         return DataBindingUtil.inflate<T>(inflater, layoutId, container, false).run {
             binding = this
-            lifecycleOwner = this@BaseFragmentV2
+            lifecycleOwner = this@BaseFragment
             setVariable(BR.vm, viewModel)
             this.root
         }
@@ -54,7 +56,21 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.runCatching {
+            onDirectViewCreated()
             addDisposable(performLifecycle<OnViewCreated>())
+        }
+
+        with(viewModel) {
+            startActivityPage.observe(viewLifecycleOwner) {
+                Intent(requireContext(), it.targetActivity.java).apply {
+                    if (it.flags != -1) {
+                        flags = it.flags
+                    }
+                    putExtras(it.data)
+
+                    startActivity(this)
+                }
+            }
         }
     }
 
@@ -62,6 +78,7 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
     override fun onResume() {
         super.onResume()
         viewModel.runCatching {
+            onDirectResumed()
             addDisposable(performLifecycle<OnCreatedToResumed>())
 
             if (isInit) {
@@ -75,6 +92,7 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
     override fun onStop() {
         super.onStop()
         viewModel.runCatching {
+            onDirectStop()
             addDisposable(performLifecycle<OnStopped>())
         }
     }

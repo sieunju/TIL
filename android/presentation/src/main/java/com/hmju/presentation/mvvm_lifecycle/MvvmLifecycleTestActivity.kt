@@ -3,13 +3,13 @@ package com.hmju.presentation.mvvm_lifecycle
 import android.content.Intent
 import android.os.Bundle
 import com.hmju.presentation.R
-import com.hmju.presentation.base.BaseActivityV2
+import com.hmju.presentation.base.BaseActivity
 import com.hmju.presentation.databinding.ActivityMvvmLifecycleTestBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MvvmLifecycleTestActivity :
-    BaseActivityV2<ActivityMvvmLifecycleTestBinding, MvvmLifecycleTestViewModel>(
+    BaseActivity<ActivityMvvmLifecycleTestBinding, MvvmLifecycleTestViewModel>(
         R.layout.activity_mvvm_lifecycle_test
     ) {
 

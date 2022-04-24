@@ -37,6 +37,14 @@
             android:text="SET Result 처리를 합니다."
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->vm.onPermission()}"
+            android:text="권한 테스트합니다."
+            app:layout_constraintTop_toTopOf="parent" />
+
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </layout>

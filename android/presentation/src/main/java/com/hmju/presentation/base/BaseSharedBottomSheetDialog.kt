@@ -1,10 +1,12 @@
 package com.hmju.presentation.base
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -33,9 +35,11 @@ abstract class BaseSharedBottomSheetDialog<T : ViewDataBinding, VM : BottomSheet
 
     private var isInit = false
 
+    @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.runCatching {
+            onDirectCreate()
             addDisposable(performLifecycle<OnCreated>())
         }
     }
@@ -53,10 +57,25 @@ abstract class BaseSharedBottomSheetDialog<T : ViewDataBinding, VM : BottomSheet
         }
     }
 
+    @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.runCatching {
+            onDirectViewCreated()
             addDisposable(performLifecycle<OnViewCreated>())
+        }
+
+        with(viewModel) {
+            startActivityPage.observe(viewLifecycleOwner) {
+                Intent(requireContext(), it.targetActivity.java).apply {
+                    if (it.flags != -1) {
+                        flags = it.flags
+                    }
+                    putExtras(it.data)
+
+                    startActivity(this)
+                }
+            }
         }
 
         dialog?.setOnDismissListener {
@@ -64,6 +83,7 @@ abstract class BaseSharedBottomSheetDialog<T : ViewDataBinding, VM : BottomSheet
         }
     }
 
+    @CallSuper
     override fun onResume() {
         super.onResume()
         if (isInit) {
@@ -74,6 +94,7 @@ abstract class BaseSharedBottomSheetDialog<T : ViewDataBinding, VM : BottomSheet
         isInit = true
     }
 
+    @CallSuper
     override fun onStop() {
         super.onStop()
         viewModel.runCatching {
@@ -81,14 +102,16 @@ abstract class BaseSharedBottomSheetDialog<T : ViewDataBinding, VM : BottomSheet
         }
     }
 
+    @CallSuper
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel.clearDisposable()
     }
 
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        Timber.d("onDismiss $dialog")
+    @CallSuper
+    override fun dismiss() {
+        super.dismiss()
+        Timber.d("${javaClass.simpleName} Dismiss")
     }
 
     fun simpleShow(fm: FragmentManager) {

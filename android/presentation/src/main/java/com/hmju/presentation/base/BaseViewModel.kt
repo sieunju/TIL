@@ -1,6 +1,7 @@
 package com.hmju.presentation.base
 
 import android.os.Bundle
+import androidx.annotation.CallSuper
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import com.hmju.lifecycle.*
@@ -50,7 +51,7 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
      * @param code RequestCode
      * @param data 전달 받을 데이터
      */
-    fun performActivityResult(code: Int, data: Bundle?): Disposable {
+    fun performActivityResult(reqCode: Int, resCode: Int, data: Bundle?): Disposable {
         return Flowable.fromIterable(javaClass.methods.toList())
             .filter { it.isAnnotationPresent(OnActivityResult::class.java) }
             .subscribeOn(Schedulers.io())
@@ -58,7 +59,7 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
             .subscribe({ method ->
                 method.getAnnotation(OnActivityResult::class.java)?.let { annotation ->
                     // RequestCode 와 같은 함수만 호출
-                    if (annotation.requestCode == code) {
+                    if (annotation.requestCode == reqCode && annotation.resCode == resCode) {
                         method.invoke(this, data)
                     }
                 }
@@ -80,18 +81,43 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
         compositeDisposable.clear()
     }
 
-    @OnCreated
-    fun onLifecycleCreated() {
+    /**
+     * Activity, Fragment Lifecycle Annotation 로 처리하는게 아닌
+     * 직접적으로 처리해야 하는 경우 해당 함수 호출합니다.
+     * ex.) View 단에서 TabLayout 를 셋팅 해야 하는경우
+     */
+    @CallSuper
+    open fun onDirectCreate(){
         lifecycleEvent = Lifecycle.Event.ON_CREATE
     }
 
-    @OnCreatedToResumed
-    fun onLifecycleCreatedToResumed() {
+    /**
+     * Activity, Fragment Lifecycle Annotation 로 처리하는게 아닌
+     * 직접적으로 처리해야 하는 경우 해당 함수 호출합니다.
+     * ex.) View 단에서 TabLayout 를 셋팅 해야 하는경우
+     */
+    @CallSuper
+    open fun onDirectViewCreated(){
+        lifecycleEvent = Lifecycle.Event.ON_CREATE
+    }
+
+    /**
+     * Activity, Fragment Lifecycle Annotation 로 처리하는게 아닌
+     * 직접적으로 처리해야 하는 경우 해당 함수 호출합니다.
+     * ex.) View 단에서 TabLayout 를 셋팅 해야 하는경우
+     */
+    @CallSuper
+    open fun onDirectResumed(){
         lifecycleEvent = Lifecycle.Event.ON_RESUME
     }
 
-    @OnStopped
-    fun onLifecycleStopped() {
+    /**
+     * Activity, Fragment Lifecycle Annotation 로 처리하는게 아닌
+     * 직접적으로 처리해야 하는 경우 해당 함수 호출합니다.
+     * ex.) View 단에서 TabLayout 를 셋팅 해야 하는경우
+     */
+    @CallSuper
+    open fun onDirectStop(){
         lifecycleEvent = Lifecycle.Event.ON_STOP
     }
 

@@ -8,139 +8,203 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.hmju.lifecycle.OnCreated
-import com.hmju.lifecycle.OnResumed
-import com.hmju.lifecycle.OnStopped
+import androidx.lifecycle.ViewModelLazy
+import com.hmju.lifecycle.*
 import com.hmju.presentation.BR
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.Disposable
 import timber.log.Timber
 
 /**
- * Description : DataBinding 이 없는 ViewModel 기반의 Activity
- * TODO 삭제 예정
- * Created by juhongmin on 2022/02/26
+ * Description : MVVM BaseActivity
+ *
+ * Created by juhongmin on 2022/03/19
  */
-//abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
-//    @LayoutRes private val layoutId: Int
-//) : AppCompatActivity() {
-//
-//    companion object {
-//        val activityStackList = mutableListOf<String>()
-//    }
-//
-//    abstract val viewModel: VM
-//    lateinit var binding: B
-//
-//    private var isInit = false
-//
-//    private val activityResult =
-//        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-//            Timber.d("Activity Result ${it.resultCode}  ${it.data?.extras}")
-//            runCatching {
-//                viewModel.performActivityResultRx(it.resultCode, it.data?.extras)
-//            }
-//        }
-//
-//    private val permissionResult =
-//        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-//            Timber.d("Permission Result $it")
-//            runCatching {
-//                viewModel.performPermissionResultRx(it)
-//            }
-//        }
-//
-//    @CallSuper
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        binding = DataBindingUtil.setContentView<B>(this, layoutId).apply {
-//            lifecycleOwner = this@BaseActivity
-//            setVariable(BR.vm, viewModel)
-//        }
-//        performLiveData()
-//        // Timber.d("${javaClass.simpleName} onCreate $isInit")
-//        viewModel.runCatching {
-//            addDisposable(performLifecycleRx<OnCreated>())
-//        }
-//
-//        // TEST
-//        activityStackList.add(javaClass.simpleName)
-//    }
-//
-//    /**
-//     * BaseActivity 에서 공통으로 처리할 LiveData 을 셋팅하는 함수
-//     */
-//    private fun performLiveData() {
-//        with(viewModel) {
-//            startActivity.observe(this@BaseActivity) { entity ->
-//                Timber.d("Activity $entity")
-//                Intent(this@BaseActivity, entity.target).apply {
-//                    entity.flags?.let { flags = it }
-//                    putExtras(entity.bundle)
-//                    this@BaseActivity.startActivity(this)
-//                }
-//            }
-//
-//            startActivityResult.observe(this@BaseActivity) { entity ->
-//                Timber.d("ActivityResult $entity")
-//                entity.requestCode?.let { code ->
-//                    activityResult.launch(
-//                        Intent(
-//                            this@BaseActivity,
-//                            entity.target
-//                        ).apply {
-//                            entity.flags?.let { flags = it }
-//                            entity.bundle.putInt(BaseViewModel.REQ_CODE, code)
-//                            putExtras(entity.bundle)
-//                        })
-//                }
-//            }
-//
-//            startPermission.observe(this@BaseActivity) { list ->
-//                permissionResult.launch(list.toTypedArray())
-//            }
-//
-//            resultIntentData.observe(this@BaseActivity) {
-//                intent.putExtras(it)
-//            }
-//        }
-//    }
-//
-//    override fun onResume() {
-//        super.onResume()
-//        // Timber.d("${javaClass.simpleName} onResume $isInit")
-//        if (isInit) {
-//            viewModel.runCatching {
-//                addDisposable(performLifecycleRx<OnResumed>())
-//            }
-//        }
-//        isInit = true
-//    }
-//
-//    override fun onStop() {
-//        super.onStop()
-//        // Timber.d("onStop")
-//        viewModel.runCatching {
-//            addDisposable(performLifecycleRx<OnStopped>())
-//        }
-//    }
-//
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        // Timber.d("${javaClass.simpleName} onDestroy $isInit")
-//        viewModel.clearDisposable()
-//        isInit = false
-//    }
-//
-//    override fun finish() {
-//        intent.extras?.let { bundle ->
-//            val reqCode = bundle.getInt(BaseViewModel.REQ_CODE, -1)
-//            Timber.d("Finish ReqCode $reqCode $bundle")
-//            if (reqCode != -1) {
-//                setResult(reqCode, intent)
-//            }
-//        }
-//        super.finish()
-//
-//        // TEST
-//        activityStackList.removeLast()
-//    }
-//}
+abstract class BaseActivity<T : ViewDataBinding, VM : ActivityViewModel>(
+    @LayoutRes private val layoutId: Int
+) : AppCompatActivity() {
+
+    companion object {
+        const val REQ_CODE = "req_code"
+        const val RES_CODE = "res_code"
+    }
+
+    abstract val viewModel: VM
+    lateinit var binding: T
+
+    private var isInit = false
+
+    private val activityResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            Timber.d("Activity ResultCode ${it.resultCode}  ${it.data?.extras}")
+            viewModel.runCatching {
+                val reqCode = it.data?.extras?.getInt(REQ_CODE) ?: -1
+                addDisposable(
+                    performActivityResult(reqCode, it.resultCode, it.data?.extras)
+                )
+            }
+        }
+
+    private val permissionResult =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            Timber.d("Permission Result $it")
+            runCatching {
+                viewModel.performPermissionResult(it)
+            }
+        }
+
+    private var activityResultDisposable: Disposable? = null
+    private var permissionDisposable: Disposable? = null
+
+    @CallSuper
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        performBinding()
+
+        viewModel.runCatching {
+            onDirectCreate()
+            addDisposable(performLifecycle<OnCreated>())
+            addDisposable(performLifecycle<OnIntent>())
+        }
+
+        with(viewModel) {
+            startActivityPage.observe(this@BaseActivity) {
+                Intent(this@BaseActivity, it.targetActivity.java).apply {
+                    if (it.flags != -1) {
+                        flags = it.flags
+                    }
+                    putExtras(it.data)
+
+                    startActivity(this)
+                }
+            }
+        }
+    }
+
+    @CallSuper
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        viewModel.runCatching {
+            val data = intent?.extras
+            if (data != null) {
+                data.keySet()?.forEach { key ->
+                    savedStateHandle.set(key, data.get(key))
+                }
+                addDisposable(performLifecycle<OnIntent>())
+            }
+        }
+    }
+
+    @CallSuper
+    override fun onResume() {
+        super.onResume()
+        viewModel.runCatching {
+            onDirectResumed()
+            addDisposable(performLifecycle<OnCreatedToResumed>())
+
+            if (isInit) {
+                addDisposable(performLifecycle<OnResumed>())
+            }
+        }
+        isInit = true
+
+        // StartActivityResult observer
+        performActivityResult()
+        performPermissions()
+    }
+
+    @CallSuper
+    override fun onStop() {
+        super.onStop()
+        viewModel.runCatching {
+            onDirectStop()
+            addDisposable(performLifecycle<OnStopped>())
+        }
+        // ActivityResult Disposable Observer
+        disposableActivityResult()
+        disposablePermissions()
+    }
+
+    @CallSuper
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.clearDisposable()
+        isInit = false
+    }
+
+    @CallSuper
+    override fun finish() {
+        with(viewModel) {
+            val reqCode = savedStateHandle.get<Int>(REQ_CODE) ?: -1
+            val resCode = savedStateHandle.get<Int>(RES_CODE) ?: RESULT_CANCELED
+            if (reqCode != -1) {
+                val bundle = Bundle()
+                bundle.putAll(getBundleData())
+                intent.putExtras(bundle)
+                setResult(resCode, intent)
+            }
+        }
+        super.finish()
+    }
+
+    /**
+     * Activity Result 처리 함수
+     */
+    private fun performActivityResult() {
+        activityResultDisposable = RxActivityResultEvent.listen()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                val intent = Intent(this, it.targetActivity.java).apply {
+                    if (it.flags != -1) {
+                        flags = it.flags
+                    }
+                    it.data.putInt(REQ_CODE, it.requestCode)
+                    putExtras(it.data)
+                }
+                activityResult.launch(intent)
+            }, {
+                Timber.d("ERROR $it")
+            })
+    }
+
+    private fun disposableActivityResult() {
+        if (activityResultDisposable != null) {
+            activityResultDisposable?.dispose()
+            activityResultDisposable = null
+        }
+    }
+
+    private fun performPermissions() {
+        permissionDisposable = RxPermissionEvent.listen()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                permissionResult.launch(it.toTypedArray())
+            }, {
+
+            })
+    }
+
+    private fun disposablePermissions() {
+        if (permissionDisposable != null) {
+            permissionDisposable?.dispose()
+            permissionDisposable = null
+        }
+    }
+
+    /**
+     * 기본 viewModels 와 같은 로직의 함수
+     */
+    protected inline fun <reified VM : ActivityViewModel> initViewModel(): Lazy<VM> {
+        return ViewModelLazy(VM::class, { viewModelStore }, { defaultViewModelProviderFactory })
+    }
+
+    /**
+     * Activity DataBinding 처리 함수
+     */
+    private fun performBinding() {
+        binding = DataBindingUtil.setContentView<T>(this, layoutId).apply {
+            lifecycleOwner = this@BaseActivity
+            setVariable(BR.vm, viewModel)
+        }
+    }
+}

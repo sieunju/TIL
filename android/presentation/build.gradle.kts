@@ -128,7 +128,6 @@ dependencies {
     kaptAndroidTest(UnitTest.Hilt.compiler)
 
     testImplementation(UnitTest.junit)
-    androidTestImplementation(UnitTest.runner)
     androidTestImplementation(UnitTest.junit)
     androidTestImplementation(UnitTest.core)
     androidTestImplementation(UnitTest.ext)

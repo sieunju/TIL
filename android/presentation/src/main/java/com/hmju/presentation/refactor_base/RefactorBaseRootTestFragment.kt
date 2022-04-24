@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.hmju.presentation.R
-import com.hmju.presentation.base.BaseFragmentV2
+import com.hmju.presentation.base.BaseFragment
 import com.hmju.presentation.databinding.FRefactorBaseRootTestBinding
 import com.hmju.presentation.refactor_base.child.ChildRefactorBlueFragment
 import com.hmju.presentation.refactor_base.child.ChildRefactorRedFragment
@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 class RefactorBaseRootTestFragment
-    : BaseFragmentV2<FRefactorBaseRootTestBinding, RefactorBaseRootTestViewModel>
+    : BaseFragment<FRefactorBaseRootTestBinding, RefactorBaseRootTestViewModel>
     (R.layout.f_refactor_base_root_test) {
 
     override val viewModel: RefactorBaseRootTestViewModel by initViewModel()

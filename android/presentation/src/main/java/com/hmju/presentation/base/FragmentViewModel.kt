@@ -1,5 +1,7 @@
 package com.hmju.presentation.base
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -14,4 +16,7 @@ open class FragmentViewModel @Inject constructor() : BaseViewModel() {
 
     @Inject
     lateinit var savedStateHandle: SavedStateHandle
+
+    protected val _startActivityPage: MutableLiveData<ActivityResult> by lazy { MutableLiveData() }
+    val startActivityPage: LiveData<ActivityResult> get() = _startActivityPage
 }

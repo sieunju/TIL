@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import com.hmju.presentation.BR
 import com.hmju.presentation.R
-import com.hmju.presentation.base.BaseFragmentV2
+import com.hmju.presentation.base.BaseFragment
 import com.hmju.presentation.databinding.FChildBottomSheetBlueBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 class ChildBottomSheetBlueFragment
-    : BaseFragmentV2<FChildBottomSheetBlueBinding, ChildBottomSheetBlueViewModel>(
+    : BaseFragment<FChildBottomSheetBlueBinding, ChildBottomSheetBlueViewModel>(
     R.layout.f_child_bottom_sheet_blue
 ) {
     override val viewModel: ChildBottomSheetBlueViewModel by initViewModel()

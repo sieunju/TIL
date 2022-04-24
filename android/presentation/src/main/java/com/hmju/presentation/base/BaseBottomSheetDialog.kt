@@ -1,6 +1,6 @@
 package com.hmju.presentation.base
 
-import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +11,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.createViewModelLazy
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hmju.lifecycle.*
 import com.hmju.presentation.BR
@@ -25,7 +27,7 @@ abstract class BaseBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewMo
     @LayoutRes private val layoutId: Int
 ) : BottomSheetDialogFragment() {
 
-    abstract val viewModel: VM
+    lateinit var viewModel: VM
     var binding: T by autoCleared()
 
     private var isInit = false
@@ -34,6 +36,7 @@ abstract class BaseBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewMo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.runCatching {
+            onDirectCreate()
             addDisposable(performLifecycle<OnCreated>())
         }
     }
@@ -55,7 +58,21 @@ abstract class BaseBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewMo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.runCatching {
+            onDirectViewCreated()
             addDisposable(performLifecycle<OnViewCreated>())
+        }
+
+        with(viewModel) {
+            startActivityPage.observe(viewLifecycleOwner) {
+                Intent(requireContext(), it.targetActivity.java).apply {
+                    if (it.flags != -1) {
+                        flags = it.flags
+                    }
+                    putExtras(it.data)
+
+                    startActivity(this)
+                }
+            }
         }
 
         dialog?.setOnDismissListener {
@@ -67,6 +84,7 @@ abstract class BaseBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewMo
     override fun onResume() {
         super.onResume()
         viewModel.runCatching {
+            onDirectResumed()
             addDisposable(performLifecycle<OnCreatedToResumed>())
 
             if (isInit) {
@@ -80,6 +98,7 @@ abstract class BaseBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewMo
     override fun onStop() {
         super.onStop()
         viewModel.runCatching {
+            onDirectStop()
             addDisposable(performLifecycle<OnStopped>())
         }
     }
@@ -90,9 +109,10 @@ abstract class BaseBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewMo
         viewModel.clearDisposable()
     }
 
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        Timber.d("onDismiss $dialog")
+    @CallSuper
+    override fun dismiss() {
+        super.dismiss()
+        Timber.d("${javaClass.simpleName} Dismiss")
     }
 
     fun simpleShow(fm: FragmentManager) {
@@ -104,5 +124,12 @@ abstract class BaseBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewMo
      */
     protected inline fun <reified VM : BottomSheetViewModel> initViewModel(): Lazy<VM> {
         return createViewModelLazy(VM::class, { viewModelStore })
+    }
+
+    /**
+     * SharedBottomSheet 전용 ViewModel onCreate 에서 실행 해야 한다
+     */
+    protected inline fun <reified VM : BottomSheetViewModel> initBottomSheetViewModel(): VM {
+        return ViewModelProvider(viewModelStore, defaultViewModelProviderFactory).get()
     }
 }
