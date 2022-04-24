@@ -1,12 +1,12 @@
 package com.hmju.presentation
 
 import android.os.Bundle
-import com.hmju.presentation.base.BaseActivityV2
+import com.hmju.presentation.base.BaseActivity
 import com.hmju.presentation.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BaseActivityV2<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
 
     override val viewModel: MainViewModel by initViewModel()
 

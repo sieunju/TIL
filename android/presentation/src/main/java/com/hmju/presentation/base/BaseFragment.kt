@@ -21,7 +21,7 @@ import timber.log.Timber
  *
  * Created by juhongmin on 2022/03/19
  */
-abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
+abstract class BaseFragment<T : ViewDataBinding, VM : FragmentViewModel>(
     @LayoutRes private val layoutId: Int
 ) : Fragment() {
 
@@ -46,7 +46,7 @@ abstract class BaseFragmentV2<T : ViewDataBinding, VM : FragmentViewModel>(
     ): View? {
         return DataBindingUtil.inflate<T>(inflater, layoutId, container, false).run {
             binding = this
-            lifecycleOwner = this@BaseFragmentV2
+            lifecycleOwner = this@BaseFragment
             setVariable(BR.vm, viewModel)
             this.root
         }

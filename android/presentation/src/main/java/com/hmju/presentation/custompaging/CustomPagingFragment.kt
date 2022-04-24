@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hmju.presentation.R
-import com.hmju.presentation.base.BaseFragmentV2
+import com.hmju.presentation.base.BaseFragment
 import com.hmju.presentation.base.BaseSimpleLikeViewHolder
 import com.hmju.presentation.databinding.FCustomPagingBinding
 import com.hmju.presentation.simple_like_recyclerview.SimpleLike1ViewHolder
@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * Created by juhongmin on 2022/01/21
  */
 @AndroidEntryPoint
-class CustomPagingFragment : BaseFragmentV2<FCustomPagingBinding, CustomPagingViewModel>(
+class CustomPagingFragment : BaseFragment<FCustomPagingBinding, CustomPagingViewModel>(
     R.layout.f_custom_paging
 ) {
 

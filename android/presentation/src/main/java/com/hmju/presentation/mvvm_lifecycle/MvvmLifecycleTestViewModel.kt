@@ -10,7 +10,7 @@ import com.hmju.lifecycle.*
 import com.hmju.loginmanager.LoginManager
 import com.hmju.presentation.IntentKey
 import com.hmju.presentation.base.ActivityViewModel
-import com.hmju.presentation.base.BaseActivityV2
+import com.hmju.presentation.base.BaseActivity
 import com.til.model.params.GoodsParamMap
 import com.til.rxbus.TestBusEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -112,7 +112,7 @@ class MvvmLifecycleTestViewModel @Inject constructor(
     }
 
     fun movePermission() {
-        savedStateHandle.set(BaseActivityV2.RES_CODE, Activity.RESULT_OK)
+        savedStateHandle.set(BaseActivity.RES_CODE, Activity.RESULT_OK)
 //        movePermissions(
 //            listOf(
 //                Manifest.permission.ACCESS_FINE_LOCATION,

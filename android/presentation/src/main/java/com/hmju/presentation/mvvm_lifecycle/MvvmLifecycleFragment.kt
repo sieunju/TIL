@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.hmju.presentation.R
-import com.hmju.presentation.base.BaseFragmentV2
+import com.hmju.presentation.base.BaseFragment
 import com.hmju.presentation.databinding.FMvvmLifecycleBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * Created by juhongmin on 2022/02/26
  */
 @AndroidEntryPoint
-class MvvmLifecycleFragment : BaseFragmentV2<FMvvmLifecycleBinding, LifecycleViewModel>(
+class MvvmLifecycleFragment : BaseFragment<FMvvmLifecycleBinding, LifecycleViewModel>(
     R.layout.f_mvvm_lifecycle
 ) {
 

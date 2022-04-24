@@ -20,7 +20,7 @@ import timber.log.Timber
  *
  * Created by juhongmin on 2022/03/19
  */
-abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
+abstract class BaseActivity<T : ViewDataBinding, VM : ActivityViewModel>(
     @LayoutRes private val layoutId: Int
 ) : AppCompatActivity() {
 
@@ -59,8 +59,8 @@ abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
         }
 
         with(viewModel) {
-            startActivityPage.observe(this@BaseActivityV2) {
-                Intent(this@BaseActivityV2, it.targetActivity.java).apply {
+            startActivityPage.observe(this@BaseActivity) {
+                Intent(this@BaseActivity, it.targetActivity.java).apply {
                     if (it.flags != -1) {
                         flags = it.flags
                     }
@@ -175,7 +175,7 @@ abstract class BaseActivityV2<T : ViewDataBinding, VM : ActivityViewModel>(
      */
     private fun performBinding() {
         binding = DataBindingUtil.setContentView<T>(this, layoutId).apply {
-            lifecycleOwner = this@BaseActivityV2
+            lifecycleOwner = this@BaseActivity
             setVariable(BR.vm, viewModel)
         }
     }
