@@ -22,7 +22,7 @@ object RxActivityResultEvent {
 }
 
 data class ActivityResult(
-    val requestCode: Int,
+    val requestCode: Int = -1,
     val targetActivity: KClass<out FragmentActivity>,
     val flags: Int = -1,
     val data: Bundle = Bundle()

@@ -45,7 +45,16 @@ abstract class BaseActivity<T : ViewDataBinding, VM : ActivityViewModel>(
             }
         }
 
+    private val permissionResult =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            Timber.d("Permission Result $it")
+            runCatching {
+                viewModel.performPermissionResult(it)
+            }
+        }
+
     private var activityResultDisposable: Disposable? = null
+    private var permissionDisposable: Disposable? = null
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,6 +110,7 @@ abstract class BaseActivity<T : ViewDataBinding, VM : ActivityViewModel>(
 
         // StartActivityResult observer
         performActivityResult()
+        performPermissions()
     }
 
     @CallSuper
@@ -112,6 +122,7 @@ abstract class BaseActivity<T : ViewDataBinding, VM : ActivityViewModel>(
         }
         // ActivityResult Disposable Observer
         disposableActivityResult()
+        disposablePermissions()
     }
 
     @CallSuper
@@ -160,6 +171,23 @@ abstract class BaseActivity<T : ViewDataBinding, VM : ActivityViewModel>(
         if (activityResultDisposable != null) {
             activityResultDisposable?.dispose()
             activityResultDisposable = null
+        }
+    }
+
+    private fun performPermissions() {
+        permissionDisposable = RxPermissionEvent.listen()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                permissionResult.launch(it.toTypedArray())
+            }, {
+
+            })
+    }
+
+    private fun disposablePermissions() {
+        if (permissionDisposable != null) {
+            permissionDisposable?.dispose()
+            permissionDisposable = null
         }
     }
 

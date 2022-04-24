@@ -1,16 +1,22 @@
 package com.hmju.presentation.refactor_base
 
+import android.Manifest
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hmju.lifecycle.OnActivityResult
 import com.hmju.lifecycle.OnCreated
 import com.hmju.lifecycle.OnIntent
+import com.hmju.lifecycle.OnPermissionResult
 import com.hmju.presentation.IntentKey
 import com.hmju.presentation.base.ActivityResult
 import com.hmju.presentation.base.ActivityViewModel
 import com.hmju.presentation.base.RxActivityResultEvent
+import com.hmju.presentation.base.RxPermissionEvent
+import com.hmju.presentation.mvvm_lifecycle.MvvmLifecycleTest3Activity
 import com.hmju.presentation.mvvm_lifecycle.MvvmLifecycleTestActivity
 import com.til.model.test.SerializableEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -58,6 +64,28 @@ class RefactorTestViewModel @Inject constructor(
                     )
                 }
             ))
+    }
+
+    fun onPermission() {
+//        _startActivityPage.value = ActivityResult(
+//            targetActivity = MvvmLifecycleTest3Activity::class,
+//            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP,
+//            data = bundleOf(
+//                "TIT" to "qwe"
+//            )
+//        )
+
+        RxPermissionEvent.publish(
+            listOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.CAMERA
+            )
+        )
+    }
+
+    @OnPermissionResult([Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CAMERA])
+    fun onStorageResult(map: Map<String, Boolean>) {
+        Timber.d("Permission Map $map")
     }
 
     @OnActivityResult(3000, Activity.RESULT_OK)
