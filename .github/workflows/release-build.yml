@@ -20,6 +20,11 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           check-latest: true
+          
+     # 최근에 커밋한 내용으로 릴리즈 노트 작성
+      - name: Generate Release Note
+        run: ./gradlew generateReleaseNote
+        working-directory: ${{ env.working-directory }}
 
       # Dependency 에 버전 및 릴리즈 메시지 가져오기
       - name: Release Version
