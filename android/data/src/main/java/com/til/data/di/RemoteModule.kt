@@ -7,10 +7,7 @@ import com.til.data.NetworkConfig
 import com.til.data.interceptor.HeaderInterceptor
 import com.til.data.interceptor.RefreshTokenInterceptor
 import com.til.data.interceptor.TokenAuthenticator
-import com.til.data.network.AuthApiService
-import com.til.data.network.GoodsApiService
-import com.til.data.network.JSendApiService
-import com.til.data.network.RefreshTokenApiService
+import com.til.data.network.*
 import com.til.data.qualifiers.*
 import dagger.Module
 import dagger.Provides
@@ -144,5 +141,11 @@ internal object RemoteModule {
     fun provideJSendApiService(
         retrofit: Retrofit
     ): JSendApiService = retrofit.create(JSendApiService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideErrorHandlingApiService(
+        retrofit: Retrofit
+    ): ErrorHandlingApiService = retrofit.create(ErrorHandlingApiService::class.java)
     // [e] Main API Service
 }

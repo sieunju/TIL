@@ -21,7 +21,7 @@ import javax.inject.Inject
  *
  * Created by juhongmin on 2022/01/12
  */
-class GoodsRepositoryImpl @Inject constructor(
+internal class GoodsRepositoryImpl @Inject constructor(
     private val goodsApiService: GoodsApiService
 ) : GoodsRepository {
     override fun fetchGoods(params: GoodsParamMap): Single<JSendListWithMeta<GoodsEntity, CustomMetaEntity>> {

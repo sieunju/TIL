@@ -12,7 +12,7 @@ import javax.inject.Inject
  *
  * Created by juhongmin on 2022/01/12
  */
-class AuthRepositoryImpl @Inject constructor(
+internal class AuthRepositoryImpl @Inject constructor(
     private val authApiService: AuthApiService
 ) : AuthRepository {
     override fun tokenRefresh(): Single<JSend<TokenEntity>> {

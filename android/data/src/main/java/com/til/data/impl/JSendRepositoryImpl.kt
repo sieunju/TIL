@@ -12,7 +12,7 @@ import javax.inject.Inject
  *
  * Created by juhongmin on 2022/02/11
  */
-class JSendRepositoryImpl @Inject constructor(
+internal class JSendRepositoryImpl @Inject constructor(
     private val apiService: JSendApiService
 ) : JSendRepository {
     override fun fetchJSend(): Single<JSendBaseResponse<JSend<JSendTestEntity>>> {

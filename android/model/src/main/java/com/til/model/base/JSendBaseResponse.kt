@@ -13,6 +13,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class JSendBaseResponse<T : Any>(
-    val data: T? = null,
-    val isSuccess: Boolean = true
+    val isSuccess: Boolean = true,
+    val message: String? = null,
+    val data: T? = null
 )
