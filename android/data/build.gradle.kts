@@ -41,7 +41,6 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":loginmanager"))
     implementation(project(":likemanager"))
-    implementation(project(":tracking"))
 
     implementation(Kotlin.stdLib)
     implementation(Kotlin.core)
@@ -71,6 +70,11 @@ dependencies {
      */
     implementation(Rx.java)
     implementation(Rx.kotlin)
+
+    /**
+     * Libs
+     */
+    implementation(Libs.httpTracking)
 
     /**
      * Unit Test
