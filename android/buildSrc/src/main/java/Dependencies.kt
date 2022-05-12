@@ -46,7 +46,6 @@ object Javax {
 object Hilt {
     const val android = "com.google.dagger:hilt-android:${Versions.hilt}"
     const val compiler = "com.google.dagger:hilt-compiler:${Versions.hilt}"
-    const val androidx = "androidx.hilt:hilt-compiler:1.0.0-alpha01"
 }
 
 object Rx {
@@ -80,6 +79,7 @@ object Log {
 object Libs {
     const val binding = "com.github.kirich1409:viewbindingpropertydelegate:1.5.3"
     const val bindingReflection = "com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.3"
+    const val httpTracking = "com.github.sieunju:httptracking:1.0.11-beta03"
 }
 
 object UnitTest {
