@@ -1,30 +1,31 @@
 plugins {
     id("com.android.library")
     id("kotlinx-serialization")
-    id("dagger.hilt.android.plugin")
     kotlin("android")
     kotlin("kapt")
 }
 
 android {
     compileSdk = Apps.compileSdkVersion
-    buildToolsVersion = Apps.buildToolsVersion
 
     defaultConfig {
         minSdk = Apps.minSdkVersion
         targetSdk = Apps.targetSdkVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
-        getByName("debug") {
+        debug {
             isMinifyEnabled = false
         }
-
-        getByName("release") {
+        release {
             isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -37,15 +38,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":model"))
-    implementation(project(":domain"))
-    implementation(project(":loginmanager"))
-    implementation(project(":likemanager"))
-    implementation(project(":rxhandling"))
-
-    implementation(Kotlin.stdLib)
-    implementation(Kotlin.core)
-
     /**
      * Kotlinx Serialization
      */
@@ -57,25 +49,12 @@ dependencies {
     implementation(Retrofit.base)
     implementation(Retrofit.okhttp)
     implementation(Retrofit.rxjava)
-    implementation(Retrofit.kotlinx)
-    implementation(Retrofit.okhttpLogger)
-
-    /**
-     * Hilt
-     */
-    implementation(Hilt.android)
-    kapt(Hilt.compiler)
 
     /**
      * Rx
      */
     implementation(Rx.java)
     implementation(Rx.kotlin)
-
-    /**
-     * Libs
-     */
-    implementation(Libs.httpTracking)
 
     implementation(Log.timber)
 

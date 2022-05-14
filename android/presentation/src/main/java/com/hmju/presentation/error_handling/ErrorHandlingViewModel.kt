@@ -1,6 +1,7 @@
 package com.hmju.presentation.error_handling
 
 import com.hmju.domain.repository.ErrorHandlingRepository
+import com.hmju.domain.repository.JSendRepository
 import com.hmju.presentation.base.FragmentViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.addTo
@@ -13,13 +14,18 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class ErrorHandlingViewModel @Inject constructor(
-    private val errorHandlingRepository: ErrorHandlingRepository
+    private val errorHandlingRepository: ErrorHandlingRepository,
+    private val jSendRepository: JSendRepository
 ) : FragmentViewModel() {
 
 
     fun performGet505(){
+        jSendRepository.fetchJSend().subscribe().addTo(compositeDisposable)
         errorHandlingRepository.getError505()
-            .subscribe()
+            .subscribe({
+            },{
+
+            })
             .addTo(compositeDisposable)
     }
 

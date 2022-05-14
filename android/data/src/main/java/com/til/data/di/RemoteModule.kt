@@ -9,6 +9,7 @@ import com.til.data.interceptor.RefreshTokenInterceptor
 import com.til.data.interceptor.TokenAuthenticator
 import com.til.data.network.*
 import com.til.data.qualifiers.*
+import com.til.rxhandling.adapter.RxJSendCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -119,7 +120,8 @@ internal object RemoteModule {
     ): Retrofit = Retrofit.Builder().apply {
         baseUrl(NetworkConfig.BASE_URL)
         client(httpClient)
-        addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
+        addCallAdapterFactory(RxJSendCallAdapterFactory.create())
+        // addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
         addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
     }.build()
 
