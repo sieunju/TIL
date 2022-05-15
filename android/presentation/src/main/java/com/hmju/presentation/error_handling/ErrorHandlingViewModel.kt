@@ -5,6 +5,7 @@ import com.hmju.domain.repository.JSendRepository
 import com.hmju.presentation.base.FragmentViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.addTo
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -19,10 +20,16 @@ class ErrorHandlingViewModel @Inject constructor(
 ) : FragmentViewModel() {
 
 
-    fun performGet505(){
+    fun performGet505() {
 //        jSendRepository.fetchJSend().subscribe().addTo(compositeDisposable)
-        jSendRepository.fetchJSend().subscribe().addTo(compositeDisposable)
-        errorHandlingRepository.fetchJSendListWithMeta().subscribe().addTo(compositeDisposable)
+        jSendRepository.fetchJSend().subscribe({
+            Timber.d("다 왔습니다. $it")
+        }, {
+
+        }).addTo(compositeDisposable)
+        errorHandlingRepository.fetchJSendListWithMeta().subscribe({
+            Timber.d("여깁니다 $it ${it.status} ${it.message}")
+        }, {}).addTo(compositeDisposable)
 //        errorHandlingRepository.getError505()
 //            .subscribe({
 //            },{
@@ -31,19 +38,19 @@ class ErrorHandlingViewModel @Inject constructor(
 //            .addTo(compositeDisposable)
     }
 
-    fun performPost505(){
+    fun performPost505() {
         errorHandlingRepository.postError505()
             .subscribe()
             .addTo(compositeDisposable)
     }
 
-    fun performGet404(){
+    fun performGet404() {
         errorHandlingRepository.getError404()
             .subscribe()
             .addTo(compositeDisposable)
     }
 
-    fun performPost404(){
+    fun performPost404() {
         errorHandlingRepository.postError404()
             .subscribe()
             .addTo(compositeDisposable)

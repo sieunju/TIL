@@ -1,5 +1,6 @@
 package com.til.model.base
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
@@ -13,7 +14,9 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class JSendBaseResponse<T : Any>(
+    @SerialName("status")
     val isSuccess: Boolean = true,
     val message: String? = null,
+    @SerialName("data")
     val data: T? = null
 )

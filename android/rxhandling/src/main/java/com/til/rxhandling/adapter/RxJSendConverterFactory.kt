@@ -4,6 +4,7 @@ import com.til.model.base.JSendSimpleResponse
 import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonObject
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -13,6 +14,7 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import timber.log.Timber
 import java.lang.reflect.Type
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Description :
@@ -65,12 +67,33 @@ class RxJSendConverterFactory(
         override fun convert(value: ResponseBody): T? {
             val string = value.string()
             if (rawType.isAnnotationPresent(JSendSimpleResponse::class.java)) {
-                Timber.d("JSendSimpleResponse가 있습니다. ")
+                Timber.d("JSendSimpleResponse 가 있습니다. ")
                 val jsonElement = format.decodeFromString<JsonElement>(string)
-                val dataString = jsonElement.jsonObject["data"].toString()
-                return format.decodeFromString(loader, dataString)
+                val dataBody =
+                    jsonElement.jsonObject["data"] ?: return format.decodeFromString(loader, string)
+
+                val status = jsonElement.jsonObject["status"]
+                val message = jsonElement.jsonObject["message"]
+                val payload = dataBody.jsonObject["payload"]
+                val meta = dataBody.jsonObject["meta"]
+                val map = ConcurrentHashMap<String, JsonElement>()
+                if (status != null) {
+                    map["status"] = status
+                }
+                if (message != null) {
+                    map["message"] = message
+                }
+                if (payload != null) {
+                    map["payload"] = payload
+                }
+                if (meta != null) {
+                    map["meta"] = meta
+                }
+                val json = JsonObject(map)
+                Timber.d("재 가공 데이터 ${json}")
+                return format.decodeFromString(loader, json.toString())
             } else {
-                Timber.d("JSendSimpleResponse가 없습니다. ")
+                Timber.d("JSendSimpleResponse 가 없습니다. ")
                 return format.decodeFromString(loader, string)
             }
         }

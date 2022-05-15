@@ -18,4 +18,4 @@ data class JSendListWithMeta<T : Any, M : MetaEntity>(
     val list: List<T> = listOf(),
     @SerialName("meta")
     val meta: M? = null
-)
+) : JSendSimpleBaseEntity()
