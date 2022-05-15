@@ -1,7 +1,7 @@
 package com.hmju.domain.repository
 
 import com.til.model.auth.TokenEntity
-import com.til.model.base.JSendSimpleObj
+import com.til.model.base.JSendObj
 import io.reactivex.rxjava3.core.Single
 
 /**
@@ -10,6 +10,6 @@ import io.reactivex.rxjava3.core.Single
  * Created by juhongmin on 2022/01/12
  */
 interface AuthRepository {
-    fun tokenRefresh(): Single<JSendSimpleObj<TokenEntity>>
-    fun tokenExpired(): Single<JSendSimpleObj<TokenEntity>>
+    fun tokenRefresh(): Single<JSendObj<TokenEntity>>
+    fun tokenExpired(): Single<JSendObj<TokenEntity>>
 }

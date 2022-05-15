@@ -5,8 +5,8 @@ import com.hmju.likemanager.LikeManager
 import com.til.data.network.GoodsApiService
 import com.til.model.RxBus
 import com.til.model.RxBusEvent
-import com.til.model.base.JSendSimpleListWithMeta
-import com.til.model.base.JSendSimpleObj
+import com.til.model.base.JSendListWithMeta
+import com.til.model.base.JSendObj
 import com.til.model.body.LikeRequestBody
 import com.til.model.goods.GoodsEntity
 import com.til.model.like.LikeEntity
@@ -24,15 +24,15 @@ import javax.inject.Inject
 internal class GoodsRepositoryImpl @Inject constructor(
     private val goodsApiService: GoodsApiService
 ) : GoodsRepository {
-    override fun fetchGoods(params: GoodsParamMap): Single<JSendSimpleListWithMeta<GoodsEntity, CustomMetaEntity>> {
+    override fun fetchGoods(params: GoodsParamMap): Single<JSendListWithMeta<GoodsEntity, CustomMetaEntity>> {
         return goodsApiService.fetchGoods(params)
     }
 
-    override fun fetchTest(): Single<JSendSimpleObj<TestEntity>> {
+    override fun fetchTest(): Single<JSendObj<TestEntity>> {
         return goodsApiService.fetchTest()
     }
 
-    override fun postLike(body: LikeRequestBody): Single<JSendSimpleObj<LikeEntity>> {
+    override fun postLike(body: LikeRequestBody): Single<JSendObj<LikeEntity>> {
         return goodsApiService.postLike(body).map {
             if (it.isSuccess) {
                 LikeManager.addLike(body.id)
@@ -42,7 +42,7 @@ internal class GoodsRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun deleteLike(id: Long): Single<JSendSimpleObj<LikeEntity>> {
+    override fun deleteLike(id: Long): Single<JSendObj<LikeEntity>> {
         return goodsApiService.deleteLike(id).map {
             if (it.isSuccess) {
                 LikeManager.removeLike(id)

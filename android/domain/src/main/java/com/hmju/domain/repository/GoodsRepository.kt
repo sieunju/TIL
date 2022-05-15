@@ -1,8 +1,8 @@
 package com.hmju.domain.repository
 
 import com.til.model.meta.CustomMetaEntity
-import com.til.model.base.JSendSimpleListWithMeta
-import com.til.model.base.JSendSimpleObj
+import com.til.model.base.JSendListWithMeta
+import com.til.model.base.JSendObj
 import com.til.model.body.LikeRequestBody
 import com.til.model.goods.GoodsEntity
 import com.til.model.like.LikeEntity
@@ -16,11 +16,11 @@ import io.reactivex.rxjava3.core.Single
  * Created by juhongmin on 2022/01/12
  */
 interface GoodsRepository {
-    fun fetchGoods(params: GoodsParamMap): Single<JSendSimpleListWithMeta<GoodsEntity, CustomMetaEntity>>
+    fun fetchGoods(params: GoodsParamMap): Single<JSendListWithMeta<GoodsEntity, CustomMetaEntity>>
 
-    fun fetchTest(): Single<JSendSimpleObj<TestEntity>>
+    fun fetchTest(): Single<JSendObj<TestEntity>>
 
-    fun postLike(body: LikeRequestBody): Single<JSendSimpleObj<LikeEntity>>
+    fun postLike(body: LikeRequestBody): Single<JSendObj<LikeEntity>>
 
-    fun deleteLike(id: Long): Single<JSendSimpleObj<LikeEntity>>
+    fun deleteLike(id: Long): Single<JSendObj<LikeEntity>>
 }

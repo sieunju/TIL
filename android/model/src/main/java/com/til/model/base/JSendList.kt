@@ -4,12 +4,12 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * Description : 개선된 방식의 JSend Object Data Model
+ * Description :
  *
  * Created by juhongmin on 2022/05/15
  */
 @Serializable
-data class JSendSimpleObj<T : Any>(
+data class JSendList<T : Any>(
     @SerialName("status")
     val isSuccess: Boolean = true,
     @SerialName("message")
@@ -20,9 +20,9 @@ data class JSendSimpleObj<T : Any>(
     @Serializable
     data class Payload<T : Any>(
         @SerialName("payload")
-        val obj: T? = null
+        val list: List<T> = listOf()
     )
 
-    val payload: T
-        get() = depthData?.obj ?: throw NullPointerException("Data is Null")
+    val payload: List<T>
+        get() = depthData?.list ?: listOf()
 }

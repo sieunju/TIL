@@ -11,10 +11,10 @@ import io.reactivex.rxjava3.core.Single
  * Created by juhongmin on 2022/02/11
  */
 interface JSendRepository {
-    fun fetchJSend(): Single<JSendSimpleObj<JSendTestEntity>>
-    fun fetchJSendWithMeta(): Single<JSendSimpleObjWithMeta<JSendTestEntity, CustomMetaEntity>>
-    fun fetchJSendList(): Single<JSendSimpleList<String>>
-    fun fetchJSendListWithMeta(): Single<JSendSimpleListWithMeta<String, MetaEntity>>
-    fun fetchJSendListMeta(): Single<JSendSimpleListWithMeta<String, MetaEntity>>
-    fun fetchSimpleJSendListMeta(): Single<JSendSimpleListWithMeta<String, CustomMetaEntity>>
+    fun fetchJSend(): Single<JSendObj<JSendTestEntity>>
+    fun fetchJSendWithMeta(): Single<JSendObjWithMeta<JSendTestEntity, CustomMetaEntity>>
+    fun fetchJSendList(): Single<JSendList<String>>
+    fun fetchJSendListWithMeta(): Single<JSendListWithMeta<String, MetaEntity>>
+    fun fetchJSendListMeta(): Single<JSendListWithMeta<String, MetaEntity>>
+    fun fetchSimpleJSendListMeta(): Single<JSendListWithMeta<String, CustomMetaEntity>>
 }

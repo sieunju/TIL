@@ -14,5 +14,5 @@ interface ErrorHandlingRepository {
     fun postError505(): Single<Nothing>
     fun getError404(): Single<Nothing>
     fun postError404(): Single<Nothing>
-    fun fetchJSendListWithMeta(): Single<JSendSimpleListWithMeta<String, CustomMetaEntity>>
+    fun fetchJSendListWithMeta(): Single<JSendListWithMeta<String, CustomMetaEntity>>
 }

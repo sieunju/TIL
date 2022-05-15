@@ -12,8 +12,8 @@ import retrofit2.http.POST
  */
 interface AuthApiService {
     @POST("/api/auth/refresh")
-    fun tokenRefresh(): Single<JSendSimpleObj<TokenEntity>>
+    fun tokenRefresh(): Single<JSendObj<TokenEntity>>
 
     @POST("/api/auth/expired")
-    fun tokenExpired(): Single<JSendSimpleObj<TokenEntity>>
+    fun tokenExpired(): Single<JSendObj<TokenEntity>>
 }

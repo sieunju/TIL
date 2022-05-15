@@ -4,23 +4,29 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * status: true,
- * data: {
- *  [payload]: [],
- *  [meta]: {}
- * }
- * Created by juhongmin on 2022/02/15
+ * Description : 한 데이터 모델 한에 실제 데이터를 받기 위한 데이터 모델
+ *
+ * Created by juhongmin on 2022/05/15
  */
-@Deprecated(
-    "더이상 사용하지 않는 데이터 모델입니다. JSendSimpleObj 로 사용해주세요",
-    replaceWith = ReplaceWith("JSendSimpleListWithMeta<Foo>"),
-    level = DeprecationLevel.ERROR
-)
-@JSendSimple
 @Serializable
 data class JSendListWithMeta<T : Any, M : MetaEntity>(
-    @SerialName("payload")
-    val list: List<T> = listOf(),
-    @SerialName("meta")
-    val meta: M? = null
-)
+    @SerialName("status")
+    val isSuccess: Boolean = true,
+    @SerialName("message")
+    val message: String? = null,
+    @SerialName("data")
+    private val depthData: Payload<T, M>? = null
+) {
+    @Serializable
+    data class Payload<T : Any, M : MetaEntity>(
+        @SerialName("payload")
+        val list: List<T> = listOf(),
+        @SerialName("meta")
+        val meta: M? = null
+    )
+
+    val payload: List<T>
+        get() = depthData?.list ?: listOf()
+    val meta: M?
+        get() = depthData?.meta
+}

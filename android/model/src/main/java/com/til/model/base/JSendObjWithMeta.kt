@@ -4,12 +4,12 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * Description : 한 데이터 모델 한에 실제 데이터를 받기 위한 데이터 모델
+ * Description : 개선된 방식의 JSend Object With Meta Data Model
  *
  * Created by juhongmin on 2022/05/15
  */
 @Serializable
-data class JSendSimpleListWithMeta<T : Any, M : MetaEntity>(
+data class JSendObjWithMeta<T : Any, M : MetaEntity>(
     @SerialName("status")
     val isSuccess: Boolean = true,
     @SerialName("message")
@@ -20,13 +20,13 @@ data class JSendSimpleListWithMeta<T : Any, M : MetaEntity>(
     @Serializable
     data class Payload<T : Any, M : MetaEntity>(
         @SerialName("payload")
-        val list: List<T> = listOf(),
+        val obj: T? = null,
         @SerialName("meta")
         val meta: M? = null
     )
 
-    val payload: List<T>
-        get() = depthData?.list ?: listOf()
+    val payload: T
+        get() = depthData?.obj ?: throw NullPointerException("Data is Null")
     val meta: M?
         get() = depthData?.meta
 }

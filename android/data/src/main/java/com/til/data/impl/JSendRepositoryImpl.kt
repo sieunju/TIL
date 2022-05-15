@@ -16,27 +16,27 @@ import javax.inject.Inject
 internal class JSendRepositoryImpl @Inject constructor(
     private val apiService: JSendApiService
 ) : JSendRepository {
-    override fun fetchJSend(): Single<JSendSimpleObj<JSendTestEntity>> {
+    override fun fetchJSend(): Single<JSendObj<JSendTestEntity>> {
         return apiService.fetchJSend()
     }
 
-    override fun fetchJSendWithMeta(): Single<JSendSimpleObjWithMeta<JSendTestEntity, CustomMetaEntity>> {
+    override fun fetchJSendWithMeta(): Single<JSendObjWithMeta<JSendTestEntity, CustomMetaEntity>> {
         return apiService.fetchJSendWithMeta()
     }
 
-    override fun fetchJSendList(): Single<JSendSimpleList<String>> {
+    override fun fetchJSendList(): Single<JSendList<String>> {
         return apiService.fetchJSendList()
     }
 
-    override fun fetchJSendListWithMeta(): Single<JSendSimpleListWithMeta<String, MetaEntity>> {
+    override fun fetchJSendListWithMeta(): Single<JSendListWithMeta<String, MetaEntity>> {
         return apiService.fetchJSendListWithMeta()
     }
 
-    override fun fetchJSendListMeta(): Single<JSendSimpleListWithMeta<String, MetaEntity>> {
+    override fun fetchJSendListMeta(): Single<JSendListWithMeta<String, MetaEntity>> {
         return apiService.fetchJSendListWithMeta()
     }
 
-    override fun fetchSimpleJSendListMeta(): Single<JSendSimpleListWithMeta<String, CustomMetaEntity>> {
+    override fun fetchSimpleJSendListMeta(): Single<JSendListWithMeta<String, CustomMetaEntity>> {
         return apiService.fetchSimpleJSendListMeta()
     }
 }

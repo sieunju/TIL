@@ -19,18 +19,18 @@ interface GoodsApiService {
     @GET("/api/goods")
     fun fetchGoods(
         @QueryMap(encoded = true) params: GoodsParamMap
-    ): Single<JSendSimpleListWithMeta<GoodsEntity, CustomMetaEntity>>
+    ): Single<JSendListWithMeta<GoodsEntity, CustomMetaEntity>>
 
     @GET("/api/test")
-    fun fetchTest(): Single<JSendSimpleObj<TestEntity>>
+    fun fetchTest(): Single<JSendObj<TestEntity>>
 
     @POST("/api/like")
     fun postLike(
         @Body body: LikeRequestBody
-    ): Single<JSendSimpleObj<LikeEntity>>
+    ): Single<JSendObj<LikeEntity>>
 
     @DELETE("/api/like/{id}")
     fun deleteLike(
         @Path("id") id: Long
-    ): Single<JSendSimpleObj<LikeEntity>>
+    ): Single<JSendObj<LikeEntity>>
 }

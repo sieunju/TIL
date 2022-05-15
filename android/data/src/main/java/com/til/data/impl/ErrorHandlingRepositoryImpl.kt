@@ -4,7 +4,7 @@ import com.hmju.domain.repository.ErrorHandlingRepository
 import com.til.data.network.ErrorHandlingApiService
 import com.til.data.network.JSendApiService
 import com.til.model.meta.CustomMetaEntity
-import com.til.model.base.JSendSimpleListWithMeta
+import com.til.model.base.JSendListWithMeta
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
@@ -34,7 +34,7 @@ internal class ErrorHandlingRepositoryImpl @Inject constructor(
         return apiService.postError404()
     }
 
-    override fun fetchJSendListWithMeta(): Single<JSendSimpleListWithMeta<String, CustomMetaEntity>> {
+    override fun fetchJSendListWithMeta(): Single<JSendListWithMeta<String, CustomMetaEntity>> {
         return jsendApiService.fetchSimpleJSendListMeta()
     }
 }
