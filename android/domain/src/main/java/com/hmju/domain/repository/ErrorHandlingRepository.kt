@@ -1,7 +1,7 @@
 package com.hmju.domain.repository
 
 import com.til.model.base.*
-import com.til.model.test.JSendTestEntity
+import com.til.model.meta.CustomMetaEntity
 import io.reactivex.rxjava3.core.Single
 
 /**
@@ -10,9 +10,9 @@ import io.reactivex.rxjava3.core.Single
  * Created by juhongmin on 2022/05/12
  */
 interface ErrorHandlingRepository {
-    fun getError505(): Single<JSend<String>>
-    fun postError505(): Single<JSend<String>>
-    fun getError404(): Single<JSend<String>>
-    fun postError404(): Single<JSend<String>>
-    fun fetchJSendListWithMeta(): Single<JSendListWithMeta<String, CustomMetaEntity>>
+    fun getError505(): Single<Nothing>
+    fun postError505(): Single<Nothing>
+    fun getError404(): Single<Nothing>
+    fun postError404(): Single<Nothing>
+    fun fetchJSendListWithMeta(): Single<JSendSimpleListWithMeta<String, CustomMetaEntity>>
 }

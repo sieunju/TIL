@@ -4,29 +4,25 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * Description : 한 데이터 모델 한에 실제 데이터를 받기 위한 데이터 모델
+ * Description :
  *
  * Created by juhongmin on 2022/05/15
  */
 @Serializable
-data class JSendSimpleListWithMeta<T : Any, M : MetaEntity>(
+data class JSendSimpleList<T : Any>(
     @SerialName("status")
     val isSuccess: Boolean = true,
     @SerialName("message")
     val message: String? = null,
     @SerialName("data")
-    private val depthData: Payload<T, M>? = null
+    private val depthData: Payload<T>? = null
 ) {
     @Serializable
-    data class Payload<T : Any, M : MetaEntity>(
+    data class Payload<T : Any>(
         @SerialName("payload")
-        val list: List<T> = listOf(),
-        @SerialName("meta")
-        val meta: M? = null
+        val list: List<T> = listOf()
     )
 
     val payload: List<T>
         get() = depthData?.list ?: listOf()
-    val meta: M?
-        get() = depthData?.meta
 }

@@ -10,12 +10,10 @@ import com.til.data.interceptor.TokenAuthenticator
 import com.til.data.network.*
 import com.til.data.qualifiers.*
 import com.til.rxhandling.adapter.RxJSendCallAdapterFactory
-import com.til.rxhandling.adapter.RxJSendConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -124,8 +122,8 @@ internal object RemoteModule {
         client(httpClient)
         addCallAdapterFactory(RxJSendCallAdapterFactory.create())
 //        addConverterFactory(RxJSendConverterFactory("application/json".toMediaType()))
-         // addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
-         addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+        // addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
+        addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
     }.build()
 
     // [s] Main API Service

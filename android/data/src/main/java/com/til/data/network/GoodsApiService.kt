@@ -1,9 +1,7 @@
 package com.til.data.network
 
-import com.til.model.base.CustomMetaEntity
-import com.til.model.base.JSend
-import com.til.model.base.JSendBaseResponse
-import com.til.model.base.JSendListWithMeta
+import com.til.model.base.*
+import com.til.model.meta.CustomMetaEntity
 import com.til.model.body.LikeRequestBody
 import com.til.model.goods.GoodsEntity
 import com.til.model.like.LikeEntity
@@ -21,18 +19,18 @@ interface GoodsApiService {
     @GET("/api/goods")
     fun fetchGoods(
         @QueryMap(encoded = true) params: GoodsParamMap
-    ): Single<JSendBaseResponse<JSendListWithMeta<GoodsEntity, CustomMetaEntity>>>
+    ): Single<JSendSimpleListWithMeta<GoodsEntity, CustomMetaEntity>>
 
     @GET("/api/test")
-    fun fetchTest(): Single<JSendBaseResponse<JSend<TestEntity>>>
+    fun fetchTest(): Single<JSendSimpleObj<TestEntity>>
 
     @POST("/api/like")
     fun postLike(
         @Body body: LikeRequestBody
-    ): Single<JSendBaseResponse<JSend<LikeEntity>>>
+    ): Single<JSendSimpleObj<LikeEntity>>
 
     @DELETE("/api/like/{id}")
     fun deleteLike(
         @Path("id") id: Long
-    ): Single<JSendBaseResponse<JSend<LikeEntity>>>
+    ): Single<JSendSimpleObj<LikeEntity>>
 }

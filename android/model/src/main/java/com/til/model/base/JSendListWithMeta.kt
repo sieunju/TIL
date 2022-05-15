@@ -11,6 +11,11 @@ import kotlinx.serialization.Serializable
  * }
  * Created by juhongmin on 2022/02/15
  */
+@Deprecated(
+    "더이상 사용하지 않는 데이터 모델입니다. JSendSimpleObj 로 사용해주세요",
+    replaceWith = ReplaceWith("JSendSimpleObj<Foo>"),
+    level = DeprecationLevel.ERROR
+)
 @JSendSimple
 @Serializable
 data class JSendListWithMeta<T : Any, M : MetaEntity>(

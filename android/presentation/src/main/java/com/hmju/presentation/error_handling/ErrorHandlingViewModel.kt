@@ -29,6 +29,7 @@ class ErrorHandlingViewModel @Inject constructor(
         }).addTo(compositeDisposable)
         errorHandlingRepository.fetchJSendListWithMeta().subscribe({
             Timber.d("여깁니다 $it")
+            it.payload
         }, {}).addTo(compositeDisposable)
         jSendRepository.fetchSimpleJSendListMeta()
             .map {

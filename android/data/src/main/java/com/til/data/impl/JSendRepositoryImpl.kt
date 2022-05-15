@@ -3,6 +3,7 @@ package com.til.data.impl
 import com.hmju.domain.repository.JSendRepository
 import com.til.data.network.JSendApiService
 import com.til.model.base.*
+import com.til.model.meta.CustomMetaEntity
 import com.til.model.test.JSendTestEntity
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
@@ -15,25 +16,24 @@ import javax.inject.Inject
 internal class JSendRepositoryImpl @Inject constructor(
     private val apiService: JSendApiService
 ) : JSendRepository {
-    override fun fetchJSend(): Single<JSendBaseResponse<JSend<JSendTestEntity>>> {
+    override fun fetchJSend(): Single<JSendSimpleObj<JSendTestEntity>> {
         return apiService.fetchJSend()
     }
 
-    override fun fetchJSendWithMeta(): Single<JSendBaseResponse<JSendWithMeta<JSendTestEntity, CustomMetaEntity>>> {
+    override fun fetchJSendWithMeta(): Single<JSendSimpleObjWithMeta<JSendTestEntity, CustomMetaEntity>> {
         return apiService.fetchJSendWithMeta()
     }
 
-    override fun fetchJSendList(): Single<JSendBaseResponse<JSendList<String>>> {
+    override fun fetchJSendList(): Single<JSendSimpleList<String>> {
         return apiService.fetchJSendList()
     }
 
-    override fun fetchJSendListWithMeta(): Single<JSendBaseResponse<JSendListWithMeta<String, MetaEntity>>> {
+    override fun fetchJSendListWithMeta(): Single<JSendSimpleListWithMeta<String, MetaEntity>> {
         return apiService.fetchJSendListWithMeta()
     }
 
-    override fun fetchJSendListMeta(): Single<JSendListWithMeta<String, MetaEntity>> {
+    override fun fetchJSendListMeta(): Single<JSendSimpleListWithMeta<String, MetaEntity>> {
         return apiService.fetchJSendListWithMeta()
-            .map { it.data ?: throw NullPointerException("Data is Null") }
     }
 
     override fun fetchSimpleJSendListMeta(): Single<JSendSimpleListWithMeta<String, CustomMetaEntity>> {

@@ -10,6 +10,6 @@ class GetRefreshTokenUseCase @Inject constructor(
 ) {
     operator fun invoke(): Single<TokenEntity> {
         return authRepository.tokenRefresh()
-            .map { it.obj ?: throw NullPointerException("Data is Null") }
+            .map { it.payload }
     }
 }

@@ -3,7 +3,7 @@ package com.til.data.impl
 import com.hmju.domain.repository.AuthRepository
 import com.til.data.network.AuthApiService
 import com.til.model.auth.TokenEntity
-import com.til.model.base.JSend
+import com.til.model.base.JSendSimpleObj
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
@@ -15,13 +15,12 @@ import javax.inject.Inject
 internal class AuthRepositoryImpl @Inject constructor(
     private val authApiService: AuthApiService
 ) : AuthRepository {
-    override fun tokenRefresh(): Single<JSend<TokenEntity>> {
+
+    override fun tokenRefresh(): Single<JSendSimpleObj<TokenEntity>> {
         return authApiService.tokenRefresh()
-            .map { it.data ?: throw NullPointerException("Data is Null") }
     }
 
-    override fun tokenExpired(): Single<JSend<TokenEntity>> {
+    override fun tokenExpired(): Single<JSendSimpleObj<TokenEntity>> {
         return authApiService.tokenExpired()
-            .map { it.data ?: throw NullPointerException("Data is Null") }
     }
 }

@@ -12,8 +12,13 @@ import kotlinx.serialization.Serializable
  * }
  * Created by juhongmin on 2022/01/11
  */
+@Deprecated(
+    "더이상 사용하지 않는 데이터 모델입니다. JSendSimpleObj 로 사용해주세요",
+    replaceWith = ReplaceWith("JSendSimpleObj<Foo>"),
+    level = DeprecationLevel.ERROR
+)
 @Serializable
-data class JSendBaseResponse<T : Any>(
+data class JSendLegacyBaseResponse<T : Any>(
     @SerialName("status")
     val isSuccess: Boolean = true,
     @SerialName("message")

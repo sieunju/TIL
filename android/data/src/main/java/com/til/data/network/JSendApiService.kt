@@ -1,6 +1,7 @@
 package com.til.data.network
 
 import com.til.model.base.*
+import com.til.model.meta.CustomMetaEntity
 import com.til.model.test.JSendTestEntity
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
@@ -12,19 +13,19 @@ import retrofit2.http.GET
  */
 interface JSendApiService {
     @GET("/api/jsend")
-    fun fetchJSend(): Single<JSendBaseResponse<JSend<JSendTestEntity>>>
+    fun fetchJSend(): Single<JSendSimpleObj<JSendTestEntity>>
 
     @GET("/api/jsend/meta")
-    fun fetchJSendWithMeta(): Single<JSendBaseResponse<JSendWithMeta<JSendTestEntity, CustomMetaEntity>>>
+    fun fetchJSendWithMeta(): Single<JSendSimpleObjWithMeta<JSendTestEntity, CustomMetaEntity>>
 
     @GET("/api/jsend/list")
-    fun fetchJSendList(): Single<JSendBaseResponse<JSendList<String>>>
+    fun fetchJSendList(): Single<JSendSimpleList<String>>
 
     @GET("/api/jsend/list/meta")
-    fun fetchJSendListWithMeta(): Single<JSendBaseResponse<JSendListWithMeta<String, MetaEntity>>>
+    fun fetchJSendListWithMeta(): Single<JSendSimpleListWithMeta<String, MetaEntity>>
 
     @GET("/api/jsend/list/meta")
-    fun fetchJSendListWithMetaTest(): Single<JSendListWithMeta<String, CustomMetaEntity>>
+    fun fetchJSendListWithMetaTest(): Single<JSendSimpleListWithMeta<String, CustomMetaEntity>>
 
     @GET("/api/jsend/list/meta")
     fun fetchSimpleJSendListMeta(): Single<JSendSimpleListWithMeta<String, CustomMetaEntity>>

@@ -1,5 +1,6 @@
-package com.til.model.base
+package com.til.model.meta
 
+import com.til.model.base.MetaEntity
 import kotlinx.serialization.Serializable
 
 /**
