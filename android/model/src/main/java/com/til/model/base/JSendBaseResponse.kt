@@ -16,6 +16,7 @@ import kotlinx.serialization.Serializable
 data class JSendBaseResponse<T : Any>(
     @SerialName("status")
     val isSuccess: Boolean = true,
+    @SerialName("message")
     val message: String? = null,
     @SerialName("data")
     val data: T? = null

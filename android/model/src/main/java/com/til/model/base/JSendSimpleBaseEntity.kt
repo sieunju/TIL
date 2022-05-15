@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
  * Created by juhongmin on 2022/05/15
  */
 @Serializable
-open class JSendSimpleBaseEntity {
+open class JSendSimpleBaseEntity : JSendBaseEntity() {
     @SerialName("status")
     val status: String = ""
 

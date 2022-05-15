@@ -14,4 +14,6 @@ interface JSendRepository {
     fun fetchJSendWithMeta(): Single<JSendBaseResponse<JSendWithMeta<JSendTestEntity, CustomMetaEntity>>>
     fun fetchJSendList(): Single<JSendBaseResponse<JSendList<String>>>
     fun fetchJSendListWithMeta(): Single<JSendBaseResponse<JSendListWithMeta<String, MetaEntity>>>
+    fun fetchJSendListMeta(): Single<JSendListWithMeta<String, MetaEntity>>
+    fun fetchSimpleJSendListMeta(): Single<JSendSimpleListWithMeta<String, CustomMetaEntity>>
 }

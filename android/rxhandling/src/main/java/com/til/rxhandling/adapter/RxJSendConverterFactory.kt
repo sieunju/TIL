@@ -1,6 +1,6 @@
 package com.til.rxhandling.adapter
 
-import com.til.model.base.JSendSimpleResponse
+import com.til.model.base.JSendSimple
 import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
@@ -17,7 +17,7 @@ import java.lang.reflect.Type
 import java.util.concurrent.ConcurrentHashMap
 
 /**
- * Description :
+ * Description : Rx Style Re Parser Converter Class
  *
  * Created by juhongmin on 2022/05/14
  */
@@ -33,7 +33,6 @@ class RxJSendConverterFactory(
             coerceInputValues = true // "null" 이 들어간경우 default Argument 값으로 대체
         }
     }
-
 
     override fun responseBodyConverter(
         type: Type,
@@ -66,11 +65,11 @@ class RxJSendConverterFactory(
     ) : Converter<ResponseBody, T> {
         override fun convert(value: ResponseBody): T? {
             val string = value.string()
-            if (rawType.isAnnotationPresent(JSendSimpleResponse::class.java)) {
+            if (rawType.isAnnotationPresent(JSendSimple::class.java)) {
                 Timber.d("JSendSimpleResponse 가 있습니다. ")
                 val jsonElement = format.decodeFromString<JsonElement>(string)
-                val dataBody =
-                    jsonElement.jsonObject["data"] ?: return format.decodeFromString(loader, string)
+                val dataBody = jsonElement.jsonObject["data"]
+                    ?: return format.decodeFromString(loader, string)
 
                 val status = jsonElement.jsonObject["status"]
                 val message = jsonElement.jsonObject["message"]
@@ -90,7 +89,7 @@ class RxJSendConverterFactory(
                     map["meta"] = meta
                 }
                 val json = JsonObject(map)
-                Timber.d("재 가공 데이터 ${json}")
+                Timber.d("재 가공 데이터 $json")
                 return format.decodeFromString(loader, json.toString())
             } else {
                 Timber.d("JSendSimpleResponse 가 없습니다. ")

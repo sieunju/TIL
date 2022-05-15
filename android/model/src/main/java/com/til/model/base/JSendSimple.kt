@@ -7,4 +7,4 @@ package com.til.model.base
  */
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class JSendSimpleResponse
+annotation class JSendSimple

@@ -28,8 +28,19 @@ class ErrorHandlingViewModel @Inject constructor(
 
         }).addTo(compositeDisposable)
         errorHandlingRepository.fetchJSendListWithMeta().subscribe({
-            Timber.d("여깁니다 $it ${it.status} ${it.message}")
+            Timber.d("여깁니다 $it")
         }, {}).addTo(compositeDisposable)
+        jSendRepository.fetchSimpleJSendListMeta()
+            .map {
+                Timber.d("Map Thread ${Thread.currentThread()}")
+                return@map it
+            }
+            .subscribe({
+                Timber.d("Thread ${Thread.currentThread()}")
+                Timber.d("SUCC ${it}")
+            }, {
+
+            }).addTo(compositeDisposable)
 //        errorHandlingRepository.getError505()
 //            .subscribe({
 //            },{

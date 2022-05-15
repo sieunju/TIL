@@ -30,4 +30,13 @@ internal class JSendRepositoryImpl @Inject constructor(
     override fun fetchJSendListWithMeta(): Single<JSendBaseResponse<JSendListWithMeta<String, MetaEntity>>> {
         return apiService.fetchJSendListWithMeta()
     }
+
+    override fun fetchJSendListMeta(): Single<JSendListWithMeta<String, MetaEntity>> {
+        return apiService.fetchJSendListWithMeta()
+            .map { it.data ?: throw NullPointerException("Data is Null") }
+    }
+
+    override fun fetchSimpleJSendListMeta(): Single<JSendSimpleListWithMeta<String, CustomMetaEntity>> {
+        return apiService.fetchSimpleJSendListMeta()
+    }
 }

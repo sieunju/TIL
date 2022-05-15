@@ -11,11 +11,11 @@ import kotlinx.serialization.Serializable
  * }
  * Created by juhongmin on 2022/02/15
  */
-@JSendSimpleResponse
+@JSendSimple
 @Serializable
 data class JSendListWithMeta<T : Any, M : MetaEntity>(
     @SerialName("payload")
     val list: List<T> = listOf(),
     @SerialName("meta")
     val meta: M? = null
-) : JSendSimpleBaseEntity()
+)

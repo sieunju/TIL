@@ -14,4 +14,4 @@ import kotlinx.serialization.Serializable
 data class JSendList<T : Any>(
     @SerialName("payload")
     val list: List<T> = listOf()
-)
+) : JSendBaseEntity()

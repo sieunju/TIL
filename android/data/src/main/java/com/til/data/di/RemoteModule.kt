@@ -15,6 +15,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -122,9 +123,9 @@ internal object RemoteModule {
         baseUrl(NetworkConfig.BASE_URL)
         client(httpClient)
         addCallAdapterFactory(RxJSendCallAdapterFactory.create())
-        // addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
-        addConverterFactory(RxJSendConverterFactory("application/json".toMediaType()))
-        // addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+//        addConverterFactory(RxJSendConverterFactory("application/json".toMediaType()))
+         // addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
+         addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
     }.build()
 
     // [s] Main API Service

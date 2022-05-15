@@ -25,4 +25,7 @@ interface JSendApiService {
 
     @GET("/api/jsend/list/meta")
     fun fetchJSendListWithMetaTest(): Single<JSendListWithMeta<String, CustomMetaEntity>>
+
+    @GET("/api/jsend/list/meta")
+    fun fetchSimpleJSendListMeta(): Single<JSendSimpleListWithMeta<String, CustomMetaEntity>>
 }

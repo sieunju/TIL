@@ -3,6 +3,7 @@ package com.til.rxhandling.adapter
 import com.til.rxhandling.observable.RxBodyObservable
 import com.til.rxhandling.observable.RxCallExecuteObservable
 import com.til.rxhandling.observable.RxResultObservable
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.*
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -105,6 +106,7 @@ class RxJSendCallAdapterFactory : CallAdapter.Factory() {
             }
 
             observable = observable.subscribeOn(Schedulers.io())
+
             return when (observableType) {
                 ObservableType.SINGLE -> {
                     observable.singleOrError()
