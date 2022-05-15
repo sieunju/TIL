@@ -105,12 +105,6 @@ dependencies {
      */
     implementation(Log.timber)
 
-    /**
-     * Libs
-     */
-    implementation(Libs.binding)
-    implementation(Libs.bindingReflection)
-
     implementation(Kotlin.stdLib)
     implementation(Kotlin.core)
 

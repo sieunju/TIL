@@ -1,17 +1,15 @@
 package com.til.data.di
 
 import com.hmju.loginmanager.LoginManager
+import com.http.tracking.TrackingHttpInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.til.data.NetworkConfig
 import com.til.data.interceptor.HeaderInterceptor
 import com.til.data.interceptor.RefreshTokenInterceptor
 import com.til.data.interceptor.TokenAuthenticator
-import com.til.data.network.AuthApiService
-import com.til.data.network.GoodsApiService
-import com.til.data.network.JSendApiService
-import com.til.data.network.RefreshTokenApiService
+import com.til.data.network.*
 import com.til.data.qualifiers.*
-import com.til.tracking.TrackingHttpInterceptor
+import com.til.rxhandling.adapter.RxJSendCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -52,10 +50,6 @@ internal object RemoteModule {
         loginManager: LoginManager
     ): Interceptor = HeaderInterceptor(loginManager)
 
-    @Provides
-    @TrackingInterceptor
-    fun provideTrackingInterceptor(): Interceptor = TrackingHttpInterceptor()
-
     @Singleton
     @Provides
     @RefreshTokenJsonInterceptor
@@ -63,21 +57,23 @@ internal object RemoteModule {
 
     @Singleton
     @Provides
+    @TrackingInterceptor
+    fun provideTrackingInterceptor(): Interceptor = TrackingHttpInterceptor()
+
+    @Singleton
+    @Provides
     @TokenHttpClient
     fun provideTokenHttpClient(
         @RefreshTokenJsonInterceptor headerInterceptor: Interceptor,
         @TrackingInterceptor trackingInterceptor: Interceptor
-    ): OkHttpClient = OkHttpClient.Builder()
-        .retryOnConnectionFailure(true)
-        .connectTimeout(NetworkConfig.CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
-        .readTimeout(NetworkConfig.READ_TIME_OUT, TimeUnit.MILLISECONDS)
-        .writeTimeout(NetworkConfig.WRITE_TIME_OUT, TimeUnit.MILLISECONDS)
-        .addInterceptor(headerInterceptor)
-        .addInterceptor(trackingInterceptor)
-//        .addInterceptor(HttpLoggingInterceptor().apply {
-//            level = HttpLoggingInterceptor.Level.BODY
-//        })
-        .build()
+    ): OkHttpClient = OkHttpClient.Builder().apply {
+        retryOnConnectionFailure(true)
+        connectTimeout(NetworkConfig.CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
+        readTimeout(NetworkConfig.READ_TIME_OUT, TimeUnit.MILLISECONDS)
+        writeTimeout(NetworkConfig.WRITE_TIME_OUT, TimeUnit.MILLISECONDS)
+        addInterceptor(headerInterceptor)
+        addInterceptor(trackingInterceptor)
+    }.build()
 
     @ExperimentalSerializationApi
     @Singleton
@@ -106,18 +102,15 @@ internal object RemoteModule {
         @HeaderJsonInterceptor headerInterceptor: Interceptor,
         @TrackingInterceptor trackingInterceptor: Interceptor,
         tokenAuthenticator: Authenticator
-    ): OkHttpClient = OkHttpClient.Builder()
-        .retryOnConnectionFailure(true)
-        .connectTimeout(NetworkConfig.CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
-        .readTimeout(NetworkConfig.READ_TIME_OUT, TimeUnit.MILLISECONDS)
-        .writeTimeout(NetworkConfig.WRITE_TIME_OUT, TimeUnit.MILLISECONDS)
-        .addInterceptor(headerInterceptor)
-        .addInterceptor(trackingInterceptor)
-        .authenticator(tokenAuthenticator)
-//        .addInterceptor(HttpLoggingInterceptor().apply {
-//            level = HttpLoggingInterceptor.Level.BODY
-//        })
-        .build()
+    ): OkHttpClient = OkHttpClient.Builder().apply {
+        retryOnConnectionFailure(true)
+        connectTimeout(NetworkConfig.CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
+        readTimeout(NetworkConfig.READ_TIME_OUT, TimeUnit.MILLISECONDS)
+        writeTimeout(NetworkConfig.WRITE_TIME_OUT, TimeUnit.MILLISECONDS)
+        addInterceptor(headerInterceptor)
+        addInterceptor(trackingInterceptor)
+        authenticator(tokenAuthenticator)
+    }.build()
 
     @ExperimentalSerializationApi
     @Provides
@@ -127,7 +120,9 @@ internal object RemoteModule {
     ): Retrofit = Retrofit.Builder().apply {
         baseUrl(NetworkConfig.BASE_URL)
         client(httpClient)
-        addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
+        addCallAdapterFactory(RxJSendCallAdapterFactory.create())
+//        addConverterFactory(RxJSendConverterFactory("application/json".toMediaType()))
+        // addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
         addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
     }.build()
 
@@ -149,5 +144,11 @@ internal object RemoteModule {
     fun provideJSendApiService(
         retrofit: Retrofit
     ): JSendApiService = retrofit.create(JSendApiService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideErrorHandlingApiService(
+        retrofit: Retrofit
+    ): ErrorHandlingApiService = retrofit.create(ErrorHandlingApiService::class.java)
     // [e] Main API Service
 }

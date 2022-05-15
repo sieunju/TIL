@@ -77,6 +77,12 @@
                 android:layout_height="wrap_content"
                 android:text="BaseClass Activity Result Test" />
 
+            <Button
+                android:id="@+id/errorHandling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="에러 헨들링" />
+
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>

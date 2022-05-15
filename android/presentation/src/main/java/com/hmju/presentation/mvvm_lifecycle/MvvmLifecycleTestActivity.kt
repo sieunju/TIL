@@ -16,7 +16,6 @@ class MvvmLifecycleTestActivity :
     override val viewModel: MvvmLifecycleTestViewModel by initViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         with(viewModel) {
             startMovePageEvent.observe(this@MvvmLifecycleTestActivity) {

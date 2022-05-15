@@ -1,8 +1,14 @@
 package com.hmju.presentation.act
 
+import android.content.ContextWrapper
+import android.content.Intent
+import android.view.ContextThemeWrapper
 import androidx.lifecycle.Lifecycle
+import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.launchActivity
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import com.hmju.presentation.R
 import com.hmju.presentation.mvvm_lifecycle.MvvmLifecycleTestActivity
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -30,8 +36,11 @@ class MvvmLifecycleActivityTest {
 
     @Test
     fun testAct() {
-        launchActivity<MvvmLifecycleTestActivity>().apply {
-            moveToState(Lifecycle.State.RESUMED)
+        val appContext = ContextThemeWrapper(InstrumentationRegistry.getInstrumentation().targetContext,R.style.AppTheme)
+        val intent = Intent(appContext,MvvmLifecycleTestActivity::class.java)
+
+        launchActivity<MvvmLifecycleTestActivity>(intent).apply {
+
         }
         Thread.sleep(10_000)
     }
