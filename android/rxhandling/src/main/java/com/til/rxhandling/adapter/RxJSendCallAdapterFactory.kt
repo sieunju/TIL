@@ -88,14 +88,15 @@ class RxJSendCallAdapterFactory : CallAdapter.Factory() {
         private val isBody: Boolean = false,
         private val observableType: ObservableType
     ) : CallAdapter<R, Any> {
+
         override fun responseType(): Type {
             return responseType
         }
 
         override fun adapt(call: Call<R>): Any {
             val responseObservable : Observable<Response<R>> = RxCallExecuteObservable(call)
-            Timber.d("Observable ${observableType.nm} isResult $isResult isBody $isBody $responseObservable")
-            val observable: Observable<*> = if(isResult) {
+            Timber.d("Observable ${observableType.nm} isResult $isResult isBody $isBody")
+            var observable: Observable<*> = if(isResult) {
                 RxResultObservable(responseObservable)
             } else if(isBody) {
                 RxBodyObservable(responseObservable)
@@ -103,7 +104,7 @@ class RxJSendCallAdapterFactory : CallAdapter.Factory() {
                 responseObservable
             }
 
-            observable.subscribeOn(Schedulers.io())
+            observable = observable.subscribeOn(Schedulers.io())
             return when (observableType) {
                 ObservableType.SINGLE -> {
                     observable.singleOrError()

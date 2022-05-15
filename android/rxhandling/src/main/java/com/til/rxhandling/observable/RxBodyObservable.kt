@@ -11,8 +11,8 @@ import retrofit2.Response
 import timber.log.Timber
 
 /**
- * Description : JSend Result Observable
- *
+ * Description : HTTP 통신 Response Body 로 받는 경우에 대한 Observable
+ * Reference: BodyObservable 참고함
  * Created by juhongmin on 2022/05/14
  */
 internal class RxBodyObservable<T : Any>(
@@ -27,20 +27,22 @@ internal class RxBodyObservable<T : Any>(
         private val observer: Observer<in R>
     ) : Observer<Response<R>> {
         private var terminated = false
+
         override fun onSubscribe(disposable: Disposable) {
             observer.onSubscribe(disposable)
         }
 
         override fun onNext(response: Response<R>) {
             if (response.isSuccessful) {
+                Timber.d("onNext Success ${response.body().toString()}")
                 val body = response.body()
-                Timber.d("Body $body")
                 if (body != null) {
                     observer.onNext(body)
                 } else {
                     observer.onError(NullPointerException("Body is Null"))
                 }
             } else {
+                Timber.d("onNext Error $response")
                 terminated = true
                 val t: Throwable = HttpException(response)
                 try {
@@ -59,6 +61,7 @@ internal class RxBodyObservable<T : Any>(
         }
 
         override fun onError(throwable: Throwable) {
+            Timber.d("Error?? $throwable")
             if (!terminated) {
                 observer.onError(throwable)
             } else {

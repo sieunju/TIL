@@ -20,13 +20,15 @@ class ErrorHandlingViewModel @Inject constructor(
 
 
     fun performGet505(){
+//        jSendRepository.fetchJSend().subscribe().addTo(compositeDisposable)
         jSendRepository.fetchJSend().subscribe().addTo(compositeDisposable)
-        errorHandlingRepository.getError505()
-            .subscribe({
-            },{
-
-            })
-            .addTo(compositeDisposable)
+        errorHandlingRepository.fetchJSendListWithMeta().subscribe().addTo(compositeDisposable)
+//        errorHandlingRepository.getError505()
+//            .subscribe({
+//            },{
+//
+//            })
+//            .addTo(compositeDisposable)
     }
 
     fun performPost505(){

@@ -8,10 +8,11 @@ import io.reactivex.rxjava3.exceptions.Exceptions
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import retrofit2.Response
 import retrofit2.adapter.rxjava3.Result
+import timber.log.Timber
 
 /**
- * Description : JSend Result Observable
- *
+ * Description : HTTP 통신 Response Result 로 받는 경우에 대한 Observable
+ * Reference: ResultObservable 참고함
  * Created by juhongmin on 2022/05/14
  */
 internal class RxResultObservable<T>(

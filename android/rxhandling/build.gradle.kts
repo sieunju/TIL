@@ -38,6 +38,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":model"))
+
     /**
      * Kotlinx Serialization
      */
@@ -49,6 +51,7 @@ dependencies {
     implementation(Retrofit.base)
     implementation(Retrofit.okhttp)
     implementation(Retrofit.rxjava)
+    implementation(Retrofit.kotlinx)
 
     /**
      * Rx
@@ -66,4 +69,5 @@ dependencies {
     testImplementation(UnitTest.ext)
     androidTestImplementation(UnitTest.rules)
     androidTestImplementation(UnitTest.runner)
+    implementation(kotlin("reflect"))
 }

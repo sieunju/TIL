@@ -10,6 +10,7 @@ import com.til.data.interceptor.TokenAuthenticator
 import com.til.data.network.*
 import com.til.data.qualifiers.*
 import com.til.rxhandling.adapter.RxJSendCallAdapterFactory
+import com.til.rxhandling.adapter.RxJSendConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -122,7 +123,8 @@ internal object RemoteModule {
         client(httpClient)
         addCallAdapterFactory(RxJSendCallAdapterFactory.create())
         // addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
-        addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+        addConverterFactory(RxJSendConverterFactory("application/json".toMediaType()))
+        // addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
     }.build()
 
     // [s] Main API Service

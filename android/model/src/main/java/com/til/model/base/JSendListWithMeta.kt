@@ -11,6 +11,7 @@ import kotlinx.serialization.Serializable
  * }
  * Created by juhongmin on 2022/02/15
  */
+@JSendSimpleResponse
 @Serializable
 data class JSendListWithMeta<T : Any, M : MetaEntity>(
     @SerialName("payload")

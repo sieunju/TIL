@@ -12,11 +12,11 @@ import retrofit2.adapter.rxjava3.HttpException
 import timber.log.Timber
 
 /**
- * Description : JSend 규칙에 따라서 처리하는 Observable
- *
+ * Description : Rx Execute Observable Class
+ * Reference: CallExecuteObservable 참고함
  * Created by juhongmin on 2022/05/14
  */
-class RxCallExecuteObservable<T>(
+internal class RxCallExecuteObservable<T>(
     private val originalCall: Call<T>
 ) : Observable<Response<T>>() {
 

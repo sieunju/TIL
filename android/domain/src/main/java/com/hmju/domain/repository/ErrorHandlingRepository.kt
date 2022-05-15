@@ -1,6 +1,7 @@
 package com.hmju.domain.repository
 
-import com.til.model.base.JSend
+import com.til.model.base.*
+import com.til.model.test.JSendTestEntity
 import io.reactivex.rxjava3.core.Single
 
 /**
@@ -13,4 +14,5 @@ interface ErrorHandlingRepository {
     fun postError505(): Single<JSend<String>>
     fun getError404(): Single<JSend<String>>
     fun postError404(): Single<JSend<String>>
+    fun fetchJSendListWithMeta(): Single<JSendListWithMeta<String, CustomMetaEntity>>
 }
