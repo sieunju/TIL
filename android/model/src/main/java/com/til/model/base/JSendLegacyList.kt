@@ -12,11 +12,11 @@ import kotlinx.serialization.Serializable
  */
 @Deprecated(
     "더이상 사용하지 않는 데이터 모델입니다. JSendSimpleObj 로 사용해주세요",
-    replaceWith = ReplaceWith("JSendSimpleObj<Foo>"),
+    replaceWith = ReplaceWith("JSendSimpleList<Foo>"),
     level = DeprecationLevel.ERROR
 )
 @Serializable
-data class JSendList<T : Any>(
+data class JSendLegacyList<T : Any>(
     @SerialName("payload")
     val list: List<T> = listOf()
 )

@@ -13,7 +13,7 @@ import kotlinx.serialization.Serializable
  */
 @Deprecated(
     "더이상 사용하지 않는 데이터 모델입니다. JSendSimpleObj 로 사용해주세요",
-    replaceWith = ReplaceWith("JSendSimpleObj<Foo>"),
+    replaceWith = ReplaceWith("JSendSimpleObjWithMeta<Foo>"),
     level = DeprecationLevel.ERROR
 )
 @Serializable
