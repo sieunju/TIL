@@ -78,3 +78,8 @@ fun getReleaseNote() {
         println(author)
     }
 }
+
+apply {
+    // ./gradlew projectDependencyGraph
+    from("gradle/dependencyGraph.gradle")
+}
