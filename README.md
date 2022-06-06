@@ -37,3 +37,9 @@
     - [MVVM Lifecycle 의존하여 관리해보기, Activity 코드 제로에 도전해보기](https://github.com/sieunju/TIL/wiki/ViewModel-%EC%97%90%EC%84%9C-Lifecycle-%EC%9D%98%EC%A1%B4%ED%95%98%EC%97%AC-%EA%B4%80%EB%A6%AC%ED%95%B4%EB%B3%B4%EA%B8%B0,-Activity-%EC%BD%94%EB%93%9C-%EC%A0%9C%EB%A1%9C%EC%97%90-%EB%8F%84%EC%A0%84%ED%95%B4%EB%B3%B4%EA%B8%B0)
     - [MVVM 패턴에 맞게 BaseClass 살계해보기](https://github.com/sieunju/TIL/wiki/MVVM-Lifecycle-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-BaseClass-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EA%B8%B0)
 
+
+### DI Graph
+```Groovy
+ ./gradlew projectDependencyGraph
+```
+![project dot](https://user-images.githubusercontent.com/33802191/172135321-79c32608-7550-4c52-b22c-7bc34334c587.png)
