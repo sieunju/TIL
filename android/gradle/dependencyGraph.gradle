@@ -2,7 +2,7 @@
 // from: https://github.com/JakeWharton/SdkSearch/blob/3351cad9bfacb0a364858e843774147143f58c7a/gradle/projectDependencyGraph.gradle
 task projectDependencyGraph {
     doLast {
-        def dotFileName = 'project.dot'
+        def dotFileName = 'projectGraph'
         def dot = new File(rootProject.rootDir, dotFileName)
         dot.parentFile.mkdirs()
         dot.delete()
@@ -88,13 +88,13 @@ task projectDependencyGraph {
             } else if (jsProjects.contains(project)) {
                 traits.add('fillcolor="#ffffba"')
             } else if (androidProjects.contains(project)) {
-                traits.add('fillcolor="#baffc9"')
+                traits.add('fillcolor="#04bf2c"')
             } else if (androidLibraryProjects.contains(project)) {
-                traits.add('fillcolor="#81D4FA"')
+                traits.add('fillcolor="#baffc9"')
             } else if (androidDynamicFeatureProjects.contains(project)) {
                 traits.add('fillcolor="#c9baff"')
             } else if (javaProjects.contains(project)) {
-                traits.add('fillcolor="#ffb3ba"')
+                traits.add('fillcolor="#F1F8FF"')
             } else {
                 traits.add('fillcolor="#eeeeee"')
             }
