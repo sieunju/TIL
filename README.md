@@ -42,4 +42,5 @@
 ```Groovy
  ./gradlew projectDependencyGraph
 ```
-![project dot](https://user-images.githubusercontent.com/33802191/172135321-79c32608-7550-4c52-b22c-7bc34334c587.png)
+![projectGraph](https://user-images.githubusercontent.com/33802191/173606336-a4210aa6-a8d7-4318-b1ef-02c91b1f096b.png)
+
