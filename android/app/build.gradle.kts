@@ -46,11 +46,9 @@ android {
 
 dependencies {
     implementation(project(path = ":data"))
-    implementation(project(path = ":model"))
     implementation(project(path = ":domain"))
     implementation(project(path = ":loginmanager"))
     implementation(project(path = ":presentation"))
-    implementation(project(path = ":rxbus"))
 
     /**
      * Network
