@@ -29,6 +29,7 @@
     - [AAC Paging 라이브러리 안쓰고 페이징 구현해보기](https://github.com/sieunju/TIL/wiki/AAC-Paging-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EC%95%88%EC%93%B0%EA%B3%A0-MVVM-&-DataBinding-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-%ED%8E%98%EC%9D%B4%EC%A7%95-%EA%B5%AC%ED%98%84%ED%95%B4%EB%B3%B4%EA%B8%B0)
     - [유지보수하기 쉽게 DiffUtil 사용해보기](https://github.com/sieunju/TIL/wiki/%EC%9C%A0%EC%A7%80%EB%B3%B4%EC%88%98%ED%95%98%EA%B8%B0-%EC%89%BD%EA%B2%8C-DiffUtil-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0)
     - [유지보수하기 쉽게 DiffUtil 사용해보기-2](https://github.com/sieunju/TIL/wiki/%EC%9C%A0%EC%A7%80%EB%B3%B4%EC%88%98%ED%95%98%EA%B8%B0-%EC%89%BD%EA%B2%8C-DiffUtil-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0-2)
+    - [DiffUtil 고질적인 문제 처리해보기 v1](https://github.com/sieunju/TIL/wiki/DiffUtil-%EC%A2%80-%EB%8D%94-%EA%B0%9C%EC%84%A0%ED%95%B4%EB%B3%B4%EA%B8%B0-v1)
 
 - CI
     - [Github Action으로 라이브러리 배포 돌려보기](https://github.com/sieunju/TIL/wiki/Github-Action%EC%9C%BC%EB%A1%9C-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%B0%B0%ED%8F%AC-%EB%8F%8C%EB%A0%A4%EB%B3%B4%EA%B8%B0)
