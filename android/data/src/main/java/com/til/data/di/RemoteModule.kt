@@ -4,6 +4,7 @@ import com.hmju.loginmanager.LoginManager
 import com.http.tracking.TrackingHttpInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.til.data.NetworkConfig
+import com.til.data.adapter.RxErrorHandlingCallAdapter
 import com.til.data.interceptor.HeaderInterceptor
 import com.til.data.interceptor.RefreshTokenInterceptor
 import com.til.data.interceptor.TokenAuthenticator
@@ -120,9 +121,8 @@ internal object RemoteModule {
     ): Retrofit = Retrofit.Builder().apply {
         baseUrl(NetworkConfig.BASE_URL)
         client(httpClient)
-        addCallAdapterFactory(RxJSendCallAdapterFactory.create())
-//        addConverterFactory(RxJSendConverterFactory("application/json".toMediaType()))
-        // addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
+        addCallAdapterFactory(RxErrorHandlingCallAdapter.create())
+        // addCallAdapterFactory(RxJSendCallAdapterFactory.create())
         addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
     }.build()
 

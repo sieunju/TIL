@@ -10,13 +10,9 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class JSendObjWithMeta<T : Any, M : MetaEntity>(
-    @SerialName("status")
-    val isSuccess: Boolean = true,
-    @SerialName("message")
-    val message: String? = null,
     @SerialName("data")
     private val depthData: Payload<T, M>? = null
-) {
+) : BaseJSend() {
     @Serializable
     data class Payload<T : Any, M : MetaEntity>(
         @SerialName("payload")
@@ -24,6 +20,9 @@ data class JSendObjWithMeta<T : Any, M : MetaEntity>(
         @SerialName("meta")
         val meta: M? = null
     )
+
+    val isValid: Boolean
+        get() = depthData?.obj != null // true 유효현 데이터 상태
 
     val payload: T
         get() = depthData?.obj ?: throw NullPointerException("Data is Null")

@@ -10,18 +10,17 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class JSendObj<T : Any>(
-    @SerialName("status")
-    val isSuccess: Boolean = true,
-    @SerialName("message")
-    val message: String? = null,
     @SerialName("data")
     private val depthData: Payload<T>? = null
-) {
+) : BaseJSend() {
     @Serializable
     data class Payload<T : Any>(
         @SerialName("payload")
         val obj: T? = null
     )
+
+    val isValid: Boolean
+        get() = depthData?.obj != null
 
     val payload: T
         get() = depthData?.obj ?: throw NullPointerException("Data is Null")

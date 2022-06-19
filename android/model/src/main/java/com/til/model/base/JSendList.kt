@@ -10,18 +10,17 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class JSendList<T : Any>(
-    @SerialName("status")
-    val isSuccess: Boolean = true,
-    @SerialName("message")
-    val message: String? = null,
     @SerialName("data")
     private val depthData: Payload<T>? = null
-) {
+) : BaseJSend() {
     @Serializable
     data class Payload<T : Any>(
         @SerialName("payload")
         val list: List<T> = listOf()
     )
+
+    val isValid: Boolean
+        get() = depthData != null
 
     val payload: List<T>
         get() = depthData?.list ?: listOf()
