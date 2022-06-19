@@ -60,4 +60,28 @@ router.get('/api/jsend/list/meta', (req, res) => {
     }
 })
 
+router.get('/api/error/test',(req, res) => {
+    const ran = Math.random()
+    if(ran < 0.3) {
+        res.status(200).send({
+            status: true,
+            message: "Data is Null"
+        }).end()
+    } else if (ran < 0.7) {
+        res.status(404).send({
+            status: false,
+            message: "에러 헨들링 테스트 입니다."
+        }).end()
+    } else {
+        res.status(500).send({
+            status: false,
+            data : {
+                meta: {
+                    notice: "서버가 꺼져 있습니다."
+                }
+            }
+        }).end()
+   } 
+})
+
 module.exports = router

@@ -28,6 +28,7 @@
         </activity>
         <activity
             android:name=".mvvm_lifecycle.MvvmLifecycleTestActivity"
+            android:theme="@style/AppTheme"
             android:exported="false" />
         <activity
             android:name=".mvvm_lifecycle.MvvmLifecycleTest2Activity"

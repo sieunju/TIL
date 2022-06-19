@@ -1,7 +1,7 @@
 package com.hmju.til
 
 import androidx.multidex.MultiDexApplication
-import com.til.tracking.TrackingManager
+import com.http.tracking.TrackingManager
 import dagger.hilt.android.HiltAndroidApp
 import io.reactivex.rxjava3.exceptions.UndeliverableException
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
@@ -21,9 +21,7 @@ class MainApplication : MultiDexApplication() {
         initRxJava()
 
         // Shake Tracking
-        TrackingManager.getInstance()
-            .init(this)
-            .setBuild(true)
+        initTracking()
     }
 
     /**
@@ -74,5 +72,11 @@ class MainApplication : MultiDexApplication() {
             }
         })
 //        }
+    }
+
+    private fun initTracking(){
+        TrackingManager.getInstance()
+            .setBuildType(true)
+            .build(this)
     }
 }

@@ -46,12 +46,9 @@ android {
 
 dependencies {
     implementation(project(path = ":data"))
-    implementation(project(path = ":model"))
     implementation(project(path = ":domain"))
     implementation(project(path = ":loginmanager"))
     implementation(project(path = ":presentation"))
-    implementation(project(path = ":rxbus"))
-    implementation(project(path = ":tracking"))
 
     /**
      * Network
@@ -94,6 +91,11 @@ dependencies {
      * Timber
      */
     implementation(Log.timber)
+
+    /**
+     * HttpTracking
+     */
+    implementation(Libs.httpTracking)
 
     androidTestImplementation(UnitTest.runner)
     androidTestImplementation(UnitTest.junit)

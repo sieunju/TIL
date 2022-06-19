@@ -9,7 +9,6 @@ class GetExpiredTokenUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
     operator fun invoke(): Single<TokenEntity> {
-        return authRepository.tokenExpired()
-            .map { it.obj ?: throw NullPointerException("Data is Null") }
+        return authRepository.tokenExpired().map { it.payload }
     }
 }

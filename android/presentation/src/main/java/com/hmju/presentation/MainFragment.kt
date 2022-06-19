@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.hmju.presentation.base.BaseFragment
 import com.hmju.presentation.custompaging.CustomPagingFragment
 import com.hmju.presentation.databinding.FMainBinding
+import com.hmju.presentation.error_handling.ErrorHandlingFragment
 import com.hmju.presentation.json_jsend.JsonJsendFragment
 import com.hmju.presentation.mvvm_lifecycle.MvvmLifecycleFragment
 import com.hmju.presentation.performance_diff_util.DiffUtilPerformanceFragment
@@ -51,10 +52,13 @@ class MainFragment : BaseFragment<FMainBinding, MainFragmentViewModel>(R.layout.
                 moveFragment(RefactorBaseRootTestFragment())
             }
             baseRefactorAct.setOnClickListener {
-                Intent(requireContext(),RefactorBaseTestActivity::class.java).apply {
+                Intent(requireContext(), RefactorBaseTestActivity::class.java).apply {
                     putExtra(IntentKey.TOKEN, "randomToken")
                     startActivity(this)
                 }
+            }
+            errorHandling.setOnClickListener {
+                moveFragment(ErrorHandlingFragment())
             }
         }
     }
