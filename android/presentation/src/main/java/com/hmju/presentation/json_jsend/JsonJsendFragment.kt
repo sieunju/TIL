@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.hmju.domain.usecase.GetJSendListUseCase
-import com.hmju.domain.usecase.GetJSendListWithMetaUseCase
-import com.hmju.domain.usecase.GetJSendUseCase
-import com.hmju.domain.usecase.GetJSendWithMetaUseCase
+import com.hmju.domain.usecase.*
 import com.hmju.presentation.R
 import com.hmju.presentation.databinding.FJsonJsendBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,6 +35,9 @@ class JsonJsendFragment : Fragment(R.layout.f_json_jsend) {
 
     @Inject
     lateinit var getJSendListWithMetaUseCase: GetJSendListWithMetaUseCase
+
+    @Inject
+    lateinit var getErrorTestUseCase: GetErrorTestUseCase
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -78,6 +78,16 @@ class JsonJsendFragment : Fragment(R.layout.f_json_jsend) {
                 .subscribe({
                     setText(it)
                 }, {
+                    setText(it)
+                }).addTo(compositeDisposable)
+        }
+
+        binding.errorTest.setOnClickListener {
+            getErrorTestUseCase()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    setText(it)
+                },{
                     setText(it)
                 }).addTo(compositeDisposable)
         }

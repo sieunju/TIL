@@ -8,6 +8,7 @@ import kotlinx.serialization.Serializable
  * Created by juhongmin on 2022/01/11
  */
 @Serializable
-open class MetaEntity(
+open class MetaEntity {
     val limitSize: Int = -1
-)
+    val notice: String = ""
+}

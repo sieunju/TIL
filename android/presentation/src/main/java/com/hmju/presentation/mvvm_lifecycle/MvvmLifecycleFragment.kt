@@ -1,12 +1,16 @@
 package com.hmju.presentation.mvvm_lifecycle
 
 import android.content.Context
+import android.os.Bundle
+import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.hmju.presentation.R
 import com.hmju.presentation.base.BaseFragment
 import com.hmju.presentation.databinding.FMvvmLifecycleBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 /**
  * Description :
@@ -34,6 +38,16 @@ class MvvmLifecycleFragment : BaseFragment<FMvvmLifecycleBinding, LifecycleViewM
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        with(viewModel) {
+            activityResult.observe(viewLifecycleOwner) {
+                // onResume 일때만
+                Timber.d("RESRSE $it")
+            }
+        }
     }
 
     override fun onDetach() {

@@ -13,6 +13,7 @@ import com.hmju.presentation.base.FragmentViewModel
 import com.til.model.params.GoodsParamMap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.addTo
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 /**
@@ -32,6 +33,8 @@ class LifecycleViewModel @Inject constructor(
 
     @OnCreated
     fun onCreate() {
+        _activityResult.postValue("qwerqwer")
+        _activityResult.value = "asdfasdf"
 //        activityStack.value = getActivityStackStr()
 //        fragmentStack.value = getFragmentStackStr()
         goodsUseCase(queryMap)
