@@ -106,7 +106,6 @@ dependencies {
     implementation(Log.timber)
 
     implementation(Kotlin.stdLib)
-    implementation(Kotlin.core)
 
     /**
      * Unit Test

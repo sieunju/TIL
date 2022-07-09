@@ -8,17 +8,14 @@ object Apps {
 }
 
 object Versions {
-    const val kotlin = "1.6.10"
-    const val ktx = "1.6.0"
     const val retrofit = "2.9.0"
     const val glide = "4.11.0"
-    const val dagger = "2.38.1"
     const val lifecycle = "2.3.1"
     const val hilt = "2.38.1"
 }
 
 object AndroidX {
-    const val ktx = "androidx.core:core-ktx:${Versions.ktx}"
+    const val ktx = "androidx.core:core-ktx:1.6.0"
     const val appCompat = "androidx.appcompat:appcompat:1.3.0"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.4"
     const val activity = "androidx.activity:activity-ktx:1.1.0"
@@ -35,8 +32,7 @@ object AndroidX {
 }
 
 object Kotlin {
-    const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
-    const val core = "androidx.core:core-ktx:1.7.0"
+    const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib:1.6.10"
 }
 
 object Javax {
