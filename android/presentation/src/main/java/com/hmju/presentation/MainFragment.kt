@@ -14,6 +14,7 @@ import com.hmju.presentation.performance_diff_util.DiffUtilPerformanceFragment
 import com.hmju.presentation.refactor_base.RefactorBaseRootTestFragment
 import com.hmju.presentation.refactor_base.RefactorBaseTestActivity
 import com.hmju.presentation.refactor_diff_util.RefactorDiffUtilFragment
+import com.hmju.presentation.refactor_diff_util_v2.DiffUtil2Fragment
 import com.hmju.presentation.refreshtoken.RefreshTokenFragment
 import com.hmju.presentation.simple_like_recyclerview.SimpleLikeRecyclerViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,6 +60,9 @@ class MainFragment : BaseFragment<FMainBinding, MainFragmentViewModel>(R.layout.
             }
             errorHandling.setOnClickListener {
                 moveFragment(ErrorHandlingFragment())
+            }
+            diffUtilV2.setOnClickListener {
+                moveFragment(DiffUtil2Fragment())
             }
         }
     }

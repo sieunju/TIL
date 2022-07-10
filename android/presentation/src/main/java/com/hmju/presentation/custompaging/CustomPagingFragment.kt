@@ -88,7 +88,9 @@ class CustomPagingFragment : BaseFragment<FCustomPagingBinding, CustomPagingView
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             if (holder is BaseSimpleLikeViewHolder<*>) {
-                holder.onBindView(dataList[position])
+                runCatching {
+                    holder.onBindView(dataList[position])
+                }
             }
         }
 
