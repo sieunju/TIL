@@ -1,9 +1,13 @@
 package com.hmju.presentation.refreshtoken
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.hmju.domain.usecase.*
 import com.hmju.loginmanager.LoginManager
 import com.hmju.presentation.R
@@ -11,10 +15,12 @@ import com.hmju.presentation.databinding.FRefreshTokenBinding
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
 import timber.log.Timber
+import java.lang.ref.WeakReference
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.random.Random
@@ -130,5 +136,25 @@ class RefreshTokenFragment : Fragment(R.layout.f_refresh_token) {
             getJSendListUseCase(),
             getJSendListWithMetaUseCase()
         )
+    }
+
+    private val handler = TestHandler(requireActivity())
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Observable.just(111).singleOrError()
+
+        handler.weakAct.clear()
+    }
+
+    class TestHandler (private val activity: FragmentActivity) : Handler(Looper.getMainLooper()){
+        val weakAct : WeakReference<FragmentActivity> by lazy { WeakReference(activity) }
+
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            if(weakAct.get() != null) {
+
+            }
+        }
     }
 }

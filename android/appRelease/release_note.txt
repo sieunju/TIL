@@ -1,9 +1,11 @@
-Build Date 2022년 04월 20일 수요일 23:52:09
-Version Name: 0.0.1
-Branch: feature/refactor_base
+Build Date 2022년 07월 10일 일요일 12:57:15
+Version Name: 0.0.4
+Branch: master
 
-Message: commit 912cb733f5946959c573555cf8e3cbe9f8e01a55
-test: TDD 추가
+Message: DiffUtilV2
+- 생각해보니 이방법이 과연 좋은 방법인지는 모르겠습니다. 기존 방식과 장단점이 명확해서 그런 생각이 듭니다.
+하지만, 분명한건 else if 에 대한 지옥은 사라지고 속도면에서도 분명한 차이가 있을거 같다는 생각이 듭니다.
+한번 테스트 해보는것도 나쁘지 않아보일지도...?
 
 
 Author: sieunju

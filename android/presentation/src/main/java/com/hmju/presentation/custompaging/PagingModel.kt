@@ -7,6 +7,6 @@ package com.hmju.presentation.custompaging
  * Created by juhongmin on 2022/01/21
  */
 data class PagingModel(
-    var isLoading: Boolean = false,
+    var isLoading: Boolean = true,
     var isLast: Boolean = false
 )

@@ -153,12 +153,14 @@ class SimpleLikeRecyclerViewFragment : Fragment(R.layout.f_simple_like_recyclerv
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            if (holder is BaseSimpleLikeViewHolder<*>) {
-                holder.onBindView(dataList[position])
-            } else if (holder is SimpleLike3ViewHolder) {
-                holder.onBindView(dataList[position])
-            } else if (holder is SimpleLike4ViewHolder) {
-                holder.onBindView(dataList[position])
+            runCatching {
+                if (holder is BaseSimpleLikeViewHolder<*>) {
+                    holder.onBindView(dataList[position])
+                } else if (holder is SimpleLike3ViewHolder) {
+                    holder.onBindView(dataList[position])
+                } else if (holder is SimpleLike4ViewHolder) {
+                    holder.onBindView(dataList[position])
+                }
             }
         }
 

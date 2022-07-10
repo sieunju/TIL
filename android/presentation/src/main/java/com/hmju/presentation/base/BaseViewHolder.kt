@@ -22,6 +22,7 @@ abstract class BaseViewHolder<T : ViewDataBinding>(
 
     val binding: T by lazy { DataBindingUtil.bind(itemView)!! }
 
+    @Throws(Exception::class)
     abstract fun onBindView(item: Any)
 
     open fun onViewAttachedToWindow() {

@@ -78,7 +78,9 @@ class ItemListAdapter : RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     override fun onBindViewHolder(holder: BaseViewHolder<*>, pos: Int) {
         if (dataList.size > pos) {
-            holder.onBindView(dataList[pos])
+            runCatching {
+                holder.onBindView(dataList[pos])
+            }
         }
     }
 

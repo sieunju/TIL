@@ -87,7 +87,7 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
      * ex.) View 단에서 TabLayout 를 셋팅 해야 하는경우
      */
     @CallSuper
-    open fun onDirectCreate(){
+    open fun onDirectCreate() {
         lifecycleEvent = Lifecycle.Event.ON_CREATE
     }
 
@@ -97,7 +97,7 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
      * ex.) View 단에서 TabLayout 를 셋팅 해야 하는경우
      */
     @CallSuper
-    open fun onDirectViewCreated(){
+    open fun onDirectViewCreated() {
         lifecycleEvent = Lifecycle.Event.ON_CREATE
     }
 
@@ -107,7 +107,7 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
      * ex.) View 단에서 TabLayout 를 셋팅 해야 하는경우
      */
     @CallSuper
-    open fun onDirectResumed(){
+    open fun onDirectResumed() {
         lifecycleEvent = Lifecycle.Event.ON_RESUME
     }
 
@@ -117,14 +117,14 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
      * ex.) View 단에서 TabLayout 를 셋팅 해야 하는경우
      */
     @CallSuper
-    open fun onDirectStop(){
+    open fun onDirectStop() {
         lifecycleEvent = Lifecycle.Event.ON_STOP
     }
 
     override fun onCleared() {
         super.onCleared()
         Timber.d("onCleared ${javaClass.simpleName}")
-        if (compositeDisposable.isDisposed) {
+        if (!compositeDisposable.isDisposed) {
             compositeDisposable.dispose()
         }
     }

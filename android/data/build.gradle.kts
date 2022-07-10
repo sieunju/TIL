@@ -44,7 +44,7 @@ dependencies {
     implementation(project(":rxhandling"))
 
     implementation(Kotlin.stdLib)
-    implementation(Kotlin.core)
+    implementation(AndroidX.ktx)
 
     /**
      * Kotlinx Serialization
