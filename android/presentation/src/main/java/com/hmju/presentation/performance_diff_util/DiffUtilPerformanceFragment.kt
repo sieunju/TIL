@@ -2,14 +2,20 @@ package com.hmju.presentation.performance_diff_util
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import com.hmju.presentation.R
+import com.hmju.presentation.databinding.FPerformanceDiffUtilBinding
+import com.hmju.presentation.refactor_diff_util.BaseUiModel
+import com.hmju.presentation.refactor_diff_util_v2.DiffUtilV2
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -26,34 +32,37 @@ import kotlin.random.nextInt
  */
 class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
 
-    private lateinit var npCount: NumberPicker
-    private lateinit var npListCount: NumberPicker
-    private lateinit var tvCurrCount: TextView
-    private lateinit var tvListCount: TextView
-    private lateinit var tvLegacy: TextView
-    private lateinit var tvBetterLegacy: TextView
-    private lateinit var tvBetter: TextView
-
     private val legacyTimeList = mutableListOf<Long>()
     private val betterLegacyTimeList = mutableListOf<Long>()
     private val betterTimeList = mutableListOf<Long>()
-
+    private val v2TimeList = mutableListOf<Long>()
 
     private var countNumber = 100
     private var listCount = 1000
 
+    private lateinit var binding: FPerformanceDiffUtilBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return DataBindingUtil.inflate<FPerformanceDiffUtilBinding>(
+            inflater,
+            R.layout.f_performance_diff_util,
+            container,
+            false
+        ).run {
+            binding = this
+            lifecycleOwner = this@DiffUtilPerformanceFragment
+            this.root
+        }
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(view) {
-            npCount = findViewById(R.id.npCount)
-            npListCount = findViewById(R.id.npListCount)
-            tvCurrCount = findViewById(R.id.tvCurrCount)
-            tvListCount = findViewById(R.id.tvListCount)
-
-            tvLegacy = findViewById(R.id.tvLegacy)
-            tvBetterLegacy = findViewById(R.id.tvBetterLegacy)
-            tvBetter = findViewById(R.id.tvBetter)
+        with(binding) {
 
             npCount.wrapSelectorWheel = false
             npCount.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
@@ -75,21 +84,25 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                 tvListCount.text = "리스트 $listCount 개"
             }
 
-            findViewById<Button>(R.id.legacy).setOnClickListener {
+            legacy.setOnClickListener {
                 performLegacy(countNumber)
             }
 
-            findViewById<Button>(R.id.betterLegacy).setOnClickListener {
+            betterLegacy.setOnClickListener {
                 performBetterLegacy(countNumber)
             }
 
-            findViewById<Button>(R.id.better).setOnClickListener {
+            better.setOnClickListener {
                 performBetter(countNumber)
+            }
+
+            diffUtilV2.setOnClickListener {
+                performV2DiffUtil(countNumber)
             }
         }
     }
 
-    private fun flowableList(count: Int): Flowable<List<Any>> {
+    private fun flowableList(count: Int): Flowable<List<BaseUiModel>> {
         return Flowable.just(count)
             .map { ranList(it) }
             .subscribeOn(Schedulers.io())
@@ -98,8 +111,8 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
     @SuppressLint("SetTextI18n")
     private fun performLegacy(count: Int) {
         legacyTimeList.clear()
-        val dumpList = mutableListOf<Any>()
-        val workList = mutableListOf<Flowable<List<Any>>>()
+        val dumpList = mutableListOf<BaseUiModel>()
+        val workList = mutableListOf<Flowable<List<BaseUiModel>>>()
         for (idx in 0 until count) {
             workList.add(flowableList(listCount))
         }
@@ -122,7 +135,7 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                 legacyTimeList.forEach {
                     sumTime += it
                 }
-                tvLegacy.text = "Legacy ${sumTime / legacyTimeList.size}MS"
+                binding.tvLegacy.text = "Legacy ${sumTime / legacyTimeList.size}MS"
                 Toast.makeText(requireContext(), "Legacy The End", Toast.LENGTH_SHORT).show()
             }
             .subscribe({}, {})
@@ -131,8 +144,8 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
     @SuppressLint("SetTextI18n")
     private fun performBetterLegacy(count: Int) {
         betterLegacyTimeList.clear()
-        val dumpList = mutableListOf<Any>()
-        val workList = mutableListOf<Flowable<List<Any>>>()
+        val dumpList = mutableListOf<BaseUiModel>()
+        val workList = mutableListOf<Flowable<List<BaseUiModel>>>()
         for (idx in 0 until count) {
             workList.add(flowableList(listCount))
         }
@@ -155,7 +168,7 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                 betterLegacyTimeList.forEach {
                     sumTime += it
                 }
-                tvBetterLegacy.text = "Better Legacy ${sumTime / betterLegacyTimeList.size}MS"
+                binding.tvBetterLegacy.text = "Better Legacy ${sumTime / betterLegacyTimeList.size}MS"
                 Toast.makeText(requireContext(), "Better Legacy The End", Toast.LENGTH_SHORT).show()
             }
             .subscribe({}, {})
@@ -164,8 +177,8 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
     @SuppressLint("SetTextI18n")
     private fun performBetter(count: Int) {
         betterTimeList.clear()
-        val dumpList = mutableListOf<Any>()
-        val workList = mutableListOf<Flowable<List<Any>>>()
+        val dumpList = mutableListOf<BaseUiModel>()
+        val workList = mutableListOf<Flowable<List<BaseUiModel>>>()
         for (idx in 0 until count) {
             workList.add(flowableList(listCount))
         }
@@ -188,21 +201,53 @@ class DiffUtilPerformanceFragment : Fragment(R.layout.f_performance_diff_util) {
                 betterTimeList.forEach {
                     sumTime += it
                 }
-                tvBetter.text = "Better ${sumTime / betterTimeList.size}MS"
+                binding.tvBetter.text = "Better ${sumTime / betterTimeList.size}MS"
                 Toast.makeText(requireContext(), "Better The End", Toast.LENGTH_SHORT).show()
             }
             .subscribe({}, {})
     }
 
-    private fun ranList(size: Int): List<Any> {
-        val list = mutableListOf<Any>()
+    private fun performV2DiffUtil(count: Int) {
+        v2TimeList.clear()
+        val dumpList = mutableListOf<BaseUiModel>()
+        val workList = mutableListOf<Flowable<List<BaseUiModel>>>()
+        for (idx in 0 until count) {
+            workList.add(flowableList(listCount))
+        }
+        Flowable.fromIterable(workList)
+            .map { it.blockingFirst() }
+            .map { newList ->
+                val time = System.currentTimeMillis()
+                val diffResult = DiffUtil.calculateDiff(DiffUtilV2(dumpList, newList))
+                dumpList.clear()
+                dumpList.addAll(newList)
+                v2TimeList.add(System.currentTimeMillis() - time)
+                Timber.d("DiffUtilV2 Count ${v2TimeList.size}")
+                return@map newList
+            }
+            .onBackpressureBuffer()
+            .subscribeOn(Schedulers.from(Executors.newFixedThreadPool(2)))
+            .observeOn(AndroidSchedulers.mainThread())
+            .doFinally {
+                var sumTime = 0L
+                v2TimeList.forEach {
+                    sumTime += it
+                }
+                binding.tvDiffV2.text = "DiffUtilV2 ${sumTime / v2TimeList.size}MS"
+                Toast.makeText(requireContext(), "DiffUtilV2 The End", Toast.LENGTH_SHORT).show()
+            }
+            .subscribe({}, {})
+    }
+
+    private fun ranList(size: Int): List<BaseUiModel> {
+        val list = mutableListOf<BaseUiModel>()
         for (idx in 0 until size) {
             list.add(ranDataModel())
         }
         return list
     }
 
-    private fun ranDataModel(): Any {
+    private fun ranDataModel(): BaseUiModel {
         return when (Random.nextInt(0..110)) {
             0 -> Model1()
             1 -> Model2()

@@ -57,7 +57,7 @@
                 android:id="@+id/performDiffUtil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="자다가 생각난 DiffUtil 고민" />
+                android:text="DiffUtil 퍼포먼스" />
 
             <Button
                 android:id="@+id/mvvmLifecycle"

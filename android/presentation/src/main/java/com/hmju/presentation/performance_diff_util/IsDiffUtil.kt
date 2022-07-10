@@ -23,18 +23,6 @@ class IsDiffUtil(
                 false
             }
         }
-
-        inline fun <reified R : Any> compareSame2(
-            old: R,
-            new: Any,
-            function: (R, R) -> Boolean
-        ): Boolean {
-            return if (new is R) {
-                function(old, new)
-            } else {
-                false
-            }
-        }
     }
 
     override fun getOldListSize() = oldList.size
@@ -44,552 +32,552 @@ class IsDiffUtil(
     override fun areItemsTheSame(oldPos: Int, newPos: Int): Boolean {
         return when (val oldItem = oldList[oldPos]) {
             is Model1 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model1>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model2 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model2>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model3 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model3>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model4 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model4>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model5 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model5>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model6 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model6>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model7 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model7>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model8 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model8>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model9 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model9>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model10 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model10>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model11 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model11>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model12 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model12>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model13 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model13>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model14 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model14>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model15 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model15>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model16 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model16>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model17 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model17>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model18 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model18>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model19 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model19>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model20 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model20>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model21 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model21>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model22 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model22>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model23 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model23>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model24 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model24>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model25 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model25>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model26 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model26>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model27 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model27>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model28 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model28>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model29 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model29>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model30 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model30>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model31 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model31>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model32 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model32>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model33 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model33>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model34 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model34>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model35 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model35>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model36 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model36>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model37 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model37>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model38 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model38>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model39 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model39>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model40 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model40>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model41 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model41>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model42 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model42>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model43 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model43>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model44 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model44>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model45 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model45>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model46 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model46>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model47 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model47>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model48 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model48>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model49 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model49>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model50 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model50>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model51 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model51>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model52 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model52>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model53 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model53>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model54 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model54>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model55 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model55>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model56 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model56>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model57 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model57>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model58 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model58>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model59 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model59>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model60 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model60>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model61 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model61>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model62 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model62>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model63 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model63>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model64 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model64>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model65 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model65>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model66 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model66>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model67 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model67>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model68 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model68>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model69 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model69>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model70 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model70>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model71 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model71>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model72 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model72>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model73 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model73>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model74 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model74>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model75 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model75>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model76 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model76>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model77 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model77>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model78 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model78>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model79 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model79>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model80 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model80>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model81 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model81>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model82 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model82>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model83 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model83>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model84 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model84>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model85 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model85>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model86 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model86>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model87 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model87>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model88 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model88>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model89 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model89>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model90 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model90>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model91 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model91>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model92 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model92>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model93 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model93>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model94 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model94>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model95 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model95>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model96 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model96>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model97 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model97>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model98 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model98>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model99 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model99>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model100 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model100>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model101 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model101>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model102 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model102>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model103 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model103>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model104 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model104>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model105 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model105>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model106 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model106>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model107 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model107>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model108 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model108>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model109 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model109>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model110 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model110>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
@@ -600,552 +588,552 @@ class IsDiffUtil(
     override fun areContentsTheSame(oldPos: Int, newPos: Int): Boolean {
         return when (val oldItem = oldList[oldPos]) {
             is Model1 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model1>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model2 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model2>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model3 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model3>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model4 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model4>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model5 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model5>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model6 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model6>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model7 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model7>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model8 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model8>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model9 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model9>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model10 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model10>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model11 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model11>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model12 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model12>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model13 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model13>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model14 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model14>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model15 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model15>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model16 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model16>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model17 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model17>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model18 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model18>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model19 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model19>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model20 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model20>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model21 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model21>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model22 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model22>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model23 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model23>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model24 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model24>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model25 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model25>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model26 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model26>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model27 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model27>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model28 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model28>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model29 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model29>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model30 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model30>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model31 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model31>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model32 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model32>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model33 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model33>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model34 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model34>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model35 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model35>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model36 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model36>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model37 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model37>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model38 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model38>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model39 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model39>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model40 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model40>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model41 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model41>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model42 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model42>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model43 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model43>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model44 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model44>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model45 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model45>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model46 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model46>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model47 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model47>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model48 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model48>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model49 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model49>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model50 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model50>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model51 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model51>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model52 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model52>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model53 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model53>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model54 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model54>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model55 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model55>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model56 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model56>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model57 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model57>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model58 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model58>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model59 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model59>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model60 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model60>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model61 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model61>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model62 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model62>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model63 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model63>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model64 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model64>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model65 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model65>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model66 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model66>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model67 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model67>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model68 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model68>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model69 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model69>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model70 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model70>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model71 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model71>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model72 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model72>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model73 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model73>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model74 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model74>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model75 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model75>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model76 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model76>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model77 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model77>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model78 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model78>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model79 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model79>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model80 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model80>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model81 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model81>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model82 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model82>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model83 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model83>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model84 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model84>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model85 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model85>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model86 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model86>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model87 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model87>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model88 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model88>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model89 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model89>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model90 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model90>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model91 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model91>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model92 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model92>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model93 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model93>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model94 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model94>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model95 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model95>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model96 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model96>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model97 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model97>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model98 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model98>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model99 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model99>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model100 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model100>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model101 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model101>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model102 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model102>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model103 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model103>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model104 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model104>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model105 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model105>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model106 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model106>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model107 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model107>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model108 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model108>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model109 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model109>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
             is Model110 -> {
-                compareSame2(oldItem, newList[newPos]) { old, new ->
+                compareSame<Model110>(oldItem, newList[newPos]) { old, new ->
                     old.id == new.id
                 }
             }
