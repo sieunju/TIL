@@ -1,0 +1,29 @@
+// Kotlin DSL interfaces are still under incubating, and not exposed properly, yet.
+// https://developer.android.com/studio/releases/gradle-plugin-roadmap
+
+def hasLibraryPlugin = pluginManager.hasPlugin("com.android.library")
+def hasApplicationPlugin = pluginManager.hasPlugin("com.android.application")
+
+if (hasLibraryPlugin || hasApplicationPlugin) {
+    android {
+        compileSdk = Apps.compileSdkVersion
+        buildToolsVersion = Apps.buildToolsVersion
+        defaultConfig {
+            targetSdk = Apps.targetSdkVersion
+            minSdk = Apps.minSdkVersion
+            if (hasLibraryPlugin) {
+                consumerProguardFiles("consumer-rules.pro")
+            }
+            testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        }
+
+        compileOptions {
+            sourceCompatibility = JavaVersion.VERSION_11
+            targetCompatibility = JavaVersion.VERSION_11
+        }
+
+        kotlinOptions {
+            jvmTarget = "11"
+        }
+    }
+}
