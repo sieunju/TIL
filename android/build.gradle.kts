@@ -79,6 +79,12 @@ fun getReleaseNote() {
     }
 }
 
+subprojects {
+    afterEvaluate {
+        project.apply("$rootDir/gradle/common.gradle")
+    }
+}
+
 apply {
     // ./gradlew projectDependencyGraph
     from("gradle/dependencyGraph.gradle")
