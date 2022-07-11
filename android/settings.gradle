@@ -1,13 +1,11 @@
 rootProject.name = "til"
-include(
-        ":app",
-        ":data",
-        ":model",
-        ":domain",
-        ":presentation",
-        ":loginmanager",
-        ":likemanager",
-        ":rxbus"
-)
+include ':app'
+include ':data'
+include ':model'
+include ':domain'
+include ':presentation'
+include ':loginmanager'
+include ':likemanager'
+include ':rxbus'
 include ':lifecycle'
 include ':rxhandling'
