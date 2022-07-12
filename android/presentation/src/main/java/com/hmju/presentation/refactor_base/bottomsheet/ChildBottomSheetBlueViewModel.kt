@@ -1,8 +1,7 @@
 package com.hmju.presentation.refactor_base.bottomsheet
 
 import com.hmju.lifecycle.OnViewCreated
-import com.hmju.presentation.base.BottomSheetViewModel
-import com.hmju.presentation.base.FragmentViewModel
+import com.hmju.core.FragmentViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

@@ -6,7 +6,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.hmju.presentation.R
-import com.hmju.presentation.base.BaseSharedBottomSheetDialog
+import com.hmju.core.BaseSharedBottomSheetDialog
+import com.hmju.presentation.BR
 import com.hmju.presentation.databinding.DRefactorBottomSheetBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -21,6 +22,8 @@ class RefactorSharedBottomSheetDialog
     : BaseSharedBottomSheetDialog<DRefactorBottomSheetBinding, RefactorBottomSheetViewModel>(
     R.layout.d_refactor_bottom_sheet
 ) {
+
+    override val bindingVariable = BR.vm
 
     override fun onCreate(savedInstanceState: Bundle?) {
         viewModel = initBottomSheetViewModel()

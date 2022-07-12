@@ -1,4 +1,4 @@
-package com.hmju.presentation.base
+package com.hmju.core
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,23 +9,28 @@ import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.createViewModelLazy
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
-import com.hmju.lifecycle.*
-import com.hmju.presentation.BR
+import androidx.lifecycle.get
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.hmju.lifecycle.OnCreated
+import com.hmju.lifecycle.OnResumed
+import com.hmju.lifecycle.OnStopped
+import com.hmju.lifecycle.OnViewCreated
 import timber.log.Timber
 
 /**
- * Description : MVVM BaseFragment
+ * Description : BottomSheet 에서 ParentFragment Shared 할수 있는 Dialog
  *
- * Created by juhongmin on 2022/03/19
+ * Created by juhongmin on 2022/04/19
  */
-abstract class BaseFragment<T : ViewDataBinding, VM : FragmentViewModel>(
+abstract class BaseSharedBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewModel>(
     @LayoutRes private val layoutId: Int
-) : Fragment() {
+) : BottomSheetDialogFragment() {
 
-    abstract val viewModel: VM
+    lateinit var viewModel: VM
+    abstract val bindingVariable : Int // ViewModel Binding Variable
+
     var binding: T by autoCleared()
 
     private var isInit = false
@@ -46,8 +51,8 @@ abstract class BaseFragment<T : ViewDataBinding, VM : FragmentViewModel>(
     ): View? {
         return DataBindingUtil.inflate<T>(inflater, layoutId, container, false).run {
             binding = this
-            lifecycleOwner = this@BaseFragment
-            setVariable(BR.vm, viewModel)
+            lifecycleOwner = this@BaseSharedBottomSheetDialog
+            setVariable(bindingVariable, viewModel)
             this.root
         }
     }
@@ -72,16 +77,17 @@ abstract class BaseFragment<T : ViewDataBinding, VM : FragmentViewModel>(
                 }
             }
         }
+
+        dialog?.setOnDismissListener {
+            dismiss()
+        }
     }
 
     @CallSuper
     override fun onResume() {
         super.onResume()
-        viewModel.runCatching {
-            onDirectResumed()
-            addDisposable(performLifecycle<OnCreatedToResumed>())
-
-            if (isInit) {
+        if (isInit) {
+            viewModel.runCatching {
                 addDisposable(performLifecycle<OnResumed>())
             }
         }
@@ -92,7 +98,6 @@ abstract class BaseFragment<T : ViewDataBinding, VM : FragmentViewModel>(
     override fun onStop() {
         super.onStop()
         viewModel.runCatching {
-            onDirectStop()
             addDisposable(performLifecycle<OnStopped>())
         }
     }
@@ -100,42 +105,24 @@ abstract class BaseFragment<T : ViewDataBinding, VM : FragmentViewModel>(
     @CallSuper
     override fun onDestroyView() {
         super.onDestroyView()
-        isInit = false
         viewModel.clearDisposable()
-
-        Timber.d("onDestroyView ${javaClass.simpleName}")
     }
 
     @CallSuper
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        if (!hidden) {
-            viewModel.runCatching {
-                addDisposable(performLifecycle<OnFragmentShown>())
-            }
-        }
+    override fun dismiss() {
+        super.dismiss()
+        Timber.d("${javaClass.simpleName} Dismiss")
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Timber.d("onDestroy ${javaClass.simpleName}")
+    fun simpleShow(fm: FragmentManager) {
+        super.show(fm, javaClass.simpleName)
+        Timber.d("FragmentCnt ${fm.fragments.size}")
     }
 
     /**
-     * 기본 viewModels 와 같은 로직의 함수
+     * SharedBottomSheet 전용 ViewModel onCreate 에서 실행 해야 한다
      */
-    protected inline fun <reified VM : FragmentViewModel> initViewModel(): Lazy<VM> {
-        return createViewModelLazy(VM::class, { viewModelStore })
-    }
-
-    /**
-     * Parent Fragment ViewModel 공유하기위한 함수
-     * Lazy 로 선언한하고 직접적으로 가져올때 사용하는 함수
-     */
-    protected inline fun <reified VM : BaseViewModel> parentViewModel(parentFragment: Fragment): VM {
-        return ViewModelProvider(
-            parentFragment.viewModelStore,
-            parentFragment.defaultViewModelProviderFactory
-        ).get(VM::class.java)
+    protected inline fun <reified VM : BottomSheetViewModel> initBottomSheetViewModel(): VM {
+        return ViewModelProvider(viewModelStore, defaultViewModelProviderFactory).get()
     }
 }

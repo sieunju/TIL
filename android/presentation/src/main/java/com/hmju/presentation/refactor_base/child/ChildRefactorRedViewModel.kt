@@ -1,6 +1,6 @@
 package com.hmju.presentation.refactor_base.child
 
-import com.hmju.presentation.base.FragmentViewModel
+import com.hmju.core.FragmentViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

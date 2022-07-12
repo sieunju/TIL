@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.hmju.presentation.base.BaseFragment
+import com.hmju.core.BaseFragment
 import com.hmju.presentation.custompaging.CustomPagingFragment
 import com.hmju.presentation.databinding.FMainBinding
 import com.hmju.presentation.error_handling.ErrorHandlingFragment
@@ -23,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainFragment : BaseFragment<FMainBinding, MainFragmentViewModel>(R.layout.f_main) {
 
     override val viewModel: MainFragmentViewModel by initViewModel()
+    override val bindingVariable: Int = BR.vm
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

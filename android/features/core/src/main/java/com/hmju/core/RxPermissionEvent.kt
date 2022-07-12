@@ -1,4 +1,4 @@
-package com.hmju.presentation.base
+package com.hmju.core
 
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject

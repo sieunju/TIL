@@ -8,7 +8,7 @@ import com.hmju.lifecycle.OnCreated
 import com.hmju.lifecycle.OnResumed
 import com.hmju.loginmanager.LoginManager
 import com.hmju.presentation.IntentKey
-import com.hmju.presentation.base.ActivityViewModel
+import com.hmju.core.ActivityViewModel
 import com.til.model.params.GoodsParamMap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers

@@ -7,8 +7,6 @@ plugins {
 }
 
 android {
-    compileSdk = Apps.compileSdkVersion
-    buildToolsVersion = Apps.buildToolsVersion
 
     defaultConfig {
         minSdk = Apps.minSdkVersion
@@ -28,13 +26,7 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+
     buildFeatures {
         dataBinding = true
     }
@@ -55,6 +47,7 @@ dependencies {
     implementation(project(":likemanager"))
     implementation(project(":rxbus"))
     implementation(project(":lifecycle"))
+    implementation(project(":features:core"))
 
     /**
      * Android X

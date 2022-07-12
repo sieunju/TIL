@@ -1,4 +1,4 @@
-package com.hmju.presentation.base
+package com.hmju.core
 
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity

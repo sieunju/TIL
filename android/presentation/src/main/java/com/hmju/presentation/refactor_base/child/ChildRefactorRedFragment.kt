@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import com.hmju.presentation.BR
 import com.hmju.presentation.R
-import com.hmju.presentation.base.BaseFragment
+import com.hmju.core.BaseFragment
 import com.hmju.presentation.databinding.FChildRefactorRedBinding
 import com.hmju.presentation.refactor_base.RefactorBaseRootTestViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,10 +16,11 @@ import dagger.hilt.android.AndroidEntryPoint
  * Created by juhongmin on 2022/04/18
  */
 @AndroidEntryPoint
-class ChildRefactorRedFragment : BaseFragment<FChildRefactorRedBinding,ChildRefactorRedViewModel>(
+class ChildRefactorRedFragment : BaseFragment<FChildRefactorRedBinding, ChildRefactorRedViewModel>(
     R.layout.f_child_refactor_red
 ){
     override val viewModel: ChildRefactorRedViewModel by initViewModel()
+    override val bindingVariable: Int = BR.vm
 
     private val parentViewModel: RefactorBaseRootTestViewModel by viewModels(
         ownerProducer = { requireParentFragment() }

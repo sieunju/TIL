@@ -6,7 +6,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.hmju.presentation.BR
 import com.hmju.presentation.R
-import com.hmju.presentation.base.BaseFragment
+import com.hmju.core.BaseFragment
 import com.hmju.presentation.databinding.FChildRefactorBlueBinding
 import com.hmju.presentation.refactor_base.RefactorBaseRootTestViewModel
 import com.hmju.presentation.refactor_base.bottomsheet.RefactorBottomSheetDialog
@@ -24,6 +24,8 @@ class ChildRefactorBlueFragment
     R.layout.f_child_refactor_blue
 ) {
     override val viewModel: ChildRefactorBlueViewModel by initViewModel()
+    override val bindingVariable: Int = BR.vm
+
     private val parentViewModel: RefactorBaseRootTestViewModel by viewModels(
         ownerProducer = { requireParentFragment() }
     )

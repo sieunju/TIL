@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.hmju.presentation.R
-import com.hmju.presentation.base.BaseFragment
+import com.hmju.core.BaseFragment
+import com.hmju.presentation.BR
 import com.hmju.presentation.databinding.FMvvmLifecycleBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -23,6 +23,7 @@ class MvvmLifecycleFragment : BaseFragment<FMvvmLifecycleBinding, LifecycleViewM
 ) {
 
     override val viewModel: LifecycleViewModel by initViewModel()
+    override val bindingVariable: Int = BR.vm
 
     private lateinit var callback: OnBackPressedCallback
 

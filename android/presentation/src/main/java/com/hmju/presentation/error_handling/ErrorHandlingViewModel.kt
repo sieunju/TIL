@@ -2,7 +2,7 @@ package com.hmju.presentation.error_handling
 
 import com.hmju.domain.repository.ErrorHandlingRepository
 import com.hmju.domain.repository.JSendRepository
-import com.hmju.presentation.base.FragmentViewModel
+import com.hmju.core.FragmentViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.addTo
 import timber.log.Timber

@@ -1,4 +1,4 @@
-package com.hmju.presentation.base
+package com.hmju.core
 
 import android.os.Bundle
 import androidx.annotation.CallSuper
@@ -123,7 +123,6 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        Timber.d("onCleared ${javaClass.simpleName}")
         if (!compositeDisposable.isDisposed) {
             compositeDisposable.dispose()
         }

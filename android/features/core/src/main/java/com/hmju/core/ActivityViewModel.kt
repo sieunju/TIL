@@ -1,4 +1,4 @@
-package com.hmju.presentation.base
+package com.hmju.core
 
 import android.Manifest
 import android.os.Bundle
@@ -30,7 +30,7 @@ open class ActivityViewModel @Inject constructor() : BaseViewModel() {
         var cachePermissionMap = ConcurrentHashMap<String, Int>()
     }
 
-    @Inject
+    @javax.inject.Inject
     lateinit var savedStateHandle: SavedStateHandle
 
     protected val _startActivityPage: MutableLiveData<ActivityResult> by lazy { MutableLiveData() }

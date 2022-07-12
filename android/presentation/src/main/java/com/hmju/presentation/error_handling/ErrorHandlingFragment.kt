@@ -1,7 +1,8 @@
 package com.hmju.presentation.error_handling
 
 import com.hmju.presentation.R
-import com.hmju.presentation.base.BaseFragment
+import com.hmju.core.BaseFragment
+import com.hmju.presentation.BR
 import com.hmju.presentation.databinding.FErrorHandlingBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,4 +16,5 @@ class ErrorHandlingFragment : BaseFragment<FErrorHandlingBinding, ErrorHandlingV
     R.layout.f_error_handling
 ) {
     override val viewModel: ErrorHandlingViewModel by initViewModel()
+    override val bindingVariable: Int = BR.vm
 }

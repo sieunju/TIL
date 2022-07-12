@@ -1,6 +1,5 @@
-package com.hmju.presentation.base
+package com.hmju.core
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,26 +10,24 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.hmju.lifecycle.OnCreated
-import com.hmju.lifecycle.OnResumed
-import com.hmju.lifecycle.OnStopped
-import com.hmju.lifecycle.OnViewCreated
-import com.hmju.presentation.BR
+import com.hmju.lifecycle.*
 import timber.log.Timber
 
 /**
- * Description : BottomSheet 에서 ParentFragment Shared 할수 있는 Dialog
+ * Description : BaseBottomSheetDialog
  *
- * Created by juhongmin on 2022/04/19
+ * Created by juhongmin on 2022/04/15
  */
-abstract class BaseSharedBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewModel>(
+abstract class BaseBottomSheetDialog<T : ViewDataBinding, VM : BottomSheetViewModel>(
     @LayoutRes private val layoutId: Int
 ) : BottomSheetDialogFragment() {
 
     lateinit var viewModel: VM
+    abstract val bindingVariable : Int // ViewModel Binding Variable
     var binding: T by autoCleared()
 
     private var isInit = false
@@ -51,8 +48,8 @@ abstract class BaseSharedBottomSheetDialog<T : ViewDataBinding, VM : BottomSheet
     ): View? {
         return DataBindingUtil.inflate<T>(inflater, layoutId, container, false).run {
             binding = this
-            lifecycleOwner = this@BaseSharedBottomSheetDialog
-            setVariable(BR.vm, viewModel)
+            lifecycleOwner = this@BaseBottomSheetDialog
+            setVariable(bindingVariable, viewModel)
             this.root
         }
     }
@@ -86,8 +83,11 @@ abstract class BaseSharedBottomSheetDialog<T : ViewDataBinding, VM : BottomSheet
     @CallSuper
     override fun onResume() {
         super.onResume()
-        if (isInit) {
-            viewModel.runCatching {
+        viewModel.runCatching {
+            onDirectResumed()
+            addDisposable(performLifecycle<OnCreatedToResumed>())
+
+            if (isInit) {
                 addDisposable(performLifecycle<OnResumed>())
             }
         }
@@ -98,6 +98,7 @@ abstract class BaseSharedBottomSheetDialog<T : ViewDataBinding, VM : BottomSheet
     override fun onStop() {
         super.onStop()
         viewModel.runCatching {
+            onDirectStop()
             addDisposable(performLifecycle<OnStopped>())
         }
     }
@@ -116,7 +117,13 @@ abstract class BaseSharedBottomSheetDialog<T : ViewDataBinding, VM : BottomSheet
 
     fun simpleShow(fm: FragmentManager) {
         super.show(fm, javaClass.simpleName)
-        Timber.d("FragmentCnt ${fm.fragments.size}")
+    }
+
+    /**
+     * 기본 viewModels 와 같은 로직의 함수
+     */
+    protected inline fun <reified VM : BottomSheetViewModel> initViewModel(): Lazy<VM> {
+        return createViewModelLazy(VM::class, { viewModelStore })
     }
 
     /**

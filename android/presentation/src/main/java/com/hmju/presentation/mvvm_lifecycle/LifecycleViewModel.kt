@@ -9,11 +9,10 @@ import com.hmju.lifecycle.OnCreated
 import com.hmju.lifecycle.OnResumed
 import com.hmju.loginmanager.LoginManager
 import com.hmju.presentation.IntentKey
-import com.hmju.presentation.base.FragmentViewModel
+import com.hmju.core.FragmentViewModel
 import com.til.model.params.GoodsParamMap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.addTo
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 /**

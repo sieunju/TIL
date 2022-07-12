@@ -6,7 +6,7 @@ import com.hmju.domain.usecase.GetGoodsUseCase
 import com.hmju.lifecycle.OnCreated
 import com.hmju.lifecycle.OnStopped
 import com.hmju.lifecycle.OnViewCreated
-import com.hmju.presentation.base.BottomSheetViewModel
+import com.hmju.core.BottomSheetViewModel
 import com.til.model.params.GoodsParamMap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers

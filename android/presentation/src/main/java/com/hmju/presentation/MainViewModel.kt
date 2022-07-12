@@ -4,7 +4,7 @@ import com.hmju.lifecycle.OnCreated
 import com.hmju.lifecycle.OnCreatedToResumed
 import com.hmju.lifecycle.OnIntent
 import com.hmju.loginmanager.LoginManager
-import com.hmju.presentation.base.ActivityViewModel
+import com.hmju.core.ActivityViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.kotlin.addTo

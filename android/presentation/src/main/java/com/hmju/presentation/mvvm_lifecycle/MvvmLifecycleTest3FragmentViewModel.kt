@@ -3,7 +3,7 @@ package com.hmju.presentation.mvvm_lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.hmju.lifecycle.OnResumed
-import com.hmju.presentation.base.FragmentViewModel
+import com.hmju.core.FragmentViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

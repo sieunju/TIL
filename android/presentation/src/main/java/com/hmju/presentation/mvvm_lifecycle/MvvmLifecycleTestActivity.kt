@@ -3,7 +3,8 @@ package com.hmju.presentation.mvvm_lifecycle
 import android.content.Intent
 import android.os.Bundle
 import com.hmju.presentation.R
-import com.hmju.presentation.base.BaseActivity
+import com.hmju.core.BaseActivity
+import com.hmju.presentation.BR
 import com.hmju.presentation.databinding.ActivityMvvmLifecycleTestBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,6 +15,7 @@ class MvvmLifecycleTestActivity :
     ) {
 
     override val viewModel: MvvmLifecycleTestViewModel by initViewModel()
+    override val bindingVariable: Int = BR.vm
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

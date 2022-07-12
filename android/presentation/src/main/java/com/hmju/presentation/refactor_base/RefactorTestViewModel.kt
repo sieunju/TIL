@@ -2,9 +2,7 @@ package com.hmju.presentation.refactor_base
 
 import android.Manifest
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hmju.lifecycle.OnActivityResult
@@ -12,11 +10,10 @@ import com.hmju.lifecycle.OnCreated
 import com.hmju.lifecycle.OnIntent
 import com.hmju.lifecycle.OnPermissionResult
 import com.hmju.presentation.IntentKey
-import com.hmju.presentation.base.ActivityResult
-import com.hmju.presentation.base.ActivityViewModel
-import com.hmju.presentation.base.RxActivityResultEvent
-import com.hmju.presentation.base.RxPermissionEvent
-import com.hmju.presentation.mvvm_lifecycle.MvvmLifecycleTest3Activity
+import com.hmju.core.ActivityResult
+import com.hmju.core.ActivityViewModel
+import com.hmju.core.RxActivityResultEvent
+import com.hmju.core.RxPermissionEvent
 import com.hmju.presentation.mvvm_lifecycle.MvvmLifecycleTestActivity
 import com.til.model.test.SerializableEntity
 import dagger.hilt.android.lifecycle.HiltViewModel

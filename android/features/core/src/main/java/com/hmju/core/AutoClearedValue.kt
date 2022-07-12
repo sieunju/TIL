@@ -1,4 +1,4 @@
-package com.hmju.presentation.base
+package com.hmju.core
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle

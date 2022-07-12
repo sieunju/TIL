@@ -1,4 +1,4 @@
-package com.hmju.presentation.base
+package com.hmju.core
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelLazy
 import com.hmju.lifecycle.*
-import com.hmju.presentation.BR
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
 import timber.log.Timber
@@ -30,6 +29,7 @@ abstract class BaseActivity<T : ViewDataBinding, VM : ActivityViewModel>(
     }
 
     abstract val viewModel: VM
+    abstract val bindingVariable: Int // ViewModel Binding Variable
     lateinit var binding: T
 
     private var isInit = false
@@ -204,7 +204,7 @@ abstract class BaseActivity<T : ViewDataBinding, VM : ActivityViewModel>(
     private fun performBinding() {
         binding = DataBindingUtil.setContentView<T>(this, layoutId).apply {
             lifecycleOwner = this@BaseActivity
-            setVariable(BR.vm, viewModel)
+            setVariable(bindingVariable, viewModel)
         }
     }
 }

@@ -2,7 +2,7 @@ package com.hmju.presentation.refactor_base.child
 
 import androidx.lifecycle.MutableLiveData
 import com.hmju.lifecycle.OnCreated
-import com.hmju.presentation.base.FragmentViewModel
+import com.hmju.core.FragmentViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import timber.log.Timber
 import javax.inject.Inject

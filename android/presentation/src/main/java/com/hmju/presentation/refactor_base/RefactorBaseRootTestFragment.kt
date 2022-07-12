@@ -5,7 +5,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.hmju.presentation.R
-import com.hmju.presentation.base.BaseFragment
+import com.hmju.core.BaseFragment
+import com.hmju.presentation.BR
 import com.hmju.presentation.databinding.FRefactorBaseRootTestBinding
 import com.hmju.presentation.refactor_base.child.ChildRefactorBlueFragment
 import com.hmju.presentation.refactor_base.child.ChildRefactorRedFragment
@@ -22,6 +23,7 @@ class RefactorBaseRootTestFragment
     (R.layout.f_refactor_base_root_test) {
 
     override val viewModel: RefactorBaseRootTestViewModel by initViewModel()
+    override val bindingVariable: Int = BR.vm
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -4,13 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hmju.domain.usecase.GetGoodsUseCase
 import com.hmju.lifecycle.OnViewCreated
-import com.hmju.presentation.base.BottomSheetViewModel
-import com.hmju.presentation.base.FragmentViewModel
+import com.hmju.core.FragmentViewModel
 import com.til.model.params.GoodsParamMap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.addTo
-import timber.log.Timber
 import javax.inject.Inject
 
 /**

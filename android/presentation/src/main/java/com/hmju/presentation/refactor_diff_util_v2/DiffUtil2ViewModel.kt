@@ -2,7 +2,7 @@ package com.hmju.presentation.refactor_diff_util_v2
 
 import com.hmju.domain.usecase.GetGoodsUseCase
 import com.hmju.lifecycle.OnViewCreated
-import com.hmju.presentation.base.FragmentViewModel
+import com.hmju.core.FragmentViewModel
 import com.hmju.presentation.custompaging.ListLiveData
 import com.hmju.presentation.custompaging.PagingModel
 import com.hmju.presentation.refactor_diff_util.BaseUiModel

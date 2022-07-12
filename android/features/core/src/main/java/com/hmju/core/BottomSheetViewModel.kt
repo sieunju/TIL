@@ -1,7 +1,8 @@
-package com.hmju.presentation.base
+package com.hmju.core
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.hmju.core.BaseViewModel
 
 /**
  * Description : BottomSheet 전용 ViewModel

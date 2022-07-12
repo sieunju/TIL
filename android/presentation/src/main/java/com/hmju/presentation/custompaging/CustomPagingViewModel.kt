@@ -3,7 +3,7 @@ package com.hmju.presentation.custompaging
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hmju.domain.usecase.GetGoodsUseCase
-import com.hmju.presentation.base.FragmentViewModel
+import com.hmju.core.FragmentViewModel
 import com.til.model.goods.GoodsEntity
 import com.til.model.params.GoodsParamMap
 import dagger.hilt.android.lifecycle.HiltViewModel

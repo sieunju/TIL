@@ -7,13 +7,8 @@ plugins {
 }
 
 android {
-    compileSdk = Apps.compileSdkVersion
-    buildToolsVersion = Apps.buildToolsVersion
-
     defaultConfig {
         applicationId = "com.hmju.til"
-        minSdk = Apps.minSdkVersion
-        targetSdk = Apps.targetSdkVersion
         versionCode = Apps.versionCode
         versionName = Apps.versionName
         setProperty("archivesBaseName", "til_${versionCode}_${versionName}")
@@ -32,13 +27,6 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
     buildFeatures {
         dataBinding = true
     }
@@ -49,6 +37,7 @@ dependencies {
     implementation(project(path = ":domain"))
     implementation(project(path = ":loginmanager"))
     implementation(project(path = ":presentation"))
+    implementation(project(path =":features:core"))
 
     /**
      * Network

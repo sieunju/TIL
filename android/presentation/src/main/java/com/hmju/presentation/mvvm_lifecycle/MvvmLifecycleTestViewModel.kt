@@ -9,8 +9,8 @@ import com.hmju.domain.usecase.GetGoodsUseCase
 import com.hmju.lifecycle.*
 import com.hmju.loginmanager.LoginManager
 import com.hmju.presentation.IntentKey
-import com.hmju.presentation.base.ActivityViewModel
-import com.hmju.presentation.base.BaseActivity
+import com.hmju.core.ActivityViewModel
+import com.hmju.core.BaseActivity
 import com.til.model.params.GoodsParamMap
 import com.til.rxbus.TestBusEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
