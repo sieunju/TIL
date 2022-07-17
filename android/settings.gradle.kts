@@ -10,6 +10,9 @@ include(
     ":likemanager",
     ":rxbus",
     ":lifecycle",
-    ":rxhandling",
-    ":features:core"
+    ":rxhandling"
+)
+include(
+    ":features:core",
+    ":features:proxy"
 )

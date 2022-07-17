@@ -37,7 +37,8 @@ dependencies {
     implementation(project(path = ":domain"))
     implementation(project(path = ":loginmanager"))
     implementation(project(path = ":presentation"))
-    implementation(project(path =":features:core"))
+    implementation(project(path = ":features:core"))
+    implementation(project(path = ":features:proxy"))
 
     /**
      * Network

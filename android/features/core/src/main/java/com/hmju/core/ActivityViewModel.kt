@@ -30,7 +30,7 @@ open class ActivityViewModel @Inject constructor() : BaseViewModel() {
         var cachePermissionMap = ConcurrentHashMap<String, Int>()
     }
 
-    @javax.inject.Inject
+    @Inject
     lateinit var savedStateHandle: SavedStateHandle
 
     protected val _startActivityPage: MutableLiveData<ActivityResult> by lazy { MutableLiveData() }

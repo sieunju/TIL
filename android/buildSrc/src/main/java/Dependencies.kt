@@ -1,8 +1,8 @@
 object Apps {
-    const val compileSdkVersion = 31
-    const val buildToolsVersion = "31.0.0"
+    const val compileSdkVersion = 32
+    const val buildToolsVersion = "32.0.0"
     const val minSdkVersion = 23
-    const val targetSdkVersion = 31
+    const val targetSdkVersion = 32
     const val versionCode = 4
     const val versionName = "0.0.4"
 }
@@ -16,15 +16,15 @@ object Versions {
 
 object AndroidX {
     const val ktx = "androidx.core:core-ktx:1.6.0"
-    const val appCompat = "androidx.appcompat:appcompat:1.3.0"
+    const val appCompat = "androidx.appcompat:appcompat:1.4.2"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.4"
-    const val activity = "androidx.activity:activity-ktx:1.1.0"
+    const val activity = "androidx.activity:activity-ktx:1.2.3"
     const val material = "com.google.android.material:material:1.4.0"
     const val multidex = "androidx.multidex:multidex:2.0.1"
     const val legacy = "androidx.legacy:legacy-support-v4:1.0.0"
     const val viewpager = "androidx.viewpager2:viewpager2:1.0.0"
     const val cardView = "androidx.cardview:cardview:1.0.0"
-    const val fragment = "androidx.fragment:fragment-ktx:1.3.3"
+    const val fragment = "androidx.fragment:fragment-ktx:1.3.4"
     const val recyclerView = "androidx.recyclerview:recyclerview:1.2.0"
     const val lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
     const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
