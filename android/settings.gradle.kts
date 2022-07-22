@@ -13,6 +13,7 @@ include(
     ":rxhandling"
 )
 include(
-    ":features:core",
-    ":features:proxy"
+    ":features:core"
 )
+include(":features:network")
+include(":features:network-requirements")

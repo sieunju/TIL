@@ -1,11 +1,10 @@
-Build Date 2022년 07월 10일 일요일 12:57:15
+Build Date 2022년 07월 22일 금요일 22:55:39
 Version Name: 0.0.4
-Branch: master
+Branch: feature/multi-feature
 
-Message: DiffUtilV2
-- 생각해보니 이방법이 과연 좋은 방법인지는 모르겠습니다. 기존 방식과 장단점이 명확해서 그런 생각이 듭니다.
-하지만, 분명한건 else if 에 대한 지옥은 사라지고 속도면에서도 분명한 차이가 있을거 같다는 생각이 듭니다.
-한번 테스트 해보는것도 나쁘지 않아보일지도...?
+Message: commit 6a0336dea9e9c994f3d54fff5a4bc9b6e97b7dbf
+feat: Android Multi Feature 구축
+- proxy 모듈 추가 및 appCompat 1.4.2 버전에 맞는 startActivityResult 함수 처리
 
 
 Author: sieunju
